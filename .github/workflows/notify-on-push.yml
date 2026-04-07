@@ -1,0 +1,192 @@
+name: Dzienny raport zmian - Integration API
+
+on:
+  schedule:
+    - cron: '0 5 * * *'  # 7:00 CET / 5:00 UTC, codziennie
+  workflow_dispatch:
+    inputs:
+      test_email:
+        description: "Adres e-mail do testu (opcjonalnie, nadpisuje liste)"
+        required: false
+        type: string
+      since_hours:
+        description: "Ile godzin wstecz szukac zmian (domyslnie 24)"
+        required: false
+        default: '24'
+        type: string
+
+jobs:
+  daily-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sprawdz zmiany z ostatnich 24h
+        id: changes
+        run: |
+          HOURS="${{ inputs.since_hours || '24' }}"
+          SINCE=$(date -u -d "${HOURS} hours ago" '+%Y-%m-%dT%H:%M:%S')
+          echo "since=${SINCE}" >> "$GITHUB_OUTPUT"
+
+          COMMIT_COUNT=$(git log --since="$SINCE" --oneline main 2>/dev/null | wc -l | tr -d ' ')
+          echo "commit_count=${COMMIT_COUNT}" >> "$GITHUB_OUTPUT"
+
+          if [ "$COMMIT_COUNT" -eq 0 ]; then
+            echo "Brak zmian w ciagu ostatnich ${HOURS}h - pomijam wysylke."
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          echo "Znaleziono ${COMMIT_COUNT} commitow od ${SINCE}"
+
+      - name: Zbierz podsumowanie zmian
+        if: steps.changes.outputs.has_changes == 'true'
+        id: summary
+        run: |
+          SINCE="${{ steps.changes.outputs.since }}"
+          REPO_URL="${{ github.server_url }}/${{ github.repository }}"
+
+          COMMITS_RAW=$(git log --since="$SINCE" --format="%h|%an|%s" main)
+
+          COMMITS_HTML=""
+          while IFS='|' read -r sha author msg; do
+            SAFE_MSG=$(echo "$msg" | sed 's/&/\&amp;/g;s/</\&lt;/g;s/>/\&gt;/g')
+            SAFE_AUTHOR=$(echo "$author" | sed 's/&/\&amp;/g;s/</\&lt;/g;s/>/\&gt;/g')
+            COMMITS_HTML="${COMMITS_HTML}<tr><td style=\"padding:6px 8px;border-bottom:1px solid #e5e7eb;font-family:monospace;font-size:13px\"><a href=\"${REPO_URL}/commit/${sha}\" style=\"color:#1a56db\">${sha}</a></td><td style=\"padding:6px 8px;border-bottom:1px solid #e5e7eb\">${SAFE_AUTHOR}</td><td style=\"padding:6px 8px;border-bottom:1px solid #e5e7eb\">${SAFE_MSG}</td></tr>"
+          done <<< "$COMMITS_RAW"
+
+          AUTHORS=$(git log --since="$SINCE" --format="%an" main | sort -u | paste -sd ', ')
+
+          FILES=$(git log --since="$SINCE" --name-only --format="" main | sort -u)
+          FILES_COUNT=$(echo "$FILES" | grep -c '.' || echo "0")
+          FILES_TRUNCATED=$(echo "$FILES" | head -30)
+          if [ "$FILES_COUNT" -gt 30 ]; then
+            REMAINING=$((FILES_COUNT - 30))
+            FILES_TRUNCATED="${FILES_TRUNCATED}"$'\n'"...i ${REMAINING} wiecej"
+          fi
+          FILES_HTML=$(echo "$FILES_TRUNCATED" | jq -Rs . | sed 's/^"//;s/"$//' | sed 's/\\n/<br>/g')
+
+          OLDEST_SHA=$(git log --since="$SINCE" --format="%H" main | tail -1)
+          COMPARE_URL="${REPO_URL}/compare/${OLDEST_SHA}~1...main"
+
+          TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+
+          echo "authors=${AUTHORS}" >> "$GITHUB_OUTPUT"
+          echo "files_count=${FILES_COUNT}" >> "$GITHUB_OUTPUT"
+          echo "compare_url=${COMPARE_URL}" >> "$GITHUB_OUTPUT"
+          echo "timestamp=${TIMESTAMP}" >> "$GITHUB_OUTPUT"
+
+          EOF1="EOFCOMMITS$(date +%s)"
+          echo "commits_html<<${EOF1}" >> "$GITHUB_OUTPUT"
+          echo "$COMMITS_HTML" >> "$GITHUB_OUTPUT"
+          echo "${EOF1}" >> "$GITHUB_OUTPUT"
+
+          EOF2="EOFFILES$(date +%s)"
+          echo "files_html<<${EOF2}" >> "$GITHUB_OUTPUT"
+          echo "$FILES_HTML" >> "$GITHUB_OUTPUT"
+          echo "${EOF2}" >> "$GITHUB_OUTPUT"
+
+      - name: Wyslij e-mail z podsumowaniem
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          RECIPIENTS: ${{ inputs.test_email || secrets.EMAIL_RECIPIENTS }}
+          COMMIT_COUNT: ${{ steps.changes.outputs.commit_count }}
+          AUTHORS: ${{ steps.summary.outputs.authors }}
+          FILES_COUNT: ${{ steps.summary.outputs.files_count }}
+          COMPARE_URL: ${{ steps.summary.outputs.compare_url }}
+          TIMESTAMP: ${{ steps.summary.outputs.timestamp }}
+          COMMITS_HTML: ${{ steps.summary.outputs.commits_html }}
+          FILES_HTML: ${{ steps.summary.outputs.files_html }}
+        run: |
+          if [ -z "$SENDGRID_API_KEY" ]; then
+            echo "::error::Brak sekretu SENDGRID_API_KEY"
+            exit 1
+          fi
+          if [ -z "$SENDER_EMAIL" ]; then
+            echo "::error::Brak sekretu SENDER_EMAIL"
+            exit 1
+          fi
+          if [ -z "$RECIPIENTS" ]; then
+            echo "::error::Brak odbiorcow - ustaw sekret EMAIL_RECIPIENTS lub podaj test_email"
+            exit 1
+          fi
+
+          TO_ARRAY=$(echo "$RECIPIENTS" | tr ';' '\n' | sed 's/^ *//;s/ *$//' | grep -v '^$' | jq -R '{email: .}' | jq -s .)
+
+          TODAY=$(date -u '+%Y-%m-%d')
+
+          read -r -d '' HTML_BODY << 'ENDOFHTML' || true
+          <div style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto">
+          <div style="background-color:#1a56db;color:white;padding:16px 24px;border-radius:8px 8px 0 0">
+          <h2 style="margin:0;font-size:18px">Integration API - dzienny raport zmian</h2>
+          </div>
+          <div style="border:1px solid #e5e7eb;border-top:none;padding:24px;border-radius:0 0 8px 8px">
+          <table style="width:100%;border-collapse:collapse;margin-bottom:16px">
+          <tr><td style="padding:8px 0;color:#6b7280;width:160px">Liczba commitow:</td><td style="padding:8px 0"><strong>PLACEHOLDER_COMMIT_COUNT</strong></td></tr>
+          <tr><td style="padding:8px 0;color:#6b7280">Autorzy:</td><td style="padding:8px 0">PLACEHOLDER_AUTHORS</td></tr>
+          <tr><td style="padding:8px 0;color:#6b7280">Zmienionych plikow:</td><td style="padding:8px 0">PLACEHOLDER_FILES_COUNT</td></tr>
+          <tr><td style="padding:8px 0;color:#6b7280">Wygenerowano:</td><td style="padding:8px 0">PLACEHOLDER_TIMESTAMP</td></tr>
+          </table>
+          <h3 style="margin:20px 0 10px;font-size:15px;color:#374151">Commity</h3>
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+          <tr style="background:#f3f4f6"><th style="padding:8px;text-align:left;border-bottom:2px solid #d1d5db">SHA</th><th style="padding:8px;text-align:left;border-bottom:2px solid #d1d5db">Autor</th><th style="padding:8px;text-align:left;border-bottom:2px solid #d1d5db">Opis</th></tr>
+          PLACEHOLDER_COMMITS_TABLE
+          </table>
+          <h3 style="margin:20px 0 10px;font-size:15px;color:#374151">Zmienione pliki</h3>
+          <pre style="margin:0;font-size:13px;background:#f3f4f6;padding:12px;border-radius:4px;overflow-x:auto">PLACEHOLDER_FILES_LIST</pre>
+          <div style="margin-top:20px;text-align:center">
+          <a href="PLACEHOLDER_COMPARE_URL" style="display:inline-block;background-color:#1a56db;color:white;padding:10px 24px;border-radius:6px;text-decoration:none">Zobacz wszystkie zmiany na GitHub</a>
+          </div>
+          <p style="margin-top:24px;font-size:12px;color:#9ca3af;text-align:center">To jest automatyczne powiadomienie z repozytorium intrum-integration-api-docs.</p>
+          </div>
+          </div>
+          ENDOFHTML
+
+          HTML_BODY="${HTML_BODY//PLACEHOLDER_COMMIT_COUNT/$COMMIT_COUNT}"
+          HTML_BODY="${HTML_BODY//PLACEHOLDER_AUTHORS/$AUTHORS}"
+          HTML_BODY="${HTML_BODY//PLACEHOLDER_FILES_COUNT/$FILES_COUNT}"
+          HTML_BODY="${HTML_BODY//PLACEHOLDER_TIMESTAMP/$TIMESTAMP}"
+          HTML_BODY="${HTML_BODY//PLACEHOLDER_COMMITS_TABLE/$COMMITS_HTML}"
+          HTML_BODY="${HTML_BODY//PLACEHOLDER_FILES_LIST/$FILES_HTML}"
+          HTML_BODY="${HTML_BODY//PLACEHOLDER_COMPARE_URL/$COMPARE_URL}"
+
+          PAYLOAD=$(jq -n \
+            --argjson to "$TO_ARRAY" \
+            --arg from_email "$SENDER_EMAIL" \
+            --arg from_name "Intrum Integration API" \
+            --arg subject "Integration API - raport zmian ${TODAY}" \
+            --arg html "$HTML_BODY" \
+            '{
+              personalizations: [{to: $to}],
+              from: {email: $from_email, name: $from_name},
+              subject: $subject,
+              content: [{type: "text/html", value: $html}]
+            }')
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
+            --retry 3 --retry-delay 5 \
+            -X POST "https://api.sendgrid.com/v3/mail/send" \
+            -H "Authorization: Bearer $SENDGRID_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          if [ -n "$BODY" ]; then
+            echo "SendGrid response (HTTP ${HTTP_CODE}): ${BODY}"
+          else
+            echo "SendGrid response: HTTP ${HTTP_CODE}"
+          fi
+
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "::error::Wysylka e-mail nie powiodla sie (HTTP ${HTTP_CODE})"
+            exit 1
+          fi
+
+          echo "Raport dzienny wyslany do $(echo "$TO_ARRAY" | jq length) odbiorcow"

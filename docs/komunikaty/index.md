@@ -11,25 +11,47 @@ Dane do systemu DEBT Manager importowane są za pomocą komunikatów. Komunikaty
 
     Zakładamy, że do systemu importujemy plik Excel o poniższej strukturze:
 
-    | Nazwa | PESEL | Zew nr dłużnika | rodzaj dłużnika | telefon | nr rach. bankowego | Obsługa Od | Obsługa Do | data wyst. | data wymag. | data nal. odsetek | kwota wymagana |
-    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-    | Jan Kowalski | 83041100112 | 774 | os.fiz. | 622333111 | 01 1240 4416 (...) | 2024-01-01 | 2024-03-30 | 2018-12-01 | 2019-03-01 | 73051 | 250,12 |
+    <table class="import-example-table">
+    <tr>
+      <th>Nazwa</th><th>PESEL</th><th>Zew nr dłużnika</th><th>rodzaj dłużnika</th><th>telefon</th>
+      <th>nr rach. bankowego</th><th>Obsługa Od</th><th>Obsługa Do</th>
+      <th>data wyst.</th><th>data wymag.</th><th>data nal. odsetek</th><th>kwota wymagana</th>
+    </tr>
+    <tr>
+      <td>Jan Kowalski</td><td>83041100112</td><td>774</td><td>os.fiz.</td><td>622333111</td>
+      <td>01 1240 4416 (...)</td><td>2024-01-01</td><td>2024-03-30</td>
+      <td>2018-12-01</td><td>2019-03-01</td><td>73051</td><td>250,12</td>
+    </tr>
+    </table>
 
     Import polega na wykonaniu dwóch kroków:
 
     1) Walidacja danych i wykazanie błędów pliku importowego np.
 
-    -   Niepoprawne rozszerzenie pliku importowgo
-    -   Import pliku o takiej samej nazwie jak juz poprzednio zaimporotwany plik
-    -   Import osoby, która ma podane imię i nazwisko ale brak peselu
+    -   Niepoprawne rozszerzenie pliku importowego
+    -   Import pliku o takiej samej nazwie jak już poprzednio zaimportowany plik
+    -   Import osoby, która ma podane imię i nazwisko ale brak PESEL-u
     -   Import wpłaty bez podania daty wpłaty itd.
 
     2) Podział danych z pliku na komunikaty, które następnie wysyłane są do API
 
-    | Nazwa | PESEL | Zew nr dłużnika | rodzaj dłużnika | telefon | nr rach. bankowego | Obsługa Od | Obsługa Do | data wyst. | data wymag. | data nal. odsetek | kwota wymagana |
-    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-    | Jan Kowalski | 83041100112 | 774 | os.fiz. | 622333111 | 01 1240 4416 (...) | 2024-01-01 | 2024-03-30 | 2018-12-01 | 2019-03-01 | 2019-03-02 | 250,12 |
-    | Customer | Case | Contract |  |  |  |  |  |  |  |  |  |
+    <table class="import-example-table">
+    <tr>
+      <th>Nazwa</th><th>PESEL</th><th>Zew nr dłużnika</th><th>rodzaj dłużnika</th><th>telefon</th>
+      <th>nr rach. bankowego</th><th>Obsługa Od</th><th>Obsługa Do</th>
+      <th>data wyst.</th><th>data wymag.</th><th>data nal. odsetek</th><th>kwota wymagana</th>
+    </tr>
+    <tr>
+      <td class="band-customer">Jan Kowalski</td><td class="band-customer">83041100112</td><td class="band-customer">774</td><td class="band-customer">os.fiz.</td><td class="band-customer">622333111</td>
+      <td class="band-case">01 1240 4416 (...)</td><td class="band-case">2024-01-01</td><td class="band-case">2024-03-30</td>
+      <td class="band-contract">2018-12-01</td><td class="band-contract">2019-03-01</td><td class="band-contract">2019-03-02</td><td class="band-contract">250,12</td>
+    </tr>
+    <tr>
+      <td class="band-customer band-label" colspan="5"><strong>Customer</strong></td>
+      <td class="band-case band-label" colspan="3"><strong>Case</strong></td>
+      <td class="band-contract band-label" colspan="4"><strong>Contract</strong></td>
+    </tr>
+    </table>
 
 ## Budowa komunikatów
 
@@ -62,10 +84,23 @@ Słownik może być rozszerzany. Zmiany wymagają modyfikacji procedur SQL `_fin
 
     Zakładamy, że importujemy plik podzielony na następujące typy komunikatów:
 
-    | Nazwa | PESEL | Zew nr dłużnika | rodzaj dłużnika | telefon | nr rach. bankowego | Obsługa Od | Obsługa Do | data wyst. | data wymag. | data nal. odsetek | kwota wymagana |
-    | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-    | Jan Kowalski | 83041100112 | 774 | os.fiz. | 622333111 | 01 1240 4416 (...) | 2024-01-01 | 2024-03-30 | 2018-12-01 | 2019-03-01 | 2019-03-02 | 250,12 |
-    | Customer | Case | Contract |  |  |  |  |  |  |  |  |  |
+    <table class="import-example-table">
+    <tr>
+      <th>Nazwa</th><th>PESEL</th><th>Zew nr dłużnika</th><th>rodzaj dłużnika</th><th>telefon</th>
+      <th>nr rach. bankowego</th><th>Obsługa Od</th><th>Obsługa Do</th>
+      <th>data wyst.</th><th>data wymag.</th><th>data nal. odsetek</th><th>kwota wymagana</th>
+    </tr>
+    <tr>
+      <td class="band-customer">Jan Kowalski</td><td class="band-customer">83041100112</td><td class="band-customer">774</td><td class="band-customer">os.fiz.</td><td class="band-customer">622333111</td>
+      <td class="band-case">01 1240 4416 (...)</td><td class="band-case">2024-01-01</td><td class="band-case">2024-03-30</td>
+      <td class="band-contract">2018-12-01</td><td class="band-contract">2019-03-01</td><td class="band-contract">2019-03-02</td><td class="band-contract">250,12</td>
+    </tr>
+    <tr>
+      <td class="band-customer band-label" colspan="5"><strong>Customer</strong></td>
+      <td class="band-case band-label" colspan="3"><strong>Case</strong></td>
+      <td class="band-contract band-label" colspan="4"><strong>Contract</strong></td>
+    </tr>
+    </table>
 
     Dla każdego typu komunikatu musimy wybrać MatchKey i MatchKeyType:
 

@@ -319,3 +319,256 @@
 [data-md-color-scheme="default"] .flag.sync        { color: #dc2626; background: rgba(220, 38, 38, 0.10); }
 [data-md-color-scheme="default"] .flag.replace     { color: #b91c1c; background: rgba(185, 28, 28, 0.12); }
 [data-md-color-scheme="default"] .flag.append      { color: #9333ea; background: rgba(147, 51, 234, 0.10); }
+
+/* ─── Message header card ─── */
+.msg-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-typeset-table-color);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.msg-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+.msg-desc {
+  flex: 1 1 100%;
+  font-size: 14px;
+  color: var(--md-default-fg-color--light);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.msg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.msg-badge.queue {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.10);
+  border: 1px solid rgba(96, 165, 250, 0.20);
+}
+
+.msg-badge.db {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.10);
+  border: 1px solid rgba(167, 139, 250, 0.20);
+}
+
+[data-md-color-scheme="default"] .msg-badge.queue {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.20);
+}
+
+[data-md-color-scheme="default"] .msg-badge.db {
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.20);
+}
+
+/* ─── Object structure tree ─── */
+.obj-tree {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  padding: 16px 20px;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-typeset-table-color);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.obj-tree .tree-root {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--md-default-fg-color);
+}
+
+.obj-tree .tree-branch {
+  color: var(--md-default-fg-color--light);
+}
+
+.obj-tree .tree-leaf {
+  color: var(--md-default-fg-color);
+}
+
+.obj-tree .tree-connector {
+  color: var(--md-default-fg-color--lightest);
+  user-select: none;
+}
+
+.obj-tree .tree-type {
+  font-size: 11px;
+  color: var(--md-default-fg-color--light);
+  margin-left: 8px;
+}
+
+.obj-tree a {
+  text-decoration: none;
+}
+
+.obj-tree a:hover .tree-leaf {
+  color: var(--md-accent-fg-color) !important;
+}
+
+/* ─── Collapsible field sections ─── */
+.collapsible-fields {
+  border: 1px solid var(--md-typeset-table-color);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: var(--md-code-bg-color);
+  overflow: hidden;
+}
+
+.collapsible-fields > summary {
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.collapsible-fields > summary:hover {
+  background: var(--md-default-fg-color--lightest);
+}
+
+.collapsible-fields > summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible-fields > summary::before {
+  content: '▸';
+  font-size: 12px;
+  color: var(--md-default-fg-color--light);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+.collapsible-fields[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.collapsible-fields[open] > summary {
+  border-bottom: 1px solid var(--md-typeset-table-color);
+}
+
+.collapsible-fields > .param-list {
+  margin: 0;
+  padding: 4px 16px;
+}
+
+/* ─── MatchKey value chips ─── */
+.mk-values {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.mk-values li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--md-typeset-table-color);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.mk-values li:last-child {
+  border-bottom: none;
+}
+
+.mk-id {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+  flex-shrink: 0;
+}
+
+[data-md-color-scheme="default"] .mk-id {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.10);
+}
+
+.mk-label {
+  color: var(--md-default-fg-color);
+}
+
+.mk-field {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--md-default-fg-color--light);
+}
+
+/* ── Example import tables (colored colspan mapping) ── */
+.import-example-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0.8em 0;
+  table-layout: auto;
+}
+
+.import-example-table th,
+.import-example-table td {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  padding: 6px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.import-example-table th {
+  background: var(--md-default-fg-color--lightest);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Color bands — light mode */
+[data-md-color-scheme="default"] .import-example-table .band-customer { background: #fff9c4; }
+[data-md-color-scheme="default"] .import-example-table .band-case { background: #c8e6c9; }
+[data-md-color-scheme="default"] .import-example-table .band-contract { background: #bbdefb; }
+
+/* Color bands — dark mode */
+[data-md-color-scheme="slate"] .import-example-table .band-customer { background: rgba(255,235,59,0.15); color: #ffe082; }
+[data-md-color-scheme="slate"] .import-example-table .band-case { background: rgba(76,175,80,0.15); color: #a5d6a7; }
+[data-md-color-scheme="slate"] .import-example-table .band-contract { background: rgba(66,165,245,0.15); color: #90caf9; }
+
+/* Merged bottom row labels */
+.import-example-table .band-label {
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}

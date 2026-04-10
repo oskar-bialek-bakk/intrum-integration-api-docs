@@ -2,94 +2,217 @@
 title: "ContractBalance"
 ---
 
-**Opis:**
+# ContractBalance
 
-Dla wypełnionej flagi **IncludeContractBalance** = **true**
+<div class="msg-header">
+  <span class="msg-type">ContractBalance</span>
+  <span class="msg-badge queue">kolejka: ContractBalance</span>
+  <span class="msg-badge db">dm_messages.contractbalance_details</span>
+  <p class="msg-desc">Komunikat umożliwia aktualizację stanu finansowego wierzytelności lub zamknięcie powiązanych spraw windykacyjnych.</p>
+</div>
 
-Komunikat umożliwia aktualizację stanu finansowego wierzytelności poprzez nadpisanie dokumentów pojedyńczą wartością salda. Zachowanie komunikatu zależne od flagi „Czy zaniechaj”
-Jeśli flaga wypełniona na tak to:
-1\. Zostaje dodane(ew.nadpisane jeśli wcześniej już jakieś było) księgowanie na wskazanym dokumencie księgowym, na wskazanym koncie księgowym – kwota i waluta zgodna z przekazaniem
-2\. Zaległości aktualne z pozostałych dokumentów tej wierzytelności są przeksięgowywane na typ Umorzenie/zaniechanie
-W efekcie aktualna kwota do windykacji takiej wierzytelności będzie zgodna ze wskazaniem nowo otrzymanej kwoty
+---
 
-Jeśli flaga „Czy zaniechaj” nie jest wypełniona na tak wówczas:
-1\. Zostaje dodany (ew.nadpisany) nowy dokument wskazanego typu wraz z księgowaniem nowej kwoty.
-2\. Pozostałe dokumenty wraz z księgowaniami na wierzytelności pozostają niezmienne.
-W efekcie po takiej operacji aktualna kwota do windykacji będzie sumą otrzymanej kwoty z kwotą do windykacji sprzed operacji.
+<div class="api-section" markdown>
+<div class="api-section-title">Zachowanie komunikatu</div>
 
-Dla wypełnionej flagi **CloseOpenedCases** = **true**
+Działanie komunikatu jest kontrolowane przez dwie flagi:
 
-Drugim możliwym użyciem konunikatu jest zamknięcie spraw windykacyjnych powiązanych. Zamknięcie jest uzależnone od wartości flagi IncludeContractBalance. Jest to flaga mówiąca o tym, czy należy zamknąć aktualnie otwarte sprawy windykacyjne powiązane przez Match Key.
-1\. Ustawiona na true zamykałaby wszystkie otwarte sprawy windykacyjne powiązane ze zmienianą wierzytelnością.
-2\. Ustawiona na false nie zmienia stanu spraw (nie otwiera zamkniętych spraw).
+**`IncludeContractBalance` = `true`** — zmiana salda wierzytelności:
 
+1. Zostaje dodane (lub nadpisane) księgowanie na wskazanym dokumencie księgowym, na wskazanym koncie — kwota i waluta zgodna z przekazanymi wartościami.
+2. Jeśli flaga `Discontinue` = `true` — zaległości z pozostałych dokumentów tej wierzytelności są przeksięgowywane na typ *Umorzenie/zaniechanie*. W efekcie aktualna kwota do windykacji będzie zgodna z nowo otrzymaną kwotą.
+3. Jeśli flaga `Discontinue` nie jest ustawiona na `true` — zostaje dodany nowy dokument wskazanego typu z nową kwotą, a pozostałe dokumenty pozostają niezmienione. Kwota do windykacji będzie sumą nowej kwoty i dotychczasowej kwoty.
 
+**`CloseOpenedCases` = `true`** — zamknięcie spraw windykacyjnych:
 
-**Lokalizacja w bazie integracyjnej:** dm\_messages.contractbalance\_details
+1. Ustawiona na `true` — zamyka wszystkie otwarte sprawy windykacyjne powiązane ze zmienianą wierzytelnością.
+2. Ustawiona na `false` — nie zmienia stanu spraw.
 
-**Wykorzystanie pól komunikatu:**
+</div>
 
-| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACJA W BAZIE DM |
-| --- | --- | --- | --- | --- |
-| MatchKey | string | Tak | Patrz rozdział Komunikaty → Budowa komunikatów | wierzytelnosc.wi_ext_id |
-| MatchKeyType | int | Tak | Patrz rozdział Komunikaty → Budowa komunikatów. Dopuszczalne wartości:3 - zewnętrzny numer umowy (External contract number wierzytelnosc.wi_ext_id) | Brak |
+---
 
-Przykład 1 (zmiana salda)
+<div class="api-section" markdown>
+<div class="api-section-title">Pola wspólne (MatchKey)</div>
 
-```json
-{
-    "importId": "00000000-0000-0000-0000-000000000000",
-    "queueName": "ContractBalance",
-    "message": "
+<ul class="param-list">
+  <li>
+    <span class="param-name required">MatchKey</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Klucz wyszukiwania obiektu w DM. Patrz <a href="index.md#budowa-komunikatów">Budowa komunikatów</a>.</span>
+  </li>
+  <li>
+    <span class="param-name required">MatchKeyType</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Typ klucza wyszukiwania. Dopuszczalne wartości:</span>
+    <ul class="mk-values">
+      <li>
+        <span class="mk-id">3</span>
+        <span class="mk-label">Zewnętrzny numer umowy</span>
+        <span class="mk-field">→ wierzytelnosc.wi_ext_id</span>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+---
+
+<div class="api-section">
+<div class="api-section-title">Pola obiektu ContractBalance</div>
+
+<details class="collapsible-fields">
+<summary>ContractBalance — pola główne</summary>
+<ul class="param-list">
+  <li>
+    <span class="param-name required">ObjectId</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Identyfikator obiektu do śledzenia statusu przetwarzania.</span>
+  </li>
+  <li>
+    <span class="param-name required">IncludeContractBalance</span>
+    <span class="param-type">bool</span>
+    <span class="param-desc">Czy wykonać zmianę salda wierzytelności.</span>
+  </li>
+  <li>
+    <span class="param-name required">CloseOpenedCases</span>
+    <span class="param-type">bool</span>
+    <span class="param-desc">Czy zamknąć otwarte sprawy windykacyjne powiązane z wierzytelnością.</span>
+  </li>
+  <li>
+    <span class="param-name">AccountTypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Typ konta księgowego (słownik). Wymagane gdy <code>IncludeContractBalance = true</code>.</span>
+  </li>
+  <li>
+    <span class="param-name">DocumentTypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Typ dokumentu księgowego (słownik). Wymagane gdy <code>IncludeContractBalance = true</code>.</span>
+  </li>
+  <li>
+    <span class="param-name">Amount</span>
+    <span class="param-type">decimal</span>
+    <span class="param-desc">Kwota. Wymagane gdy <code>IncludeContractBalance = true</code>.</span>
+  </li>
+  <li>
+    <span class="param-name">CurrencyId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID waluty (słownik).</span>
+  </li>
+  <li>
+    <span class="param-name">ExchangeRate</span>
+    <span class="param-type">decimal</span>
+    <span class="param-desc">Kurs wymiany waluty.</span>
+  </li>
+  <li>
+    <span class="param-name">Discontinue</span>
+    <span class="param-type">bool</span>
+    <span class="param-desc">Czy zaniechać — przeksięgować zaległości z pozostałych dokumentów na Umorzenie/zaniechanie.</span>
+  </li>
+  <li>
+    <span class="param-name">Id</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Identyfikator wewnętrzny.</span>
+  </li>
+  <li>
+    <span class="param-name">ObjectName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa obiektu.</span>
+  </li>
+  <li>
+    <span class="param-name">ToDoAt</span>
+    <span class="param-type">datetime</span>
+    <span class="param-desc">Data zaplanowanego wykonania.</span>
+  </li>
+</ul>
+</details>
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Przykład JSON</div>
+
+=== "Zmiana salda"
+
+    Zmiana salda wierzytelności z zaniechaniem pozostałych dokumentów.
+
+    ```json
     {
-        \"Objects\": [
-            {
-                \"AccountTypeId\": 2,
-                \"DocumentTypeId\": 103,
-                \"CurrencyId\": 2,
-                \"ExchangeRate\": 4.13,
-                \"Amount\": 343.33,
-                \"Discontinue\": true,
-                \"MatchKey\": \"3_69485987\",
-                \"MatchKeyType\": 3,
-                \"Id\": \"0c08cd99-c413-425b-88fd-3cd87d899df4\",
-                \"ObjectId\": \"10000000-0000-0000-0000-000000000000\",
-                \"ObjectName\": \"ObjectId 10000000-0000-0000-0000-000000000000\",
-                \"ToDoAt\": \"2025-08-18T10:18:49.9219838Z\",
-				\"CloseOpenedCases\": false,
-				\"IncludeContractBalance\": true
-            }
-        ],
-        \"ObjectsUpdateBehaviour\": 2
-    }"
-}
+      "importId": "00000000-0000-0000-0000-000000000000",
+      "queueName": "ContractBalance",
+      "message": "{...}" // (1)
+    }
+    ```
 
-```
+    1. Pole `message` to **string zawierający JSON** — poniżej rozpakowana zawartość.
 
-
-
-Przykład 2 (zamknięcie spraw)
-
-```json
-{
-    "importId": "00000000-0000-0000-0000-000000000000",
-    "queueName": "ContractBalance",
-    "message": "
+    ```json title="Zawartość pola message"
     {
-        \"Objects\": [
-            {
-                \"MatchKey\": \"3_69485987\",
-                \"MatchKeyType\": 3,
-                \"Id\": \"0c08cd99-c413-425b-88fd-3cd87d899df4\",
-                \"ObjectId\": \"10000000-0000-0000-0000-000000000000\",
-                \"ObjectName\": \"ObjectId 10000000-0000-0000-0000-000000000000\",
-                \"ToDoAt\": \"2025-08-18T10:18:49.9219838Z\",
-				\"CloseOpenedCases\": true,
-				\"IncludeContractBalance\": false
-            }
-        ],
-        \"ObjectsUpdateBehaviour\": 2
-    }"
-}
+      "Objects": [
+        {
+          "AccountTypeId": 2,
+          "DocumentTypeId": 103,
+          "CurrencyId": 2,
+          "ExchangeRate": 4.13,
+          "Amount": 343.33,
+          "Discontinue": true,
+          "IncludeContractBalance": true,
+          "CloseOpenedCases": false,
+          "MatchKey": "3_69485987",
+          "MatchKeyType": 3,
+          "Id": "0c08cd99-c413-425b-88fd-3cd87d899df4",
+          "ObjectId": "10000000-0000-0000-0000-000000000000",
+          "ObjectName": "ObjectId 10000000-0000-0000-0000-000000000000",
+          "ToDoAt": "2025-08-18T10:18:49.9219838Z"
+        }
+      ],
+      "ObjectsUpdateBehaviour": 2
+    }
+    ```
 
-```
+=== "Zamknięcie spraw"
+
+    Zamknięcie otwartych spraw windykacyjnych bez zmiany salda.
+
+    ```json
+    {
+      "importId": "00000000-0000-0000-0000-000000000000",
+      "queueName": "ContractBalance",
+      "message": "{...}"
+    }
+    ```
+
+    ```json title="Zawartość pola message"
+    {
+      "Objects": [
+        {
+          "IncludeContractBalance": false,
+          "CloseOpenedCases": true,
+          "MatchKey": "3_69485987",
+          "MatchKeyType": 3,
+          "Id": "0c08cd99-c413-425b-88fd-3cd87d899df4",
+          "ObjectId": "10000000-0000-0000-0000-000000000000",
+          "ObjectName": "ObjectId 10000000-0000-0000-0000-000000000000",
+          "ToDoAt": "2025-08-18T10:18:49.9219838Z"
+        }
+      ],
+      "ObjectsUpdateBehaviour": 2
+    }
+    ```
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Powiązania</div>
+
+- Wysyłanie komunikatu — endpoint [EnqueImportMessage](../funkcje-api/importy/enque-import-message.md)
+- Macierz flag aktualizacyjnych — [ObjectsUpdateBehaviour](index.md#flagi-aktualizacyjne-obiektow-objectsupdatebehaviour)
+- Powiązane komunikaty: [Contract](contract.md) (wierzytelność), [Balance](balance.md) (nadpisanie salda na koncie dokumentu), [Case](case.md) (sprawa)
+
+</div>

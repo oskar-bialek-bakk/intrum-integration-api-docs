@@ -6,7 +6,7 @@ title: "EnqueImportMessage"
 
 **Typ żądania:** POST
 
-**URL żądania:** `https://[adres_api]/Dm/EnqueImportMessage`
+**URL żądania:** `https://[adres_api]/EnqueImportMessage`
 
 **Parametry żądania:**
 

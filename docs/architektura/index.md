@@ -2,7 +2,7 @@
 title: "Architektura fizyczna"
 ---
 
-![Architektura systemu](../diagrams/architektura-systemu.drawio)
+![Architektura systemu](../diagrams/architektura-systemu.png)
 
 | Nazwa | Rola |
 | --- | --- |

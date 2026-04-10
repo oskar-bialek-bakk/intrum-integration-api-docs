@@ -4,7 +4,7 @@ title: "Procedura importów danych od kontrahenta"
 
 Import danych od kontrahenta składa się z następujących kroków, która bardziej szczegółowo prezentuje poniższy diagram:
 
-![Procedura importów](../diagrams/procedura-importow.drawio)
+![](../diagrams/procedura-importow.drawio)
 
 1) Kontrahent wystawia dane na udział sieciowy
 

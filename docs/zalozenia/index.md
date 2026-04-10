@@ -15,6 +15,6 @@ System posiada API Integracyjne, którego celem jest umożliwienie przygotowywan
     -   Transformacja importu - zmapowanie danych na zrozumiałe przez system komunikaty
     -   Finalizacja importu - wykonanie czynności po zakończeniu importu np. poinformowanie zewnętrznego partnera, że import nie wykonał się poprawnie na skutek błędów w walidacji pliku importowego.
 
-![Przegląd importu](../diagrams/zalozenia-przeglad.drawio)
+![Przegląd importu](../diagrams/zalozenia-przeglad.png)
 
 Szczegóły procedury konfiguracji nowego importu oraz procedurę importowania danych od kontrahenta opisano w rozdziałach: [Konfiguracja nowego kontrahenta](konfiguracja-kontrahenta.md) i [Procedura importów danych od kontrahenta](procedura-importow.md)

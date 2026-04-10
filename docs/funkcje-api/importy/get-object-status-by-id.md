@@ -6,7 +6,7 @@ title: "GetObjectStatusByID"
 
 **Typ żądania:** GET
 
-**URL żądania:** `https://[adres_api]/Dm/GetObjectStatusByID?queueName=Customer&objectId=f40430d2-5c1e-4dff-8caf-f73af2f0301f`
+**URL żądania:** `https://[adres_api]/GetObjectStatusByID?queueName=Customer&objectId=f40430d2-5c1e-4dff-8caf-f73af2f0301f`
 
 **Parametry żądania:**
 

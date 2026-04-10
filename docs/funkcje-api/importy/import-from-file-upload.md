@@ -6,7 +6,7 @@ title: "ImportFromFileUpload"
 
 **Typ żądania:** POST
 
-**URL żądania:** `https://[adres_api]/Dm/ImportFromFileUpload?importTypeId=16`
+**URL żądania:** `https://[adres_api]/ImportFromFileUpload?importTypeId=16`
 
 **Parametry żądania:**
 

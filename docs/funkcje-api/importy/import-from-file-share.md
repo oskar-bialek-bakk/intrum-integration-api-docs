@@ -6,7 +6,7 @@ title: "ImportFromFileShare"
 
 **Typ żądania:** POST
 
-**URL żądania:** `https://[adres_api]/Dm/ImportFromFileShare?importTypeId=16&fileLocalization=ServerFiles%5CImport%5CSampkle108.xlsx`
+**URL żądania:** `https://[adres_api]/ImportFromFileShare?importTypeId=16&fileLocalization=ServerFiles%5CImport%5CSampkle108.xlsx`
 
 **Parametry żądania:**
 

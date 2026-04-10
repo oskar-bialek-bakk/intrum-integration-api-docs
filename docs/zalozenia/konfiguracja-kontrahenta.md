@@ -4,7 +4,7 @@ title: "Konfiguracja nowego kontrahenta"
 
 Zadanie skonfigurowania nowego kontrahenta wiąże się z krokami, który opisuje poniższy diagram:
 
-![Konfiguracja nowego kontrahenta](../diagrams/konfiguracja-kontrahenta.drawio)
+![](../diagrams/konfiguracja-kontrahenta.drawio)
 
 | Nazwa kroku | Odpowiedzialny | Opis kroku |
 | --- | --- | --- |

@@ -6,4 +6,4 @@ title: "RefreshDictionaries"
 
 **Typ żądania:** GET
 
-**URL żądania:** `https://[adres_api]/Dm/RefreshDictionaries`
+**URL żądania:** `https://[adres_api]/RefreshDictionaries`

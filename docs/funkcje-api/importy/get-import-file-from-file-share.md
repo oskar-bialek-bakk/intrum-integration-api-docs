@@ -6,7 +6,7 @@ title: "GetImportFileFromFileShare"
 
 **Typ żądania:** GET
 
-**URL żądania:** `https://[adres_api]/Dm/GetImportFileFromFileShare?ImportId=1538E757-F973-47B3-BD8A-76E384C25BDA`
+**URL żądania:** `https://[adres_api]/GetImportFileFromFileShare?ImportId=1538E757-F973-47B3-BD8A-76E384C25BDA`
 
 **Parametry żądania:**
 

@@ -6,7 +6,7 @@ title: "SetImportStep"
 
 **Typ żądania:** POST
 
-**URL żądania:** `https://[adres_api]/Dm/SetImportStep?importId=16`
+**URL żądania:** `https://[adres_api]/SetImportStep?importId=16`
 
 **Parametry żądania:**
 

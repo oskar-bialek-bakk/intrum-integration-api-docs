@@ -6,7 +6,7 @@ title: "GetDictionaries"
 
 **Typ żądania:** GET
 
-**URL żądania:** `https://[adres_api]/Dm/GetDictionaries`
+**URL żądania:** `https://[adres_api]/GetDictionaries`
 
 **Parametry żądania:**
 

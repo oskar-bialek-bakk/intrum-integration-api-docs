@@ -6,7 +6,7 @@ title: "GetImportStatus"
 
 **Typ żądania:** GET
 
-**URL żądania:** `https://[adres_api]/Dm/GetImportStatus?importId=1&includeMessagesStatus=true`
+**URL żądania:** `https://[adres_api]/GetImportStatus?importId=1&includeMessagesStatus=true`
 
 **Parametry żądania:**
 

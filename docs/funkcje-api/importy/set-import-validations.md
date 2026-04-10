@@ -6,7 +6,7 @@ title: "SetImportValidations"
 
 **Typ żądania:** POST
 
-**URL żądania:** `https://[adres_api]/Dm/SetImportValidations`
+**URL żądania:** `https://[adres_api]/SetImportValidations`
 
 **Parametry żądania:**
 

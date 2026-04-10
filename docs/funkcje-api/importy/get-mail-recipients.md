@@ -6,7 +6,7 @@ title: "GetMailRecipients"
 
 **Typ żądania:** GET
 
-**URL żądania:** `https://[adres_api]/Dm/GetMailRecipients?importId=[]&exportId=[]`
+**URL żądania:** `https://[adres_api]/GetMailRecipients?importId=[]&exportId=[]`
 
 **Parametry żądania:**
 

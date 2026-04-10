@@ -8,7 +8,7 @@ title: "Signature"
 
 **Wykorzystanie pól komunikatu:**
 
-| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACA W BAZIE DM |
+| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACJA W BAZIE DM |
 | --- | --- | --- | --- | --- |
 | MatchKey | string | Tak | Patrz rozdział Komunikaty → Budowa komunikatów | Brak |
 | MatchKeyType | int | Tak | Patrz rozdział Komunikaty → Budowa komunikatów. Dopuszczalne wartości:6 - zewnętrzny numer sprawy (External case number sprawa.sp_ext_id) | Brak |

@@ -1,8 +1,33 @@
-/* Table styling — vertical borders and header highlight */
+/* BAKK brand palette */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #1a3a5c;
+  --md-primary-fg-color--light: #2a5a8c;
+  --md-primary-fg-color--dark: #0f2640;
+  --md-accent-fg-color: #2e86c1;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #1a3a5c;
+  --md-primary-fg-color--light: #2a5a8c;
+  --md-primary-fg-color--dark: #0f2640;
+  --md-accent-fg-color: #5dade2;
+}
+
+/* Full-width content — override Material grid constraints */
+.md-grid {
+  max-width: 100%;
+}
+
+.md-content {
+  max-width: none;
+}
+
+/* Table styling — borders, header highlight, horizontal scroll */
 .md-typeset table:not([class]) {
   border-collapse: collapse;
-  display: table;
+  display: block;
   width: 100%;
+  overflow-x: auto;
 }
 
 .md-typeset table:not([class]) th {
@@ -14,14 +39,15 @@
 
 .md-typeset table:not([class]) td {
   border: 1px solid var(--md-typeset-table-color);
+  white-space: normal;
+  min-width: 120px;
 }
 
-/* Scrollable table wrapper for wide tables */
+.md-typeset table:not([class]) td:last-child {
+  min-width: 250px;
+}
+
+/* Scrollable table wrapper */
 .md-typeset .md-typeset__scrollwrap {
   overflow-x: auto;
-}
-
-/* Make content area wider */
-.md-content {
-  max-width: none;
 }

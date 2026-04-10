@@ -6,7 +6,7 @@ title: "ImportFromFileUpload"
 
 **Typ żądania:** POST
 
-**URL żądania:** http://\[serwer\]:\[port\]/Dm/ImportFromFileUpload?importTypeId=16
+**URL żądania:** `https://[adres_api]/Dm/ImportFromFileUpload?importTypeId=16`
 
 **Parametry żądania:**
 
@@ -17,4 +17,4 @@ title: "ImportFromFileUpload"
 
 **Pola odpowiedzi:**
 
-Takie same jak w przypadku funkcji
+Takie same jak w przypadku funkcji [GetImportStatus](get-import-status.md)

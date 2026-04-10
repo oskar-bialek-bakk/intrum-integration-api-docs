@@ -6,7 +6,7 @@ title: "SetImportStep"
 
 **Typ żądania:** POST
 
-**URL żądania:** http://\[serwer\]:\[port\]/Dm/SetImportStep?importId=16
+**URL żądania:** `https://[adres_api]/Dm/SetImportStep?importId=16`
 
 **Parametry żądania:**
 
@@ -28,50 +28,11 @@ title: "SetImportStep"
 
 **Pola odpowiedzi:**
 
-Takie same jak w przypadku funkcji
+Takie same jak w przypadku funkcji [GetImportStatus](get-import-status.md)
 
 **Możliwe zmiany statusów:**
 
-```mermaid
-stateDiagram-v2
-    [*] --> Adding
-
-    Adding --> Transformation
-    Transformation --> Validation
-    Validation --> Consumption
-    Consumption --> Finishing
-    Finishing --> [*]
-
-    state Adding {
-        [*] --> A_InProgress
-        A_InProgress --> A_Done
-        A_InProgress --> A_Error
-    }
-
-    state Transformation {
-        [*] --> T_InProgress
-        T_InProgress --> T_Done
-        T_InProgress --> T_Error
-    }
-
-    state Validation {
-        [*] --> V_InProgress
-        V_InProgress --> V_Done
-        V_InProgress --> V_Error
-    }
-
-    state Consumption {
-        [*] --> C_InProgress
-        C_InProgress --> C_Done
-        C_InProgress --> C_Error
-    }
-
-    state Finishing {
-        [*] --> F_InProgress
-        F_InProgress --> F_Done
-        F_InProgress --> F_Error
-    }
-```
+![Etapy importu](../../diagrams/import-stages-state.drawio)
 
 | Stage | Wartość | Opis |
 | --- | --- | --- |

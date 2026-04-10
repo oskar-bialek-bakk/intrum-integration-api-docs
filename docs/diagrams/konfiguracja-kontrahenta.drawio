@@ -1,0 +1,89 @@
+<mxfile>
+  <diagram name="Konfiguracja nowego kontrahenta" id="konfig1">
+    <mxGraphModel dx="1200" dy="800" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Swimlane: Kontrahent (blue) -->
+        <mxCell id="lane1" value="Kontrahent" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1100" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1" value="Przekazuje opis portfela" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="65" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Swimlane: Biznes (green) -->
+        <mxCell id="lane2" value="Biznes" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="1100" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2" value="Rejestruje kontrahenta&#xa;w DM" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="185" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3" value="Konfiguruje warunki&#xa;umowy" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="185" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4" value="Konfiguruje atrybuty&#xa;kontrahenta" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="185" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Swimlane: Biznes/Analityk (yellow) -->
+        <mxCell id="lane3" value="Biznes / Analityk" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="1100" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5" value="Przekazuje mapowania&#xa;portfela" style="rounded=1;whiteSpace=wrap;fillColor=#e5a50a;fontColor=#ffffff;strokeColor=#b8840a;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="305" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s6" value="Przygotowuje raporty&#xa;zwrotne w module&#xa;Raportów BI" style="rounded=1;whiteSpace=wrap;fillColor=#e5a50a;fontColor=#ffffff;strokeColor=#b8840a;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="305" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Swimlane: IT (purple) -->
+        <mxCell id="lane4" value="IT" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="400" width="1100" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="s7" value="Konfiguruje VPN/SFTP&#xa;dostępy do/dla&#xa;kontrahenta" style="rounded=1;whiteSpace=wrap;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="425" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s8" value="Importy: Konfiguruje&#xa;mechanizm pobierający&#xa;dane od kontrahenta" style="rounded=1;whiteSpace=wrap;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="425" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s9" value="Importy: Implementuje&#xa;mapowanie portfela&#xa;na komunikaty DM" style="rounded=1;whiteSpace=wrap;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="425" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s10" value="Eksporty: Konfiguruje&#xa;mechanizm przenoszący&#xa;dane do kontrahenta" style="rounded=1;whiteSpace=wrap;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="425" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s1" target="s2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s2" target="s3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s3" target="s4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s4" target="s5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s5" target="s6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s5" target="s7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s7" target="s8" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s8" target="s9" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s6" target="s10" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

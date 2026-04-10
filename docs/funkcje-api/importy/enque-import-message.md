@@ -6,7 +6,7 @@ title: "EnqueImportMessage"
 
 **Typ żądania:** POST
 
-**URL żądania:** http://\[serwer\]:\[port\]/Dm/EnqueImportMessage
+**URL żądania:** `https://[adres_api]/Dm/EnqueImportMessage`
 
 **Parametry żądania:**
 
@@ -14,7 +14,7 @@ title: "EnqueImportMessage"
 | --- | --- | --- | --- |
 | importId | Guid | Body | Id importu lub pusty GUID (00000000-0000-0000-0000-000000000000), jeżeli dodajmy na kolejkę wiadomość niepowiązaną z żadnym importem |
 | queueName | string | Body | Nazwa kolejki do której zostanie dodana wiadomość |
-| message | string | Body | lista obiektów w formacie JSON, która zostanie wrzucona na kolejkę (będzie się różnić w zależności od wybranej kolejki - patrz rozdział ) |
+| message | string | Body | lista obiektów w formacie JSON, która zostanie wrzucona na kolejkę (będzie się różnić w zależności od wybranej kolejki - patrz rozdział [Komunikaty](../../komunikaty/index.md)) |
 
 **Pola odpowiedzi:**
 

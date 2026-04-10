@@ -1,0 +1,60 @@
+<mxfile>
+  <diagram name="Procedura importów" id="proc1">
+    <mxGraphModel dx="1100" dy="500" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Swimlane: Kontrahent (blue) -->
+        <mxCell id="lane1" value="Kontrahent" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;horizontal=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="200" height="400" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1" value="1. Kontrahent wystawia&#xa;dane na udział sieciowy" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=12;fontStyle=1;" vertex="1" parent="lane1">
+          <mxGeometry x="15" y="160" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Swimlane: IT (purple) -->
+        <mxCell id="lane2" value="IT" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;fontStyle=1;horizontal=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="40" width="380" height="400" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2" value="2. IT monitoruje udział&#xa;sieciowy i pobiera plik&#xa;od kontrahenta" style="rounded=1;whiteSpace=wrap;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="lane2">
+          <mxGeometry x="15" y="150" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3" value="3. IT importuje plik&#xa;przy użyciu API" style="rounded=1;whiteSpace=wrap;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="lane2">
+          <mxGeometry x="200" y="155" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Swimlane: System (green) -->
+        <mxCell id="lane3" value="System" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;horizontal=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="40" width="400" height="400" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4" value="Integration API&#xa;przyjmuje i kolejkuje&#xa;komunikaty" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=12;fontStyle=1;" vertex="1" parent="lane3">
+          <mxGeometry x="15" y="100" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5" value="Worker Service&#xa;przetwarza komunikaty&#xa;z kolejek" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=12;fontStyle=1;" vertex="1" parent="lane3">
+          <mxGeometry x="15" y="220" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="s6" value="Dane zaimportowane&#xa;do DEBT Manager" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=12;fontStyle=1;" vertex="1" parent="lane3">
+          <mxGeometry x="220" y="220" width="170" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s1" target="s2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s2" target="s3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s3" target="s4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s4" target="s5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="s5" target="s6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

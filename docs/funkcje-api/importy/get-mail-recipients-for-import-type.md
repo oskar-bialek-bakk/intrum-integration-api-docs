@@ -6,7 +6,7 @@ title: "GetMailRecipientsForImportType"
 
 **Typ żądania:** GET
 
-**URL żądania:** http://\[serwer\]:\[port\]/Dm/GetMailRecipientsForImportType?importTypeId=\[\]
+**URL żądania:** `https://[adres_api]/Dm/GetMailRecipientsForImportType?importTypeId=[]`
 
 **Parametry żądania:**
 

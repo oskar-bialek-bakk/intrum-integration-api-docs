@@ -17,7 +17,7 @@ Wyróżniamy następujące kolejki:
 | DebtManager.BL.DM.ExternalMessages.ExternalImportTransformation, DebtManager.BL.DM.ExternalMessages_ExternalImportTransformation | Rabbit MQ | zewnętrzny system | Patrz jak wyżej. |
 | DebtImportQueue_ImportFinalization | Rabbit MQ | system DEBT Manager | Kolejka konsumowana przez system DEBT Manager, zawierająca importy które zostały zakończone, dająca możliwość wykonania kolejnych kroków po imporcie np.dla poprawnie zakończonych importów np. uruchomienie workflowów na zaimportowanych sprawachdla niepoprawnie zakończonych importów np. usunięcie danych, jeśli jakieś zostały zaimportowane |
 | DebtManager.BL.DM.ExternalMessages.ExternalImportFinalizer, DebtManager.BL.DM.ExternalMessages_ExternalImportFinalizer | Rabbit MQ | zewnętrzny system | Patrz jak wyżej. |
-| Baza danych: dm_integration_[nazwa]Schemat: dm_messagesTabela: [nazwa_komunikatu] | tabela SQL Server | system DEBT Manager | Dla każdego z istnieje w bazie API Integracyjnego tabela o nazwie dm_messages.[nazwa_komunikatu], która pełni role kolejki danego komunikatu. Szczegółowy opis zastosowanego rozwiązania znajduje się pod następującym linkiem. |
+| Baza danych: `dm_integration_[nazwa]` Schemat: `dm_messages` Tabela: `[nazwa_komunikatu]` | tabela SQL Server | system DEBT Manager | Dla każdego komunikatu istnieje w bazie API Integracyjnego tabela o nazwie `dm_messages.[nazwa_komunikatu]`, która pełni rolę kolejki danego komunikatu. Szczegółowy opis zastosowanego rozwiązania znajduje się pod [następującym linkiem](https://www.mssqltips.com/sqlservertip/1155/sql-server-database-specific-settings-service-broker/). |
 
 !!! info "Przykład stanu kolejek"
     Przykład stanu kolejek

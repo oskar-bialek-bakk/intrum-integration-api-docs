@@ -6,7 +6,7 @@ title: "SetImportValidations"
 
 **Typ żądania:** POST
 
-**URL żądania:** http://\[serwer\]:\[port\]/Dm/SetImportValidations
+**URL żądania:** `https://[adres_api]/Dm/SetImportValidations`
 
 **Parametry żądania:**
 
@@ -19,7 +19,7 @@ title: "SetImportValidations"
 
 **Pola odpowiedzi:**
 
-Pusty napis w przypadku sukcesu, opis błędu (tektowy) w przypadku błędu.
+Pusty napis w przypadku sukcesu, opis błędu (tekstowy) w przypadku błędu.
 
 **Przykład:**
 

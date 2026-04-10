@@ -1,0 +1,46 @@
+<mxfile>
+  <diagram name="Architektura systemu" id="arch1">
+    <mxGraphModel dx="1024" dy="600" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="400" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="External System" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="140" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="3" value="Integration API" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="140" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="4" value="RabbitMQ" style="rounded=1;whiteSpace=wrap;fillColor=#e5a50a;fontColor=#ffffff;strokeColor=#b8840a;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="60" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="5" value="dm_integration_[klient]&#xa;(staging DB)" style="shape=cylinder3;whiteSpace=wrap;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="200" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="6" value="Windows Worker&#xa;Service" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="60" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="7" value="dm_data_dmweb_[klient]&#xa;(DEBT Manager DB)" style="shape=cylinder3;whiteSpace=wrap;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="200" width="180" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="HTTP REST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=11;" edge="1" source="2" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="publish" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=11;" edge="1" source="3" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="read/write" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=11;startArrow=classic;endArrow=classic;" edge="1" source="3" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="consume" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=11;" edge="1" source="4" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" value="read/write" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=11;startArrow=classic;endArrow=classic;" edge="1" source="6" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" value="import" style="edgeStyle=orthogonalEdgeStyle;rounded=1;fontSize=11;" edge="1" source="6" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

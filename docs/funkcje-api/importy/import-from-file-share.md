@@ -6,7 +6,7 @@ title: "ImportFromFileShare"
 
 **Typ żądania:** POST
 
-**URL żądania:** http://\[serwer\]:\[port\]/Dm/ImportFromFileShare?importTypeId=16&fileLocalization=ServerFiles%5CImport%5CSampkle108.xlsx
+**URL żądania:** `https://[adres_api]/Dm/ImportFromFileShare?importTypeId=16&fileLocalization=ServerFiles%5CImport%5CSampkle108.xlsx`
 
 **Parametry żądania:**
 
@@ -17,4 +17,4 @@ title: "ImportFromFileShare"
 
 **Pola odpowiedzi:**
 
-Takie same jak w przypadku funkcji
+Takie same jak w przypadku funkcji [GetImportStatus](get-import-status.md)

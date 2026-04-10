@@ -1,0 +1,140 @@
+<mxfile>
+  <diagram name="Etapy importu" id="state1">
+    <mxGraphModel dx="1200" dy="700" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Start -->
+        <mxCell id="start" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="20" y="320" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Adding group -->
+        <mxCell id="g1" value="Adding" style="swimlane;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;startSize=25;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="180" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="g1s" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="g1">
+          <mxGeometry x="75" y="35" width="20" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1" value="InProgress" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=11;" vertex="1" parent="g1">
+          <mxGeometry x="40" y="70" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" value="Done" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=11;" vertex="1" parent="g1">
+          <mxGeometry x="15" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="Error" style="rounded=1;whiteSpace=wrap;fillColor=#e53935;fontColor=#ffffff;strokeColor=#b71c1c;fontSize=11;" vertex="1" parent="g1">
+          <mxGeometry x="100" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="g1e1" style="rounded=1;" edge="1" source="g1s" target="a1" parent="g1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g1e2" style="rounded=1;" edge="1" source="a1" target="a2" parent="g1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g1e3" style="rounded=1;" edge="1" source="a1" target="a3" parent="g1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Transformation group -->
+        <mxCell id="g2" value="Transformation" style="swimlane;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;startSize=25;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="240" width="180" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="g2s" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="g2">
+          <mxGeometry x="75" y="35" width="20" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="t1" value="InProgress" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=11;" vertex="1" parent="g2">
+          <mxGeometry x="40" y="70" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="t2" value="Done" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=11;" vertex="1" parent="g2">
+          <mxGeometry x="15" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="t3" value="Error" style="rounded=1;whiteSpace=wrap;fillColor=#e53935;fontColor=#ffffff;strokeColor=#b71c1c;fontSize=11;" vertex="1" parent="g2">
+          <mxGeometry x="100" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="g2e1" style="rounded=1;" edge="1" source="g2s" target="t1" parent="g2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g2e2" style="rounded=1;" edge="1" source="t1" target="t2" parent="g2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g2e3" style="rounded=1;" edge="1" source="t1" target="t3" parent="g2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Validation group -->
+        <mxCell id="g3" value="Validation" style="swimlane;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;startSize=25;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="240" width="180" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="g3s" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="g3">
+          <mxGeometry x="75" y="35" width="20" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="v1" value="InProgress" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=11;" vertex="1" parent="g3">
+          <mxGeometry x="40" y="70" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="v2" value="Done" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=11;" vertex="1" parent="g3">
+          <mxGeometry x="15" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="v3" value="Error" style="rounded=1;whiteSpace=wrap;fillColor=#e53935;fontColor=#ffffff;strokeColor=#b71c1c;fontSize=11;" vertex="1" parent="g3">
+          <mxGeometry x="100" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="g3e1" style="rounded=1;" edge="1" source="g3s" target="v1" parent="g3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g3e2" style="rounded=1;" edge="1" source="v1" target="v2" parent="g3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g3e3" style="rounded=1;" edge="1" source="v1" target="v3" parent="g3"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Consumption group -->
+        <mxCell id="g4" value="Consumption" style="swimlane;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;startSize=25;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="240" width="180" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="g4s" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="g4">
+          <mxGeometry x="75" y="35" width="20" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1" value="InProgress" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=11;" vertex="1" parent="g4">
+          <mxGeometry x="40" y="70" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2" value="Done" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=11;" vertex="1" parent="g4">
+          <mxGeometry x="15" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3" value="Error" style="rounded=1;whiteSpace=wrap;fillColor=#e53935;fontColor=#ffffff;strokeColor=#b71c1c;fontSize=11;" vertex="1" parent="g4">
+          <mxGeometry x="100" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="g4e1" style="rounded=1;" edge="1" source="g4s" target="c1" parent="g4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g4e2" style="rounded=1;" edge="1" source="c1" target="c2" parent="g4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g4e3" style="rounded=1;" edge="1" source="c1" target="c3" parent="g4"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Finishing group -->
+        <mxCell id="g5" value="Finishing" style="swimlane;fontStyle=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;startSize=25;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="240" width="180" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="g5s" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="g5">
+          <mxGeometry x="75" y="35" width="20" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="f1" value="InProgress" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=11;" vertex="1" parent="g5">
+          <mxGeometry x="40" y="70" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="f2" value="Done" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=11;" vertex="1" parent="g5">
+          <mxGeometry x="15" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="f3" value="Error" style="rounded=1;whiteSpace=wrap;fillColor=#e53935;fontColor=#ffffff;strokeColor=#b71c1c;fontSize=11;" vertex="1" parent="g5">
+          <mxGeometry x="100" y="130" width="70" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="g5e1" style="rounded=1;" edge="1" source="g5s" target="f1" parent="g5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g5e2" style="rounded=1;" edge="1" source="f1" target="f2" parent="g5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="g5e3" style="rounded=1;" edge="1" source="f1" target="f3" parent="g5"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- End -->
+        <mxCell id="end" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;shape=doubleCircle;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="320" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Inter-group edges -->
+        <mxCell id="ie0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="start" target="g1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="g1" target="g2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="g2" target="g3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="g3" target="g4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="g4" target="g5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ie5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="g5" target="end" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

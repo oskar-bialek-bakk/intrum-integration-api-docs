@@ -1,0 +1,72 @@
+<mxfile>
+  <diagram name="Przegląd importu" id="overview1">
+    <mxGraphModel dx="800" dy="700" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Main flow (left column) -->
+        <mxCell id="2" value="System zewnętrzny / IT klienta" style="rounded=1;whiteSpace=wrap;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="40" width="240" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="3" value="Integration API" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="140" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="4" value="Kolejki (RabbitMQ + SQL)" style="rounded=1;whiteSpace=wrap;fillColor=#e5a50a;fontColor=#ffffff;strokeColor=#b8840a;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="240" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="5" value="Worker Services" style="rounded=1;whiteSpace=wrap;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="340" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="6" value="DEBT Manager" style="rounded=1;whiteSpace=wrap;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="540" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Subgraph: Kroki importu -->
+        <mxCell id="sub1" value="Kroki importu (opcjonalnie przejmowane przez IT klienta)" style="swimlane;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=12;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="120" width="260" height="330" as="geometry"/>
+        </mxCell>
+        <mxCell id="7" value="Walidacja" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="sub1">
+          <mxGeometry x="50" y="50" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="8" value="Transformacja" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="sub1">
+          <mxGeometry x="50" y="140" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="9" value="Finalizacja" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="sub1">
+          <mxGeometry x="50" y="230" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges: main flow -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="2" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1l" value="REST API" style="edgeLabel;fontSize=11;" vertex="1" connectable="0" parent="e1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="3" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="4" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="5" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges: API → subgraph steps → DM -->
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;" edge="1" source="3" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="7" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;" edge="1" source="8" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;dashed=1;" edge="1" source="9" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -8,7 +8,7 @@ title: "CaseContactData"
 
 **Wykorzystanie pól komunikatu:**
 
-| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACA W BAZIE DM |
+| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACJA W BAZIE DM |
 | --- | --- | --- | --- | --- |
 | MatchKey | string | Tak | Patrz rozdział Komunikaty → Budowa komunikatów | Brak |
 | MatchKeyType | int | Tak | Patrz rozdział Komunikaty → Budowa komunikatów. Dopuszczalne wartości:6 - zewnętrzny numer sprawy (External case number sprawa.sp_ext_id)3 - zewnętrzny numer wierzytelności (External contract number wierzytelnosc.wi_ext_id) | Brak |
@@ -19,10 +19,9 @@ title: "CaseContactData"
     "queueName": "CaseContactData",
     "message": "
     {
-		{
-			\"MatchKey\": \"Case_MK_1\",
-			\"MatchKeyType\": 6
-			\"AddressList\": {
+		\"MatchKey\": \"Case_MK_1\",
+		\"MatchKeyType\": 6,
+		\"AddressList\": {
 				\"Objects\": [
 					{
 						\"AdditionalInformation\": \"test\",
@@ -64,7 +63,6 @@ title: "CaseContactData"
 					}
 				],
 				\"ObjectsUpdateBehaviour\": 6
-			}
 		}
     }"
 }

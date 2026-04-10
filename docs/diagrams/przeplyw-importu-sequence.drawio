@@ -1,0 +1,158 @@
+<mxfile>
+  <diagram name="Przepływ importu" id="seq1">
+    <mxGraphModel dx="1200" dy="900" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Participants -->
+        <mxCell id="p1" value="System zewnętrzny" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;size=40;fillColor=#4a9eff;fontColor=#ffffff;strokeColor=#2e7bcf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="40" width="140" height="830" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2" value="Integration API" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;size=40;fillColor=#26a269;fontColor=#ffffff;strokeColor=#1a7a4c;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="40" width="140" height="830" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3" value="RabbitMQ" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;size=40;fillColor=#e5a50a;fontColor=#ffffff;strokeColor=#b8840a;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="40" width="140" height="830" as="geometry"/>
+        </mxCell>
+        <mxCell id="p4" value="Worker Service" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;size=40;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="810" y="40" width="140" height="830" as="geometry"/>
+        </mxCell>
+        <mxCell id="p5" value="DEBT Manager DB" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=0;collapsible=0;recursiveResize=0;outlineConnect=0;size=40;fillColor=#c061cb;fontColor=#ffffff;strokeColor=#9141a0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="40" width="140" height="830" as="geometry"/>
+        </mxCell>
+
+        <!-- 1. Import request -->
+        <mxCell id="m1" value="ImportFromFileUpload / ImportFromFileShare" style="endArrow=block;endFill=1;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="110" as="sourcePoint"/>
+            <mxPoint x="380" y="110" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" value="importId (GUID)" style="endArrow=open;endFill=0;dashed=1;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="140" as="sourcePoint"/>
+            <mxPoint x="130" y="140" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Polling box -->
+        <mxCell id="loop1" value="loop   Polling statusu" style="shape=umlFrame;whiteSpace=wrap;width=180;height=20;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="165" width="400" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="m3" value="GetImportStatus(importId)" style="endArrow=block;endFill=1;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="200" as="sourcePoint"/>
+            <mxPoint x="380" y="200" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" value="CurrentStep, IsFinished" style="endArrow=open;endFill=0;dashed=1;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="225" as="sourcePoint"/>
+            <mxPoint x="130" y="225" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Note: Walidacja -->
+        <mxCell id="n1" value="Walidacja" style="shape=note;whiteSpace=wrap;size=14;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="270" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="m5" value="DebtImportQueue_ImportValidation" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="320" as="sourcePoint"/>
+            <mxPoint x="630" y="320" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" value="Konsumpcja komunikatu walidacji" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630" y="350" as="sourcePoint"/>
+            <mxPoint x="880" y="350" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" value="SetImportStep(Validation, Done)" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="380" as="sourcePoint"/>
+            <mxPoint x="380" y="380" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Note: Transformacja -->
+        <mxCell id="n2" value="Transformacja" style="shape=note;whiteSpace=wrap;size=14;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="410" width="120" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="m8" value="DebtImportQueue_ImportTransformation" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="460" as="sourcePoint"/>
+            <mxPoint x="630" y="460" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" value="Konsumpcja komunikatu transformacji" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630" y="490" as="sourcePoint"/>
+            <mxPoint x="880" y="490" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" value="SetImportStep(Transformation, Done)" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="520" as="sourcePoint"/>
+            <mxPoint x="380" y="520" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" value="EnqueImportMessage (komunikaty DM)" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="550" as="sourcePoint"/>
+            <mxPoint x="380" y="550" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Note: Konsumpcja -->
+        <mxCell id="n3" value="Konsumpcja" style="shape=note;whiteSpace=wrap;size=14;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="580" width="110" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="m12" value="Zapis komunikatów do DEBT Manager" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="630" as="sourcePoint"/>
+            <mxPoint x="1110" y="630" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Note: Finalizacja -->
+        <mxCell id="n4" value="Finalizacja" style="shape=note;whiteSpace=wrap;size=14;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="660" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="m13" value="DebtImportQueue_ImportFinalization" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="710" as="sourcePoint"/>
+            <mxPoint x="630" y="710" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" value="Konsumpcja komunikatu finalizacji" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630" y="740" as="sourcePoint"/>
+            <mxPoint x="880" y="740" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m15" value="SetImportStep(Finishing, Done)" style="endArrow=block;endFill=1;fontSize=10;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="770" as="sourcePoint"/>
+            <mxPoint x="380" y="770" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Final status check -->
+        <mxCell id="m16" value="GetImportStatus(importId)" style="endArrow=block;endFill=1;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="810" as="sourcePoint"/>
+            <mxPoint x="380" y="810" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m17" value="IsFinished = true" style="endArrow=open;endFill=0;dashed=1;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="840" as="sourcePoint"/>
+            <mxPoint x="130" y="840" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

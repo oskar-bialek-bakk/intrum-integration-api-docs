@@ -6,7 +6,7 @@ title: "GetImportStatus"
 
 **Typ żądania:** GET
 
-**URL żądania:** http://\[serwer\]:\[port\]/Dm/GetImportStatus?importId=1&includeMessagesStatus=true
+**URL żądania:** `https://[adres_api]/Dm/GetImportStatus?importId=1&includeMessagesStatus=true`
 
 **Parametry żądania:**
 
@@ -44,7 +44,7 @@ title: "GetImportStatus"
 | → StatusId | int | Status przetwarzania komunikatu:0 = OFFLINE - komunikat jest ignorowany. Status wykorzystywany w momencie gdy plik importowy nie został jeszcze w całości rozbity na komunikaty i czekamy, aż pozostałe komunikaty zostaną wrzucone na kolejkę. 1 = QUEUED - komunikat na kolejce oczekuje na upłynięcie daty ToDoAt i pobranie do przetwarzania2 = SUCCESS - komunikat poprawnie przetworzony3 = ERROR - błąd przetwarzania komunikatu4 = REJECTED - komunikat odrzucony, nie podjęto próby przetwarzania5 = INPROGRESS - komunikat w trakcie przetwarzania |
 | → StatusMessage | string | Dodatkowy opis status np. dla komunikatów w statusie błąd pole zawiera opis błędu |
 | → Retries | int | Aktualna próba przetwarzania komunikatu |
-| → ObjectId | strubg | Patrz rozdział → Budowa komunikatów |
+| → ObjectId | string | Patrz rozdział → Budowa komunikatów |
 | → MaxRetryCount | int | Maksymalna liczba prób przetwarzania komunikatu. Jeśli Retries = MaxRetryCount to komunikat nie zostanie już więcej przetworzony - wszystkie jego próby przetworzenia zakończyły się błędem. |
 | ExternalFileName | string | Nazwa importowanego pliku |
 

@@ -15,29 +15,6 @@ System posiada API Integracyjne, którego celem jest umożliwienie przygotowywan
     -   Transformacja importu - zmapowanie danych na zrozumiałe przez system komunikaty
     -   Finalizacja importu - wykonanie czynności po zakończeniu importu np. poinformowanie zewnętrznego partnera, że import nie wykonał się poprawnie na skutek błędów w walidacji pliku importowego.
 
-```mermaid
-flowchart TD
-    EXT["System zewnętrzny / IT klienta"] -->|"REST API"| API["Integration API"]
-    API --> Q["Kolejki (RabbitMQ + SQL)"]
-    Q --> W["Worker Services"]
-    W --> DM["DEBT Manager"]
-
-    subgraph "Kroki importu (opcjonalnie przejmowane przez IT klienta)"
-        V["Walidacja"]
-        T["Transformacja"]
-        F["Finalizacja"]
-    end
-
-    API --> V
-    V --> T
-    T --> F
-    F --> DM
-
-    style EXT fill:#4a9eff,color:#fff
-    style API fill:#26a269,color:#fff
-    style Q fill:#e5a50a,color:#fff
-    style W fill:#c061cb,color:#fff
-    style DM fill:#26a269,color:#fff
-```
+![Przegląd importu](../diagrams/zalozenia-przeglad.drawio)
 
 Szczegóły procedury konfiguracji nowego importu oraz procedurę importowania danych od kontrahenta opisano w rozdziałach: [Konfiguracja nowego kontrahenta](konfiguracja-kontrahenta.md) i [Procedura importów danych od kontrahenta](procedura-importow.md)

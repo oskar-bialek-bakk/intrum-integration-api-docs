@@ -5,9 +5,13 @@ site_url: https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/
 theme:
   name: material
   language: pl
+  font:
+    text: Source Sans 3
+    code: JetBrains Mono
   features:
     - navigation.sections
     - navigation.expand
+    - navigation.indexes
     - navigation.top
     - search.suggest
     - search.highlight
@@ -15,14 +19,14 @@ theme:
     - content.tabs.link
   palette:
     - scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-7
         name: Tryb jasny
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-4
         name: Tryb ciemny
@@ -33,15 +37,12 @@ extra_css:
 plugins:
   - search:
       lang: pl
+  - drawio
 
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:

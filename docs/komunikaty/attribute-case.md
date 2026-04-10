@@ -8,7 +8,7 @@ title: "AttributeCase"
 
 **Wykorzystanie pól komunikatu:**
 
-| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACA W BAZIE DM |
+| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACJA W BAZIE DM |
 | --- | --- | --- | --- | --- |
 | Value | string | Tak | Wartość atrybutu | atrybut_wartosc.atw_wartosc |
 | TypeId | int | Tak | ID ze słownika atrybut_typ | atrybut_wartosc.atw_att_id |

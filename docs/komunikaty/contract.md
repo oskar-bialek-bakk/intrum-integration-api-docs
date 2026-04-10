@@ -8,7 +8,7 @@ title: "Contract"
 
 **Wykorzystanie pól komunikatu:**
 
-| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACA W BAZIE DM |
+| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACJA W BAZIE DM |
 | --- | --- | --- | --- | --- |
 | MatchKey | string | Tak | Patrz rozdział Komunikaty → Budowa komunikatów | wierzytelnosc.wi_ext_id |
 | MatchKeyType | int | Tak | Patrz rozdział Komunikaty → Budowa komunikatów. Dopuszczalne wartości:3 - zewnętrzny numer umowy (External contract number wierzytelnosc.wi_ext_id) | Brak |

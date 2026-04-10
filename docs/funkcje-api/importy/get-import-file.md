@@ -6,7 +6,7 @@ title: "GetImportFile"
 
 **Typ żądania:** GET
 
-**URL żądania:** http://\[serwer\]:\[port\]/Dm/GetImportFile?importId=43A79F4D-CBFE-4799-AE2A-48B68CD5EA97
+**URL żądania:** `https://[adres_api]/Dm/GetImportFile?importId=43A79F4D-CBFE-4799-AE2A-48B68CD5EA97`
 
 **Parametry żądania:**
 

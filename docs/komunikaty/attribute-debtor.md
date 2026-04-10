@@ -6,9 +6,9 @@ title: "AttributeDebtor"
 
 **Lokalizacja w bazie integracyjnej:** dm\_attributeDebtor\_details
 
-**Wyk****orzystanie pól komunikatu:**
+**Wykorzystanie pól komunikatu:**
 
-| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACA W BAZIE DM |
+| NAZWA POLA | TYP DANYCH | WYMAGALNOŚĆ | OPIS | LOKALIZACJA W BAZIE DM |
 | --- | --- | --- | --- | --- |
 | MatchKey | string | Tak | Patrz rozdział Komunikaty → Budowa komunikatów | Brak |
 | MatchKeyType | int | Tak | Patrz rozdział Komunikaty → Budowa komunikatów. Dopuszczalne wartości:2 - zewnętrzny numer dłużnika (External customer number dluznik.dl_ext_id) | Brak |

@@ -47,6 +47,14 @@
   min-width: 250px;
 }
 
+/* Diagrams — white background for dark theme compatibility */
+.mxgraph,
+.md-typeset img[src$=".png"] {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+}
+
 /* Scrollable table wrapper */
 .md-typeset .md-typeset__scrollwrap {
   overflow-x: auto;

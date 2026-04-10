@@ -2,20 +2,42 @@
 title: "GetImportFileFromFileShare"
 ---
 
-**Opis:** Funkcja kopiuje plik wybranego dla wybranego typu importu do lokalizacji na zasobie sieciowym, a następnie zwraca do niego ścieżkę
+# GetImportFileFromFileShare
 
-**Typ żądania:** GET
+<div class="endpoint-header">
+  <div class="method-badge get">GET</div>
+  <div class="endpoint-url">https://[adres_api]/GetImportFileFromFileShare</div>
+</div>
 
-**URL żądania:** `https://[adres_api]/GetImportFileFromFileShare?ImportId=1538E757-F973-47B3-BD8A-76E384C25BDA`
+Kopiuje plik wybranego importu do lokalizacji na zasobie sieciowym, a następnie zwraca ścieżkę do tego pliku.
 
-**Parametry żądania:**
+---
 
-| Nazwa | Typ danych | Typ parametru | Opis |
-| --- | --- | --- | --- |
-| ImportId | GUID | query | ID importu |
+<div class="api-section" markdown>
+<div class="api-section-title">Request</div>
 
-**Pola odpowiedzi:**
+**Query parameters:**
 
-| Nazwa | Typ danych | Opis |
-| --- | --- | --- |
-|  | string | Lokalizacja do pliku wybranego importu na zasobie sieciowym |
+<ul class="param-list">
+  <li>
+    <span class="param-name required">ImportId</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">ID importu</span>
+  </li>
+</ul>
+
+```bash title="Przykład wywołania"
+curl "https://[adres_api]/GetImportFileFromFileShare?ImportId=1538E757-F973-47B3-BD8A-76E384C25BDA" \
+  -H "Authorization: Bearer {TOKEN}"
+```
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Response</div>
+
+Ścieżka do pliku importu na zasobie sieciowym (string).
+
+</div>

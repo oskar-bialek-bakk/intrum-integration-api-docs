@@ -2,34 +2,76 @@
 title: "GetMailRecipientsForImportType"
 ---
 
-**Opis:** Funkcja adresatów wiadomości e-mail, do których wysyłane są informacje o zakończeniu importów/eksportów
+# GetMailRecipientsForImportType
 
-**Typ żądania:** GET
+<div class="endpoint-header">
+  <div class="method-badge get">GET</div>
+  <div class="endpoint-url">https://[adres_api]/GetMailRecipientsForImportType</div>
+</div>
 
-**URL żądania:** `https://[adres_api]/GetMailRecipientsForImportType?importTypeId=[]`
+Pobiera listę adresatów wiadomości e-mail dla wskazanego typu importu.
 
-**Parametry żądania:**
+---
 
-| Nazwa | Typ danych | Typ parametru | Opis |
-| --- | --- | --- | --- |
-| importTypeId | Int | query | Id typu importu, dla którego pobieramy listę adresatów |
+<div class="api-section" markdown>
+<div class="api-section-title">Request</div>
 
-**Pola odpowiedzi:**
+**Query parameters:**
 
-| Nazwa | Typ danych | Opis |
-| --- | --- | --- |
-| →Title | string | Nieużywane |
-| →Recipients | string | Adresy e-mail adresatów (oddzielone średnikami) |
-| →Agreement | string | Nazwa bazy, w której znajduje się typ importu |
-| →Creditor | string | Nazwa kontrahenta, w kontekście którego znajduje się typ importu |
-| →Operation | string | Nazwa importu |
-| →ExportTypeId | int? | Nieużywane |
-| →ImportTypeId | int? | Id słownika z tabeli import_typ |
-| →Link | string | Nieużywane |
+<ul class="param-list">
+  <li>
+    <span class="param-name required">importTypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID typu importu, dla którego pobieramy listę adresatów</span>
+  </li>
+</ul>
 
-**Przykład odpowiedzi:**
+```bash title="Przykład wywołania"
+curl "https://[adres_api]/GetMailRecipientsForImportType?importTypeId=12" \
+  -H "Authorization: Bearer {TOKEN}"
+```
 
-```json
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Response</div>
+
+Tablica obiektów:
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">Recipients</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Adresy e-mail adresatów (oddzielone średnikami)</span>
+  </li>
+  <li>
+    <span class="param-name">Agreement</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa bazy, w której znajduje się typ importu</span>
+  </li>
+  <li>
+    <span class="param-name">Creditor</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa kontrahenta</span>
+  </li>
+  <li>
+    <span class="param-name">Operation</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa importu</span>
+  </li>
+  <li>
+    <span class="param-name">ImportTypeId</span>
+    <span class="param-type">int?</span>
+    <span class="param-desc">ID słownika z tabeli <code>import_typ</code></span>
+  </li>
+</ul>
+
+!!! note "Nieużywane pola"
+    Pola `Title`, `ExportTypeId` i `Link` są obecne w odpowiedzi, ale zawsze mają wartość `null`.
+
+```json title="Przykład odpowiedzi"
 [
   {
     "Title": null,
@@ -43,3 +85,5 @@ title: "GetMailRecipientsForImportType"
   }
 ]
 ```
+
+</div>

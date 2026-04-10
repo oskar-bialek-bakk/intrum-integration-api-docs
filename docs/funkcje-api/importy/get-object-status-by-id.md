@@ -2,36 +2,104 @@
 title: "GetObjectStatusByID"
 ---
 
-**Opis:** Funkcja pobiera aktualny status danego obiektu na wybranej kolejce
+# GetObjectStatusByID
 
-**Typ żądania:** GET
+<div class="endpoint-header">
+  <div class="method-badge get">GET</div>
+  <div class="endpoint-url">https://[adres_api]/GetObjectStatusByID</div>
+</div>
 
-**URL żądania:** `https://[adres_api]/GetObjectStatusByID?queueName=Customer&objectId=f40430d2-5c1e-4dff-8caf-f73af2f0301f`
+Pobiera aktualny status danego obiektu (komunikatu) na wybranej kolejce.
 
-**Parametry żądania:**
+---
 
-| Nazwa | Typ danych | Typ parametru | Opis |
-| --- | --- | --- | --- |
-| queueName | string | query | nazwa kolejki o którą status odpytujemy |
-| objectId | GUID | query | ID obiektu o którego status odpytujemy |
+<div class="api-section" markdown>
+<div class="api-section-title">Request</div>
 
-**Pola odpowiedzi:**
+**Query parameters:**
 
-| Nazwa | Typ danych | Opis |
-| --- | --- | --- |
-| QueueName | string | Nazwa kolejki na której będzie przetwarzany komunikat |
-| Added | Datetime | Data dodania komunikatu do kolejki |
-| ToDoAt | Datetime | Patrz rozdział → Budowa komunikatów |
-| Processed | Datetime | Data zakończenia przetwarzania komunikatu. Jeśli ToDoAt to przyszła data to Processed pozostaje puste. |
-| StatusId | int | Status przetwarzania komunikatu:0 = OFFLINE - komunikat jest ignorowany. Status wykorzystywany w momencie gdy plik importowy nie został jeszcze w całości rozbity na komunikaty i czekamy, aż pozostałe komunikaty zostaną wrzucone na kolejkę. 1 = QUEUED - komunikat na kolejce oczekuje na upłynięcie daty ToDoAt i pobranie do przetwarzania2 = SUCCESS - komunikat poprawnie przetworzony3 = ERROR - błąd przetwarzania komunikatu4 = REJECTED - komunikat odrzucony, nie podjęto próby przetwarzania5 = INPROGRESS - komunikat w trakcie przetwarzania |
-| StatusMessage | string | Dodatkowy opis status np. dla komunikatów w statusie błąd pole zawiera opis błędu |
-| Retries | int | Aktualna próba przetwarzania komunikatu |
-| ObjectId | string | Patrz rozdział → Budowa komunikatów |
-| MaxRetryCount | int | Maksymalna liczba prób przetwarzania komunikatu. Jeśli Retries = MaxRetryCount to komunikat nie zostanie już więcej przetworzony - wszystkie jego próby przetworzenia zakończyły się błędem. |
+<ul class="param-list">
+  <li>
+    <span class="param-name required">queueName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa kolejki, o którą odpytujemy</span>
+  </li>
+  <li>
+    <span class="param-name required">objectId</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">ID obiektu, o którego status odpytujemy</span>
+  </li>
+</ul>
 
-**Przykład odpowiedzi:**
+```bash title="Przykład wywołania"
+curl "https://[adres_api]/GetObjectStatusByID?queueName=Customer&objectId=f40430d2-5c1e-4dff-8caf-f73af2f0301f" \
+  -H "Authorization: Bearer {TOKEN}"
+```
 
-```json
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Response</div>
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">QueueName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa kolejki, na której przetwarzany jest komunikat</span>
+  </li>
+  <li>
+    <span class="param-name">Added</span>
+    <span class="param-type">Datetime</span>
+    <span class="param-desc">Data dodania komunikatu do kolejki</span>
+  </li>
+  <li>
+    <span class="param-name">ToDoAt</span>
+    <span class="param-type">Datetime</span>
+    <span class="param-desc">Data, po której komunikat może zostać pobrany do przetwarzania</span>
+  </li>
+  <li>
+    <span class="param-name">Processed</span>
+    <span class="param-type">Datetime</span>
+    <span class="param-desc">Data zakończenia przetwarzania. Puste, jeśli <code>ToDoAt</code> jest w przyszłości</span>
+  </li>
+  <li>
+    <span class="param-name">StatusId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Status przetwarzania komunikatu:</span>
+<ul class="status-values">
+<li><code>0</code> — OFFLINE — komunikat ignorowany (czeka na rozbicie pliku)</li>
+<li><code>1</code> — QUEUED — oczekuje na upłynięcie <code>ToDoAt</code></li>
+<li><code>2</code> — SUCCESS — poprawnie przetworzony</li>
+<li><code>3</code> — ERROR — błąd przetwarzania</li>
+<li><code>4</code> — REJECTED — odrzucony</li>
+<li><code>5</code> — INPROGRESS — w trakcie przetwarzania</li>
+</ul>
+  </li>
+  <li>
+    <span class="param-name">StatusMessage</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Dodatkowy opis statusu (np. dla ERROR — opis błędu)</span>
+  </li>
+  <li>
+    <span class="param-name">Retries</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Aktualna próba przetwarzania komunikatu</span>
+  </li>
+  <li>
+    <span class="param-name">ObjectId</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Identyfikator obiektu — patrz <a href="../../komunikaty/index.md">Komunikaty</a></span>
+  </li>
+  <li>
+    <span class="param-name">MaxRetryCount</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Maksymalna liczba prób. Jeśli <code>Retries = MaxRetryCount</code>, komunikat nie będzie ponownie przetwarzany</span>
+  </li>
+</ul>
+
+```json title="Przykład odpowiedzi"
 {
   "QueueName": "Customer",
   "Added": "2024-04-29T15:38:24.36",
@@ -45,3 +113,5 @@ title: "GetObjectStatusByID"
   "MaxRetryCount": 3
 }
 ```
+
+</div>

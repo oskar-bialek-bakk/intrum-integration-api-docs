@@ -2,84 +2,84 @@
 title: "GetDictionaries"
 ---
 
-**Opis:** Funkcja pobiera wartości wszystkich słowników używanych przez Api
+# GetDictionaries
 
-**Typ żądania:** GET
+<div class="endpoint-header">
+  <div class="method-badge get">GET</div>
+  <div class="endpoint-url">https://[adres_api]/GetDictionaries</div>
+</div>
 
-**URL żądania:** `https://[adres_api]/GetDictionaries`
+Pobiera wartości wszystkich słowników używanych przez API. Zwraca listę tabel słownikowych wraz z ich wpisami.
 
-**Parametry żądania:**
+---
 
-| Nazwa | Typ danych | Typ parametru | Opis |
-| --- | --- | --- | --- |
+<div class="api-section" markdown>
+<div class="api-section-title">Request</div>
 
-**Pola odpowiedzi:**
+Brak parametrów.
 
-| Nazwa | Typ danych | Opis |
-| --- | --- | --- |
-| →Name | string | Nazwa tabeli słownikowej w postaci nazwa_schematu.nazwa_tabeli |
-| →Rows | złożony | Lista wierszy występujących w słowniku |
-| → →Id | int | Id wpisu z tabeli słownikowej |
-| → →Name | string | Nazwa wpisu z tabeli słownikowej |
+```bash title="Przykład wywołania"
+curl "https://[adres_api]/GetDictionaries" \
+  -H "Authorization: Bearer {TOKEN}"
+```
 
-**Przykład odpowiedzi:**
+</div>
 
-```json
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Response</div>
+
+Tablica słowników. Każdy element zawiera:
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">Name</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa tabeli słownikowej w postaci <code>nazwa_schematu.nazwa_tabeli</code></span>
+  </li>
+  <li>
+    <span class="param-name">Rows</span>
+    <span class="param-type">DictionaryRow[]</span>
+    <span class="param-desc">Lista wierszy występujących w słowniku</span>
+  </li>
+</ul>
+
+**Struktura `DictionaryRow`:**
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">Id</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID wpisu z tabeli słownikowej</span>
+  </li>
+  <li>
+    <span class="param-name">Name</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa wpisu z tabeli słownikowej</span>
+  </li>
+</ul>
+
+```json title="Przykład odpowiedzi"
 [
   {
     "Name": "dbo.umowa_kontrahent",
     "Rows": [
-      {
-        "Id": 94,
-        "Name": "IT Import Test"
-      },
-      {
-        "Id": 1,
-        "Name": "PKL"
-      },
-      {
-        "Id": 2,
-        "Name": "VELO"
-      }
+      { "Id": 94, "Name": "IT Import Test" },
+      { "Id": 1, "Name": "PKL" },
+      { "Id": 2, "Name": "VELO" }
     ]
   },
   {
     "Name": "dbo.sygnatura_typ",
     "Rows": [
-      {
-        "Id": 1,
-        "Name": "Sądowa"
-      },
-      {
-        "Id": 2,
-        "Name": "Komornicza"
-      },
-      {
-        "Id": 3,
-        "Name": "Policyjna"
-      },
-      {
-        "Id": 4,
-        "Name": "Prokuratorska"
-      }
+      { "Id": 1, "Name": "Sądowa" },
+      { "Id": 2, "Name": "Komornicza" },
+      { "Id": 3, "Name": "Policyjna" },
+      { "Id": 4, "Name": "Prokuratorska" }
     ]
-  },
-  {
-    "Name": "dbo.wlasciwosc_typ_podtyp_dziedzina",
-    "Rows": [
-      {
-        "Id": 1,
-        "Value": "[{\"Name\":\"wtpd_wt_id\",\"Value\":\"1\"},{\"Name\":\"wtpd_dzi_id\",\"Value\":\"1\"},{\"Name\":\"wtpd_wpt_id\",\"Value\":\"1\"}]"
-      },
-      {
-        "Id": 2,
-        "Value": "[{\"Name\":\"wtpd_wt_id\",\"Value\":\"1\"},{\"Name\":\"wtpd_dzi_id\",\"Value\":\"2\"},{\"Name\":\"wtpd_wpt_id\",\"Value\":\"1\"}]"
-      },
-      {
-        "Id": 3,
-        "Value": "[{\"Name\":\"wtpd_wt_id\",\"Value\":\"1\"},{\"Name\":\"wtpd_dzi_id\",\"Value\":\"3\"},{\"Name\":\"wtpd_wpt_id\",\"Value\":\"1\"}]"
-      }
-	]
   }
 ]
 ```
+
+</div>

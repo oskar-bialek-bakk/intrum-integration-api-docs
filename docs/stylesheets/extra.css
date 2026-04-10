@@ -59,3 +59,162 @@
 .md-typeset .md-typeset__scrollwrap {
   overflow-x: auto;
 }
+
+/* ─── Endpoint header ─── */
+.endpoint-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-typeset-table-color);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.method-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 5px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.method-badge.get {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+
+.method-badge.post {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+}
+
+.method-badge.put {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+.method-badge.delete {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+.endpoint-url {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--md-default-fg-color);
+}
+
+/* Light theme adjustments for method badges */
+[data-md-color-scheme="default"] .method-badge.get {
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+
+[data-md-color-scheme="default"] .method-badge.post {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+[data-md-color-scheme="default"] .method-badge.put {
+  color: #d97706;
+  background: rgba(217, 119, 6, 0.08);
+  border-color: rgba(217, 119, 6, 0.25);
+}
+
+[data-md-color-scheme="default"] .method-badge.delete {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.25);
+}
+
+/* ─── Request/Response sections ─── */
+.api-section {
+  margin-bottom: 24px;
+}
+
+.api-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--md-typeset-table-color);
+}
+
+/* ─── Parameter list ─── */
+.param-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.param-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--md-typeset-table-color);
+  line-height: 1.6;
+}
+
+.param-list li:last-child {
+  border-bottom: none;
+}
+
+.param-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+}
+
+.param-name.required::after {
+  content: ' *';
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.param-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--md-default-fg-color--light);
+  margin-left: 8px;
+}
+
+.param-desc {
+  display: block;
+  font-size: 14px;
+  color: var(--md-default-fg-color--light);
+  margin-top: 2px;
+  padding-left: 0;
+}
+
+/* ─── Status enum values ─── */
+.status-values {
+  margin: 8px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.status-values li {
+  padding: 2px 0;
+  border-bottom: none;
+  font-size: 13px;
+}
+
+.status-values code {
+  min-width: 20px;
+  display: inline-block;
+  text-align: center;
+}

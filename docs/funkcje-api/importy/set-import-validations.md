@@ -2,30 +2,55 @@
 title: "SetImportValidations"
 ---
 
-**Opis:** Funkcja uruchamia walidacje sprawdzane w ramach kroku walidacyjnego w imporcie
+# SetImportValidations
 
-**Typ żądania:** POST
+<div class="endpoint-header">
+  <div class="method-badge post">POST</div>
+  <div class="endpoint-url">https://[adres_api]/SetImportValidations</div>
+</div>
 
-**URL żądania:** `https://[adres_api]/SetImportValidations`
+Uruchamia walidacje sprawdzane w ramach kroku walidacyjnego w imporcie. Pozwala zdefiniować reguły walidacyjne i ich poziom ważności.
 
-**Parametry żądania:**
+---
 
-| Nazwa | Typ danych | Typ parametru | Opis |
-| --- | --- | --- | --- |
-| importId | GUID | Body | ID importu o którego status odpytujemy |
-| step | ValidationRules | Body | Flaga informująca o tym czy pobierać szczegółowe informacje o statusie każdego komunikatu przetwarzanego w ramach importu |
-| → Id | int | Body | Id warunku walidacyjnego z tabeli dm_config.validations |
-| → Level | intInfo = 1Warning = 2Error = 3Ommit = 4 | Body | Opis zachowania walidacyjnego:Info - komunikat informacyjnyWarning - ostrzeżenie przed potencjalnymi problemamiError - Błąd walidacyjny - Wystarczy, że na dowolnej wiadomości zostanie zarejestrowany błąd walidacyjny i cały import nie jest wgrywanyOmmit - Zachowanie, które oznacza, że jeśli komunikat spełni tę regułę to jest odkładana o tym informacja (jak info/warning) oraz w imporcie danych do systemu komunikat, dla którego zostało zarejestrowane złamanie takiej reguły jest pomijany (pozostałe wczytywane są normalnie) |
+<div class="api-section" markdown>
+<div class="api-section-title">Request body</div>
 
-**Pola odpowiedzi:**
+<ul class="param-list">
+  <li>
+    <span class="param-name required">ImportId</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">ID importu</span>
+  </li>
+  <li>
+    <span class="param-name required">Rules</span>
+    <span class="param-type">ValidationRule[]</span>
+    <span class="param-desc">Lista reguł walidacyjnych</span>
+  </li>
+</ul>
 
-Pusty napis w przypadku sukcesu, opis błędu (tekstowy) w przypadku błędu.
+**Struktura `ValidationRule`:**
 
-**Przykład:**
+<ul class="param-list">
+  <li>
+    <span class="param-name required">Id</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID warunku walidacyjnego z tabeli <code>dm_config.validations</code></span>
+  </li>
+  <li>
+    <span class="param-name required">Level</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Zachowanie walidacyjne:</span>
+<ul class="status-values">
+<li><code>1</code> — Info — komunikat informacyjny</li>
+<li><code>2</code> — Warning — ostrzeżenie przed potencjalnymi problemami</li>
+<li><code>3</code> — Error — błąd walidacyjny (jeden błąd powoduje odrzucenie całego importu)</li>
+<li><code>4</code> — Ommit — komunikat spełniający tę regułę jest pomijany w imporcie (pozostałe wczytywane normalnie)</li>
+</ul>
+  </li>
+</ul>
 
-
-
-```json
+```json title="Przykład request body"
 {
   "ImportId": "10000000-0000-0000-0000-000000000000",
   "Rules": [
@@ -36,3 +61,14 @@ Pusty napis w przypadku sukcesu, opis błędu (tekstowy) w przypadku błędu.
   ]
 }
 ```
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Response</div>
+
+Pusty string w przypadku sukcesu. Tekstowy opis błędu w przypadku błędu.
+
+</div>

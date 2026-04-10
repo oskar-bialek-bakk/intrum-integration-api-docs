@@ -2,55 +2,232 @@
 title: "GetImportStatus"
 ---
 
-**Opis:** Funkcja pobiera aktualny status danego importu
+# GetImportStatus
 
-**Typ żądania:** GET
+<div class="endpoint-header">
+  <div class="method-badge get">GET</div>
+  <div class="endpoint-url">https://[adres_api]/GetImportStatus</div>
+</div>
 
-**URL żądania:** `https://[adres_api]/GetImportStatus?importId=1&includeMessagesStatus=true`
+Pobiera aktualny status danego importu — bieżący krok, historię kroków oraz opcjonalnie statusy poszczególnych komunikatów.
 
-**Parametry żądania:**
+---
 
-| Nazwa | Typ danych | Typ parametru | Opis |
-| --- | --- | --- | --- |
-| importId | GUID | query | ID importu o którego status odpytujemy |
-| includeMessagesStatus | boolean | query | Flaga informująca o tym czy pobierać szczegółowe informacje o statusie każdego komunikatu przetwarzanego w ramach importu |
+<div class="api-section" markdown>
+<div class="api-section-title">Request</div>
 
-**Pola odpowiedzi:**
+**Query parameters:**
 
-| Nazwa | Typ danych | Opis |
-| --- | --- | --- |
-| ImportId | GUID | ID importu |
-| ImportTypeName | string | Nazwa typu importu |
-| DebtManagerImportId | int | ID importu w systemie DM (import.imp_id) |
-| DebtManagerCreditorId | int | ID kontrahenta z systemu DM (kontrahent.ko_id) w ramach, którego wykonywany jest import |
-| DebtManagerPortfolioId | int | ID portfela z systemu DM (umowa_kontrahent.uko_id) w ramach, którego wykonywany jest import |
-| IsFinished | boolean | Flaga informująca czy import jest już zakończony |
-| CurrentStep | złożony | Aktualny (ostatni) krok importu |
-| → Id | int | Id kroku |
-| → Added | Datetime | Data dodania kroku |
-| → Stage | int | Etapy importy:Adding = 1,Transformation = 2,Validation = 3,Consumption = 4,Finishing = 5 |
-| → StageStatus | int | Status etapu:InProgress = 1,Done = 2,Error = 3 |
-| → Message | string | Komunikat powiązany z etapem i statusem np. na Etapie Validation i Statusie Error, może pojawić się opisowy komunikat błędu np. "Plik importowy zawiera błędy walidacji" |
-| → StepDetailsList | złożony | Lista szczegółowych statusów danego kroku np. na kroku walidacja lista zawierająca wszystkie błędy walidacji |
-| → → Id | GUID | Id szczegółowego statusu |
-| → →Description | string | Tekstowy opis szczegółowego statusu kroku np. "W linii 23 pliku importowego wystąpił błąd walidacji: brak kwoty wpłaty" |
-| → →Type | int | Typ szczegółowego statusu kroku:Info = 1,Warning = 2,Error = 3Ommit = 4 |
-| StepsHistory | złożony | Historia wszystkich kroków importu. Każdy z kroków zawiera listę pól taką samą jak pola wskazane w polu CurrentStep. |
-| ImportMessages | złożony | Lista wszystkich komunikatów na które został rozbity plik importowy wraz z ich ostatnim statusem przetwarzania. Pole uzupełnia się tylko jeśli parametr includeMessagesStatus = true |
-| → QueueName | string | Nazwa kolejki na której będzie przetwarzany komunikat |
-| → Added | Datetime | Data dodania komunikatu do kolejki |
-| → ToDoAt | Datetime | Patrz rozdział → Budowa komunikatów |
-| → Processed | Datetime | Data zakończenia przetwarzania komunikatu. Jeśli ToDoAt to przyszła data to Processed pozostaje puste. |
-| → StatusId | int | Status przetwarzania komunikatu:0 = OFFLINE - komunikat jest ignorowany. Status wykorzystywany w momencie gdy plik importowy nie został jeszcze w całości rozbity na komunikaty i czekamy, aż pozostałe komunikaty zostaną wrzucone na kolejkę. 1 = QUEUED - komunikat na kolejce oczekuje na upłynięcie daty ToDoAt i pobranie do przetwarzania2 = SUCCESS - komunikat poprawnie przetworzony3 = ERROR - błąd przetwarzania komunikatu4 = REJECTED - komunikat odrzucony, nie podjęto próby przetwarzania5 = INPROGRESS - komunikat w trakcie przetwarzania |
-| → StatusMessage | string | Dodatkowy opis status np. dla komunikatów w statusie błąd pole zawiera opis błędu |
-| → Retries | int | Aktualna próba przetwarzania komunikatu |
-| → ObjectId | string | Patrz rozdział → Budowa komunikatów |
-| → MaxRetryCount | int | Maksymalna liczba prób przetwarzania komunikatu. Jeśli Retries = MaxRetryCount to komunikat nie zostanie już więcej przetworzony - wszystkie jego próby przetworzenia zakończyły się błędem. |
-| ExternalFileName | string | Nazwa importowanego pliku |
+<ul class="param-list">
+  <li>
+    <span class="param-name required">importId</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">ID importu, o którego status odpytujemy</span>
+  </li>
+  <li>
+    <span class="param-name">includeMessagesStatus</span>
+    <span class="param-type">boolean</span>
+    <span class="param-desc">Czy pobierać szczegółowe informacje o statusie każdego komunikatu przetwarzanego w ramach importu</span>
+  </li>
+</ul>
 
-**Przykład odpowiedzi:**
+```bash title="Przykład wywołania"
+curl "https://[adres_api]/GetImportStatus?importId=2fa859e9-8479-4c7e-b1bb-c85f90f2402c&includeMessagesStatus=true" \
+  -H "Authorization: Bearer {TOKEN}"
+```
 
-```json
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Response</div>
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">ImportId</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">ID importu</span>
+  </li>
+  <li>
+    <span class="param-name">ImportTypeName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa typu importu</span>
+  </li>
+  <li>
+    <span class="param-name">DebtManagerImportId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID importu w systemie DM (<code>import.imp_id</code>)</span>
+  </li>
+  <li>
+    <span class="param-name">DebtManagerCreditorId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID kontrahenta z systemu DM (<code>kontrahent.ko_id</code>), w ramach którego wykonywany jest import</span>
+  </li>
+  <li>
+    <span class="param-name">DebtManagerPortfolioId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID portfela z systemu DM (<code>umowa_kontrahent.uko_id</code>), w ramach którego wykonywany jest import</span>
+  </li>
+  <li>
+    <span class="param-name">IsFinished</span>
+    <span class="param-type">boolean</span>
+    <span class="param-desc">Czy import jest już zakończony</span>
+  </li>
+  <li>
+    <span class="param-name">ExternalFileName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa importowanego pliku</span>
+  </li>
+  <li>
+    <span class="param-name">CurrentStep</span>
+    <span class="param-type">ImportStep</span>
+    <span class="param-desc">Aktualny (ostatni) krok importu — struktura opisana poniżej</span>
+  </li>
+  <li>
+    <span class="param-name">StepsHistory</span>
+    <span class="param-type">ImportStep[]</span>
+    <span class="param-desc">Historia wszystkich kroków importu (ta sama struktura co <code>CurrentStep</code>)</span>
+  </li>
+  <li>
+    <span class="param-name">ImportMessages</span>
+    <span class="param-type">ImportMessage[]</span>
+    <span class="param-desc">Lista komunikatów z ich statusem przetwarzania. Wypełniane tylko gdy <code>includeMessagesStatus = true</code></span>
+  </li>
+</ul>
+
+**Struktura `ImportStep`:**
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">Id</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID kroku</span>
+  </li>
+  <li>
+    <span class="param-name">Added</span>
+    <span class="param-type">Datetime</span>
+    <span class="param-desc">Data dodania kroku</span>
+  </li>
+  <li>
+    <span class="param-name">Stage</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Etap importu:</span>
+<ul class="status-values">
+<li><code>1</code> — Adding</li>
+<li><code>2</code> — Transformation</li>
+<li><code>3</code> — Validation</li>
+<li><code>4</code> — Consumption</li>
+<li><code>5</code> — Finishing</li>
+</ul>
+  </li>
+  <li>
+    <span class="param-name">StageStatus</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Status etapu:</span>
+<ul class="status-values">
+<li><code>1</code> — InProgress</li>
+<li><code>2</code> — Done</li>
+<li><code>3</code> — Error</li>
+</ul>
+  </li>
+  <li>
+    <span class="param-name">Message</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Komunikat powiązany z etapem i statusem, np. na etapie Validation ze statusem Error: <code>"Plik importowy zawiera błędy walidacji"</code></span>
+  </li>
+  <li>
+    <span class="param-name">StepDetailsList</span>
+    <span class="param-type">StepDetail[]</span>
+    <span class="param-desc">Lista szczegółowych statusów danego kroku (np. na kroku walidacja — lista błędów walidacji)</span>
+  </li>
+</ul>
+
+**Struktura `StepDetail`:**
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">Id</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">ID szczegółowego statusu</span>
+  </li>
+  <li>
+    <span class="param-name">Description</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Tekstowy opis, np. <code>"W linii 23 pliku importowego wystąpił błąd walidacji: brak kwoty wpłaty"</code></span>
+  </li>
+  <li>
+    <span class="param-name">Type</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Typ szczegółowego statusu:</span>
+<ul class="status-values">
+<li><code>1</code> — Info</li>
+<li><code>2</code> — Warning</li>
+<li><code>3</code> — Error</li>
+<li><code>4</code> — Ommit</li>
+</ul>
+  </li>
+</ul>
+
+**Struktura `ImportMessage`:**
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">QueueName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa kolejki, na której przetwarzany jest komunikat</span>
+  </li>
+  <li>
+    <span class="param-name">Added</span>
+    <span class="param-type">Datetime</span>
+    <span class="param-desc">Data dodania komunikatu do kolejki</span>
+  </li>
+  <li>
+    <span class="param-name">ToDoAt</span>
+    <span class="param-type">Datetime</span>
+    <span class="param-desc">Data, po której komunikat może zostać pobrany do przetwarzania</span>
+  </li>
+  <li>
+    <span class="param-name">Processed</span>
+    <span class="param-type">Datetime</span>
+    <span class="param-desc">Data zakończenia przetwarzania. Puste, jeśli <code>ToDoAt</code> jest w przyszłości</span>
+  </li>
+  <li>
+    <span class="param-name">StatusId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Status przetwarzania komunikatu:</span>
+<ul class="status-values">
+<li><code>0</code> — OFFLINE — komunikat ignorowany (czeka na rozbicie pliku na komunikaty)</li>
+<li><code>1</code> — QUEUED — oczekuje na upłynięcie <code>ToDoAt</code></li>
+<li><code>2</code> — SUCCESS — poprawnie przetworzony</li>
+<li><code>3</code> — ERROR — błąd przetwarzania</li>
+<li><code>4</code> — REJECTED — odrzucony, nie podjęto próby przetwarzania</li>
+<li><code>5</code> — INPROGRESS — w trakcie przetwarzania</li>
+</ul>
+  </li>
+  <li>
+    <span class="param-name">StatusMessage</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Dodatkowy opis statusu (np. dla ERROR — opis błędu)</span>
+  </li>
+  <li>
+    <span class="param-name">Retries</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Aktualna próba przetwarzania komunikatu</span>
+  </li>
+  <li>
+    <span class="param-name">ObjectId</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Identyfikator obiektu — patrz <a href="../../komunikaty/index.md">Komunikaty</a></span>
+  </li>
+  <li>
+    <span class="param-name">MaxRetryCount</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Maksymalna liczba prób. Jeśli <code>Retries = MaxRetryCount</code>, komunikat nie będzie ponownie przetwarzany</span>
+  </li>
+</ul>
+
+```json title="Przykład odpowiedzi"
 {
   "ImportId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
   "ImportTypeName": "DM Integration API Sample - External Payments Import",
@@ -74,54 +251,6 @@ title: "GetImportStatus"
       "StageStatus": 1,
       "Message": null,
       "StepDetailsList": []
-    },
-    {
-      "Id": 37,
-      "Added": "2024-04-19T11:24:58.607",
-      "Stage": 1,
-      "StageStatus": 2,
-      "Message": null,
-      "StepDetailsList": []
-    },
-    {
-      "Id": 38,
-      "Added": "2024-04-19T11:24:58.61",
-      "Stage": 2,
-      "StageStatus": 1,
-      "Message": null,
-      "StepDetailsList": []
-    },
-    {
-      "Id": 39,
-      "Added": "2024-04-19T11:24:59.493",
-      "Stage": 2,
-      "StageStatus": 2,
-      "Message": null,
-      "StepDetailsList": []
-    },
-    {
-      "Id": 40,
-      "Added": "2024-04-19T11:24:59.497",
-      "Stage": 3,
-      "StageStatus": 1,
-      "Message": null,
-      "StepDetailsList": []
-    },
-    {
-      "Id": 41,
-      "Added": "2024-04-19T11:28:26.98",
-      "Stage": 3,
-      "StageStatus": 2,
-      "Message": null,
-      "StepDetailsList": []
-    },
-    {
-      "Id": 42,
-      "Added": "2024-04-19T11:28:26.983",
-      "Stage": 4,
-      "StageStatus": 1,
-      "Message": null,
-      "StepDetailsList": []
     }
   ],
   "ImportMessages": [
@@ -136,92 +265,13 @@ title: "GetImportStatus"
       "ObjectId": "bd459997-d8b3-4ae5-b00f-fe1a5042bd5a",
       "VersionId": 21,
       "MaxRetryCount": 3
-    },
-    {
-      "QueueName": "Case",
-      "Added": "2024-04-19T11:28:26.91",
-      "ToDoAt": "2024-04-19T11:28:26.89",
-      "Processed": null,
-      "StatusId": 5,
-      "StatusMessage": null,
-      "Retries": 0,
-      "ObjectId": "c97bef06-21ca-48ef-9352-9142cbee37e3",
-      "VersionId": 22,
-      "MaxRetryCount": 3
-    },
-    {
-      "QueueName": "Contract",
-      "Added": "2024-04-19T11:28:26.853",
-      "ToDoAt": "2024-04-19T11:28:26.833",
-      "Processed": "2024-04-19T11:28:37.82",
-      "StatusId": 2,
-      "StatusMessage": "",
-      "Retries": 0,
-      "ObjectId": "46a67979-e7c8-492f-a7a5-58cc9201f662",
-      "VersionId": 20,
-      "MaxRetryCount": 3
-    },
-    {
-      "QueueName": "Contract",
-      "Added": "2024-04-19T11:28:26.853",
-      "ToDoAt": "2024-04-19T11:28:26.813",
-      "Processed": "2024-04-19T11:28:37.82",
-      "StatusId": 2,
-      "StatusMessage": "",
-      "Retries": 0,
-      "ObjectId": "484a1987-08a3-4fbf-8749-0de3ac4c8716",
-      "VersionId": 19,
-      "MaxRetryCount": 3
-    },
-    {
-      "QueueName": "Customer",
-      "Added": "2024-04-19T11:28:26.78",
-      "ToDoAt": "2024-04-19T11:24:59.913",
-      "Processed": "2024-04-19T11:28:37.71",
-      "StatusId": 2,
-      "StatusMessage": "",
-      "Retries": 0,
-      "ObjectId": "1ea5daef-fe56-481d-bf1e-7bfb673790f2",
-      "VersionId": 18,
-      "MaxRetryCount": 3
-    },
-    {
-      "QueueName": "Customer",
-      "Added": "2024-04-19T11:28:26.78",
-      "ToDoAt": "2024-04-19T11:24:59.893",
-      "Processed": "2024-04-19T11:28:37.71",
-      "StatusId": 2,
-      "StatusMessage": "",
-      "Retries": 0,
-      "ObjectId": "80b1589a-d8ce-4f14-b222-76b90cefa938",
-      "VersionId": 17,
-      "MaxRetryCount": 3
-    },
-    {
-      "QueueName": "Signature",
-      "Added": "2024-04-19T11:28:26.943",
-      "ToDoAt": "2024-04-19T11:28:26.93",
-      "Processed": "2024-04-19T11:29:03.16",
-      "StatusId": 3,
-      "StatusMessage": "Case with match key: WRO00/W/WTSPR/9875841/749/23_10013_94 is not created",
-      "Retries": 0,
-      "ObjectId": "4d98879d-81e5-42dd-8649-656139603f0c",
-      "VersionId": 24,
-      "MaxRetryCount": 3
-    },
-    {
-      "QueueName": "Signature",
-      "Added": "2024-04-19T11:28:26.943",
-      "ToDoAt": "2024-04-19T11:28:26.93",
-      "Processed": "2024-04-19T11:29:03.16",
-      "StatusId": 3,
-      "StatusMessage": "Case with match key: WRO00/W/WTSPR/9875818/747/23_10013_94 is not created",
-      "Retries": 0,
-      "ObjectId": "f8c40d4b-ed93-4e36-9eba-478ef3e05c39",
-      "VersionId": 23,
-      "MaxRetryCount": 3
     }
   ],
   "ExternalFileName": "OkCaseSample.xlsx"
 }
 ```
+
+!!! note "Skrócony przykład"
+    Powyższy JSON zawiera skróconą historię kroków i komunikatów. W rzeczywistej odpowiedzi listy `StepsHistory` i `ImportMessages` mogą zawierać wiele elementów.
+
+</div>

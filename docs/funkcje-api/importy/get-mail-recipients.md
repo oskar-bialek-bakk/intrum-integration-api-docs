@@ -2,35 +2,96 @@
 title: "GetMailRecipients"
 ---
 
-**Opis:** Funkcja adresatów wiadomości e-mail, do których wysyłane są informacje o zakończeniu importów/eksportów
+# GetMailRecipients
 
-**Typ żądania:** GET
+<div class="endpoint-header">
+  <div class="method-badge get">GET</div>
+  <div class="endpoint-url">https://[adres_api]/GetMailRecipients</div>
+</div>
 
-**URL żądania:** `https://[adres_api]/GetMailRecipients?importId=[]&exportId=[]`
+Pobiera listę adresatów wiadomości e-mail, do których wysyłane są informacje o zakończeniu importów/eksportów. Bez parametrów zwraca pełną listę adresatów.
 
-**Parametry żądania:**
+---
 
-| Nazwa | Typ danych | Typ parametru | Opis |
-| --- | --- | --- | --- |
-| importId | guid | query (opcjonalny) | Id importu, dla którego pobieramy listę adresatów (brak przekazania wszystkich parametrów spowoduje pobranie pełnej listy adresatów) |
-| exportId | guid | query (opcjonalny) | Id eksportu, dla którego pobieramy listę adresatów (brak przekazania wszystkich parametrów spowoduje pobranie pełnej listy adresatów) |
+<div class="api-section" markdown>
+<div class="api-section-title">Request</div>
 
-**Pola odpowiedzi:**
+**Query parameters:**
 
-| Nazwa | Typ danych | Opis |
-| --- | --- | --- |
-| →Title | string | Tytuł wysyłanej wiadomości mail |
-| →Recipients | string | Adresy e-mail adresatów (oddzielone średnikami) |
-| →Agreement | string | Nazwa bazy, w kontekście której wysyłana jest wiadomość |
-| →Creditor | string | Nazwa kontrahenta, w kontekście którego wysyłana jest wiadomość |
-| →Operation | string | Nazwa importu/eksportu |
-| →ExportTypeId | int? | Id słownika z tabeli export_typ |
-| →ImportTypeId | int? | Id słownika z tabeli import_typ |
-| →Link | string | Link prowadzący w aplikacji webowej do szczegółów importu/eksportu do podejrzenia szczegółów w systemie |
+<ul class="param-list">
+  <li>
+    <span class="param-name">importId</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">Opcjonalne — ID importu, dla którego pobieramy listę adresatów</span>
+  </li>
+  <li>
+    <span class="param-name">exportId</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">Opcjonalne — ID eksportu, dla którego pobieramy listę adresatów</span>
+  </li>
+</ul>
 
-**Przykład odpowiedzi:**
+!!! note "Brak parametrów"
+    Jeśli nie przekażemy żadnego z parametrów, funkcja zwróci pełną listę adresatów.
 
-```json
+```bash title="Przykład wywołania"
+curl "https://[adres_api]/GetMailRecipients?importId=2fa859e9-8479-4c7e-b1bb-c85f90f2402c" \
+  -H "Authorization: Bearer {TOKEN}"
+```
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Response</div>
+
+Tablica obiektów:
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">Title</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Tytuł wysyłanej wiadomości e-mail</span>
+  </li>
+  <li>
+    <span class="param-name">Recipients</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Adresy e-mail adresatów (oddzielone średnikami)</span>
+  </li>
+  <li>
+    <span class="param-name">Agreement</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa bazy, w kontekście której wysyłana jest wiadomość</span>
+  </li>
+  <li>
+    <span class="param-name">Creditor</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa kontrahenta</span>
+  </li>
+  <li>
+    <span class="param-name">Operation</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa importu/eksportu</span>
+  </li>
+  <li>
+    <span class="param-name">ExportTypeId</span>
+    <span class="param-type">int?</span>
+    <span class="param-desc">ID słownika z tabeli <code>export_typ</code> (null dla importów)</span>
+  </li>
+  <li>
+    <span class="param-name">ImportTypeId</span>
+    <span class="param-type">int?</span>
+    <span class="param-desc">ID słownika z tabeli <code>import_typ</code> (null dla eksportów)</span>
+  </li>
+  <li>
+    <span class="param-name">Link</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Link do szczegółów importu/eksportu w aplikacji webowej</span>
+  </li>
+</ul>
+
+```json title="Przykład odpowiedzi"
 [
   {
     "Title": "t1",
@@ -41,16 +102,8 @@ title: "GetMailRecipients"
     "ExportTypeId": null,
     "ImportTypeId": 12,
     "Link": "/user/blader/agreement-case/data-imports?caseId=703&creditorId=2&data=agreement&id=1"
-  },
-  {
-    "Title": "t1",
-    "Recipients": "test@bakk.com;test@gmail.com",
-    "Agreement": "PKL",
-    "Creditor": "PKO Leasing S.A.",
-    "Operation": "PKO Leasing AkcjeTel dzienny",
-    "ExportTypeId": 4,
-    "ImportTypeId": null,
-    "Link": "/user/blader/agreement-case/data-exports?caseId=703&creditorId=2&data=agreement&id=1"
   }
 ]
 ```
+
+</div>

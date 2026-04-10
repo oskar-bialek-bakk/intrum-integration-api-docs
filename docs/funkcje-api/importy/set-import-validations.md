@@ -26,5 +26,13 @@ Pusty napis w przypadku sukcesu, opis błędu (tektowy) w przypadku błędu.
 
 
 ```json
-
+{
+  "ImportId": "10000000-0000-0000-0000-000000000000",
+  "Rules": [
+    {
+      "Id": 1,
+      "Level": 1
+    }
+  ]
+}
 ```

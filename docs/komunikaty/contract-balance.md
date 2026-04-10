@@ -37,6 +37,32 @@ Drugim możliwym użyciem konunikatu jest zamknięcie spraw windykacyjnych powi�
 Przykład 1 (zmiana salda)
 
 ```json
+{
+    "importId": "00000000-0000-0000-0000-000000000000",
+    "queueName": "ContractBalance",
+    "message": "
+    {
+        \"Objects\": [
+            {
+                \"AccountTypeId\": 2,
+                \"DocumentTypeId\": 103,
+                \"CurrencyId\": 2,
+                \"ExchangeRate\": 4.13,
+                \"Amount\": 343.33,
+                \"Discontinue\": true,
+                \"MatchKey\": \"3_69485987\",
+                \"MatchKeyType\": 3,
+                \"Id\": \"0c08cd99-c413-425b-88fd-3cd87d899df4\",
+                \"ObjectId\": \"10000000-0000-0000-0000-000000000000\",
+                \"ObjectName\": \"ObjectId 10000000-0000-0000-0000-000000000000\",
+                \"ToDoAt\": \"2025-08-18T10:18:49.9219838Z\",
+				\"CloseOpenedCases\": false,
+				\"IncludeContractBalance\": true
+            }
+        ],
+        \"ObjectsUpdateBehaviour\": 2
+    }"
+}
 
 ```
 
@@ -45,5 +71,25 @@ Przykład 1 (zmiana salda)
 Przykład 2 (zamknięcie spraw)
 
 ```json
+{
+    "importId": "00000000-0000-0000-0000-000000000000",
+    "queueName": "ContractBalance",
+    "message": "
+    {
+        \"Objects\": [
+            {
+                \"MatchKey\": \"3_69485987\",
+                \"MatchKeyType\": 3,
+                \"Id\": \"0c08cd99-c413-425b-88fd-3cd87d899df4\",
+                \"ObjectId\": \"10000000-0000-0000-0000-000000000000\",
+                \"ObjectName\": \"ObjectId 10000000-0000-0000-0000-000000000000\",
+                \"ToDoAt\": \"2025-08-18T10:18:49.9219838Z\",
+				\"CloseOpenedCases\": true,
+				\"IncludeContractBalance\": false
+            }
+        ],
+        \"ObjectsUpdateBehaviour\": 2
+    }"
+}
 
 ```

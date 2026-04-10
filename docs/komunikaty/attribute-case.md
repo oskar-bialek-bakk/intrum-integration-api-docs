@@ -18,5 +18,20 @@ title: "AttributeCase"
 | MatchKeyType | int | Tak | Patrz rozdział Komunikaty → Budowa komunikatów. Dopuszczalne wartości:6 - zewnętrzny numer sprawy (External case number sprawa.sp_ext_id) | Brak |
 
 ```json
+{
+  "importId": "00000000-0000-0000-0000-000000000000",
+  "queueName": "AttributeCase",
+  "message": "[
+    {
+        \"MatchKey\": \"SZC00/W/WTSPR/9877817/33/24_10013_94\",
+        \"MatchKeyType\": 6,
+        \"ObjectId\": \"00000000-0000-0000-0000-000000000000\",
+        \"ToDoAt\": \"2024-04-08T08:59:50.9982539+02:00\",
+        \"TypeId\": 7682,
+        \"Value\": 15462"
+    }
+]"
+}
+
 
 ```

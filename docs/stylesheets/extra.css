@@ -1,0 +1,14 @@
+/* Table styling — vertical borders and header highlight */
+.md-typeset table:not([class]) {
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-default-fg-color--lightest);
+  font-weight: 700;
+  border: 1px solid var(--md-typeset-table-color);
+}
+
+.md-typeset table:not([class]) td {
+  border: 1px solid var(--md-typeset-table-color);
+}

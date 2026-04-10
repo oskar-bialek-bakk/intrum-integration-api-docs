@@ -32,5 +32,16 @@ title: "GetObjectStatusByID"
 **Przykład odpowiedzi:**
 
 ```json
-
+{
+  "QueueName": "Customer",
+  "Added": "2024-04-29T15:38:24.36",
+  "ToDoAt": "2024-04-29T15:38:24.29",
+  "Processed": "2024-04-29T15:38:30.663",
+  "StatusId": 2,
+  "StatusMessage": "",
+  "Retries": 0,
+  "ObjectId": "f40430d2-5c1e-4dff-8caf-f73af2f0301f",
+  "VersionId": 18,
+  "MaxRetryCount": 3
+}
 ```

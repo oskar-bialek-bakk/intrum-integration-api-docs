@@ -28,5 +28,10 @@ title: "EnqueImportMessage"
 **Przykład odpowiedzi:**
 
 ```json
-
+{
+  "Status": 0,
+  "StatusMessage": null,
+  "StatusDetails": [],
+  "StatusName": "Success"
+}
 ```

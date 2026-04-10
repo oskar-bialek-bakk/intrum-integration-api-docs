@@ -31,5 +31,26 @@ title: "GetMailRecipients"
 **Przykład odpowiedzi:**
 
 ```json
-
+[
+  {
+    "Title": "t1",
+    "Recipients": "test@bakk.com;test@gmail.com",
+    "Agreement": "PKL",
+    "Creditor": "PKO Leasing S.A.",
+    "Operation": "PKL WYCOFANE",
+    "ExportTypeId": null,
+    "ImportTypeId": 12,
+    "Link": "/user/blader/agreement-case/data-imports?caseId=703&creditorId=2&data=agreement&id=1"
+  },
+  {
+    "Title": "t1",
+    "Recipients": "test@bakk.com;test@gmail.com",
+    "Agreement": "PKL",
+    "Creditor": "PKO Leasing S.A.",
+    "Operation": "PKO Leasing AkcjeTel dzienny",
+    "ExportTypeId": 4,
+    "ImportTypeId": null,
+    "Link": "/user/blader/agreement-case/data-exports?caseId=703&creditorId=2&data=agreement&id=1"
+  }
+]
 ```

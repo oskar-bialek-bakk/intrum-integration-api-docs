@@ -25,5 +25,61 @@ title: "GetDictionaries"
 **Przykład odpowiedzi:**
 
 ```json
-
+[
+  {
+    "Name": "dbo.umowa_kontrahent",
+    "Rows": [
+      {
+        "Id": 94,
+        "Name": "IT Import Test"
+      },
+      {
+        "Id": 1,
+        "Name": "PKL"
+      },
+      {
+        "Id": 2,
+        "Name": "VELO"
+      }
+    ]
+  },
+  {
+    "Name": "dbo.sygnatura_typ",
+    "Rows": [
+      {
+        "Id": 1,
+        "Name": "Sądowa"
+      },
+      {
+        "Id": 2,
+        "Name": "Komornicza"
+      },
+      {
+        "Id": 3,
+        "Name": "Policyjna"
+      },
+      {
+        "Id": 4,
+        "Name": "Prokuratorska"
+      }
+    ]
+  },
+  {
+    "Name": "dbo.wlasciwosc_typ_podtyp_dziedzina",
+    "Rows": [
+      {
+        "Id": 1,
+        "Value": "[{\"Name\":\"wtpd_wt_id\",\"Value\":\"1\"},{\"Name\":\"wtpd_dzi_id\",\"Value\":\"1\"},{\"Name\":\"wtpd_wpt_id\",\"Value\":\"1\"}]"
+      },
+      {
+        "Id": 2,
+        "Value": "[{\"Name\":\"wtpd_wt_id\",\"Value\":\"1\"},{\"Name\":\"wtpd_dzi_id\",\"Value\":\"2\"},{\"Name\":\"wtpd_wpt_id\",\"Value\":\"1\"}]"
+      },
+      {
+        "Id": 3,
+        "Value": "[{\"Name\":\"wtpd_wt_id\",\"Value\":\"1\"},{\"Name\":\"wtpd_dzi_id\",\"Value\":\"3\"},{\"Name\":\"wtpd_wpt_id\",\"Value\":\"1\"}]"
+      }
+	]
+  }
+]
 ```

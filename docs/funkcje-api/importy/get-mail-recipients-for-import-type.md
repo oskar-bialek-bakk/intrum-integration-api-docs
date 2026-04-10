@@ -30,5 +30,16 @@ title: "GetMailRecipientsForImportType"
 **Przykład odpowiedzi:**
 
 ```json
-
+[
+  {
+    "Title": null,
+    "Recipients": "test@bakk.com;test@gmail.com",
+    "Agreement": "PKL",
+    "Creditor": "PKO Leasing S.A.",
+    "Operation": "PKL WYCOFANE",
+    "ExportTypeId": null,
+    "ImportTypeId": 12,
+    "Link": null
+  }
+]
 ```

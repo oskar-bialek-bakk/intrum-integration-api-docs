@@ -14,7 +14,21 @@ theme:
     - content.code.copy
     - content.tabs.link
   palette:
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Tryb jasny
     - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Tryb ciemny
+
+extra_css:
+  - stylesheets/extra.css
 
 plugins:
   - search:
@@ -40,13 +54,13 @@ markdown_extensions:
   - md_in_html
 
 nav:
-  - Strona główna: index.md
+  - index.md
   - Założenia:
     - zalozenia/index.md
     - Konfiguracja kontrahenta: zalozenia/konfiguracja-kontrahenta.md
     - Procedura importów: zalozenia/procedura-importow.md
-  - Architektura fizyczna:
-    - architektura/index.md
+    - Architektura fizyczna: architektura/index.md
+    - Kolejki: kolejki/index.md
   - Funkcje API:
     - funkcje-api/index.md
     - Importy:
@@ -80,8 +94,6 @@ nav:
     - Signature: komunikaty/signature.md
     - Cache: komunikaty/cache.md
     - RemoveCase: komunikaty/remove-case.md
-  - Kolejki:
-    - kolejki/index.md
   - Przypadki użycia:
     - przypadki-uzycia/index.md
     - Import pliku testowego: przypadki-uzycia/import-pliku-testowego.md

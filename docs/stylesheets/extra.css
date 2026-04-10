@@ -1,16 +1,43 @@
-/* BAKK brand palette */
+/* BAKK brand palette — amber #ffaa00, dark gold #e69b05, charcoal #3e3e3e */
 [data-md-color-scheme="default"] {
-  --md-primary-fg-color: #1a3a5c;
-  --md-primary-fg-color--light: #2a5a8c;
-  --md-primary-fg-color--dark: #0f2640;
-  --md-accent-fg-color: #2e86c1;
+  --md-primary-fg-color: #3e3e3e;
+  --md-primary-fg-color--light: #6d7c8d;
+  --md-primary-fg-color--dark: #2a2a2a;
+  --md-accent-fg-color: #e69b05;
 }
 
 [data-md-color-scheme="slate"] {
-  --md-primary-fg-color: #1a3a5c;
-  --md-primary-fg-color--light: #2a5a8c;
-  --md-primary-fg-color--dark: #0f2640;
-  --md-accent-fg-color: #5dade2;
+  --md-primary-fg-color: #3e3e3e;
+  --md-primary-fg-color--light: #6d7c8d;
+  --md-primary-fg-color--dark: #2a2a2a;
+  --md-accent-fg-color: #ffaa00;
+  --md-typeset-a-color: #ffaa00;
+}
+
+/* Links — steel blue-gray from BAKK logotype gradient */
+[data-md-color-scheme="slate"] .md-typeset a,
+[data-md-color-scheme="slate"] .md-typeset a:link,
+[data-md-color-scheme="slate"] .md-typeset a:visited,
+[data-md-color-scheme="slate"] .md-nav__link,
+[data-md-color-scheme="slate"] .md-typeset .md-content a {
+  color: #9db3c8 !important;
+}
+[data-md-color-scheme="slate"] .md-typeset a:hover,
+[data-md-color-scheme="slate"] .md-typeset a:focus,
+[data-md-color-scheme="slate"] .md-nav__link:hover,
+[data-md-color-scheme="slate"] .md-typeset .md-content a:hover {
+  color: #e69b05 !important;
+}
+
+/* Links — dark blue-gray default, BAKK gold on hover (light theme) */
+[data-md-color-scheme="default"] .md-typeset a,
+[data-md-color-scheme="default"] .md-typeset a:link,
+[data-md-color-scheme="default"] .md-typeset a:visited {
+  color: #4a6178 !important;
+}
+[data-md-color-scheme="default"] .md-typeset a:hover,
+[data-md-color-scheme="default"] .md-typeset a:focus {
+  color: #e69b05 !important;
 }
 
 /* Full-width content — override Material grid constraints */

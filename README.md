@@ -1,10 +1,23 @@
-# Integration API — Dokumentacja
+# DEBT Manager — API Integracyjne
 
-Dokumentacja techniczna API integracyjnego DEBT Manager.
+Dokumentacja techniczna API integracyjnego systemu **DEBT Manager** firmy [BAKK](https://bakk.com).
 
-## Podgląd online
+API umożliwia automatyczny import danych od kontrahentów, zarządzanie kolejkami komunikatów oraz monitorowanie statusu importów. Dokumentacja opisuje wszystkie dostępne endpointy, formaty komunikatów oraz praktyczne scenariusze użycia.
 
-[https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/](https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/)
+## Dokumentacja online
+
+**[https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/](https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/)**
+
+Strona budowana automatycznie z tego repozytorium (MkDocs Material + GitHub Pages).
+
+## Zawartość
+
+| Sekcja | Opis |
+|--------|------|
+| [Założenia](docs/zalozenia/) | Konfiguracja kontrahentów, procedura importów, architektura fizyczna, kolejki |
+| [Funkcje API](docs/funkcje-api/) | 13 endpointów — importy, statusy, słowniki, walidacje, e-mail |
+| [Komunikaty](docs/komunikaty/) | Specyfikacja 14 typów komunikatów (Case, Customer, Contract, Payment i inne) |
+| [Przypadki użycia](docs/przypadki-uzycia/) | Praktyczne scenariusze: import z pliku, zasilenie bez pliku, nowy typ importu |
 
 ## Lokalne uruchomienie
 
@@ -13,21 +26,31 @@ pip install -r requirements.txt
 mkdocs serve
 ```
 
-Otwórz http://127.0.0.1:8000
+Dokumentacja będzie dostępna pod `http://127.0.0.1:8000`.
 
-## Sync do Confluence
+## Synchronizacja z Confluence
+
+Dokumentacja może być synchronizowana do Confluence on-premise (np. do wewnętrznej bazy wiedzy):
 
 ```bash
 cd sync
-node sync-to-confluence.js          # sync wszystkiego
-node sync-to-confluence.js ../docs/komunikaty/case.md  # sync jednego pliku
+node sync-to-confluence.js                              # sync całości
+node sync-to-confluence.js ../docs/komunikaty/case.md   # sync jednego pliku
 ```
 
-Wymaga pliku `sync/.env` z credentials (nie wersjonowany).
+Wymaga pliku `sync/.env` z danymi dostępowymi (nie wersjonowany).
 
-## Struktura
+## Struktura repozytorium
 
-- `docs/` — źródłowe pliki Markdown
-- `mkdocs.yml` — konfiguracja MkDocs Material
-- `sync/` — skrypty synchronizacji z Confluence
-- `requirements.txt` — zależności Pythona (MkDocs)
+```
+docs/                   Źródłowe pliki Markdown
+  funkcje-api/importy/  Opisy endpointów API
+  komunikaty/           Specyfikacje komunikatów
+  przypadki-uzycia/     Przewodniki how-to
+  diagrams/             Diagramy draw.io
+  images/               Logo, zrzuty ekranu
+  stylesheets/          Customowy CSS (branding BAKK)
+sync/                   Skrypty synchronizacji z Confluence
+mkdocs.yml              Konfiguracja MkDocs Material
+requirements.txt        Zależności Pythona
+```

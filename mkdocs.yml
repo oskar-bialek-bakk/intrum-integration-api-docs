@@ -5,6 +5,8 @@ site_url: https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/
 theme:
   name: material
   language: pl
+  logo: images/bakk-logo.svg
+  favicon: images/bakk-favicon.png
   font:
     text: Source Sans 3
     code: JetBrains Mono

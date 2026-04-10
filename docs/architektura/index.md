@@ -7,7 +7,7 @@ title: "Architektura fizyczna"
 <div class="api-section" markdown>
 <div class="api-section-title">Diagram architektury</div>
 
-![Architektura systemu](../diagrams/architektura-systemu.drawio)
+![](../diagrams/architektura-systemu.drawio)
 
 </div>
 

@@ -77,47 +77,273 @@ Słownik może być rozszerzany. Zmiany wymagają modyfikacji procedur SQL `_fin
 
 ## Flagi aktualizacyjne obiektów (ObjectsUpdateBehaviour)
 
-| Obiekt | Add (1) | AddOrUpdate (2) | Update (3) | Replace (4) | Ommit (5) | AddOrOmmit (6) | Append (7) |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Action | L1 | — | — | — | — | L5 | — |
-| Action → AttachedFiles | L1 | — | — | — | L4 | L5 | — |
-| Action → AttributesList | L1 | L2 | L3 | L11 | L4 | L5 | — |
-| Adjustment | L1 | — | — | — | L4 | L5 | — |
-| Case | L1 | — | — | — | L4 | L5 | — |
-| Case → AttributeList | L1 | L2 | L3 | L11 | L4 | L5 | L12 |
-| Case → CustomerContractList | L1 | — | — | — | L4 | L5 | — |
-| Contract | L1 | L2 | L3 | — | L4 | L5 | — |
-| Contract → AttributeList | L1 | L2 | L3 | L11 | L4 | L5 | L12 |
-| Contract → DocumentsList | L1 | L2 | L3 | L11 | L4 | L5 | — |
-| Contract → Docs → BookingsList | L1 | L2 (*) | L3 (*) | L11 (*) | L4 | L5 | — |
-| Customer | L1 | L2 | L3 | — | L4 | L5 | — |
-| Customer → AddressList | L1 | L8 | L9 | L10 | L4 | L5 | — |
-| Customer → PropertyList | L1 | L2 | L3 | L10 | L4 | L5 | — |
-| Customer → EmailList | L1 | L8 | L9 | L10 | L4 | L5 | — |
-| Customer → IdentityDocumentList | L1 | L6 | L7 | L10 | L4 | L5 | — |
-| Customer → PhoneNumberList | L1 | L8 | L9 | L10 | L4 | L5 | — |
-| Debtor → AttributeList | L1 | L2 | L3 | L11 | L4 | L5 | L12 |
-| Document → AttributeList | L1 | L2 | L3 | L11 | L4 | L5 | L12 |
-| Payment | L1 | — | — | — | L4 | L5 | — |
-| Signature | L1 | L8 | L9 | L10 | L4 | L5 | — |
-| UpdateField | — | — | L3 | — | — | — | — |
-| ContractBalance | — | L2 | — | — | — | — | — |
+<div class="md-typeset__scrollwrap" markdown>
+<table class="flag-matrix">
+<thead>
+<tr>
+  <th>Obiekt</th>
+  <th>Add (1)</th>
+  <th>AddOrUpdate (2)</th>
+  <th>Update (3)</th>
+  <th>Replace (4)</th>
+  <th>Ommit (5)</th>
+  <th>AddOrOmmit (6)</th>
+  <th>Append (7)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Action</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Action → AttachedFiles</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Action → AttributesList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td><span class="flag replace" title="Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">REPLACE</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Adjustment</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Case</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Case → AttributeList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td><span class="flag replace" title="Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">REPLACE</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td><span class="flag append" title="Dodaje jeśli nie istnieje. Jeśli istnieje — dopisuje wartość do istniejącej (separator: ;).">APPEND</span></td>
+</tr>
+<tr>
+  <td>Case → CustomerContractList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Contract</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td>—</td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Contract → AttributeList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td><span class="flag replace" title="Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">REPLACE</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td><span class="flag append" title="Dodaje jeśli nie istnieje. Jeśli istnieje — dopisuje wartość do istniejącej (separator: ;).">APPEND</span></td>
+</tr>
+<tr>
+  <td>Contract → DocumentsList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td><span class="flag replace" title="Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">REPLACE</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Contract → Docs → BookingsList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key. (*) Tylko dla Partnerów biznesowych.">UPSERT *</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony. (*) Tylko dla Partnerów biznesowych.">UPDATE *</span></td>
+  <td><span class="flag replace" title="Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące. (*) Tylko dla Partnerów biznesowych.">REPLACE *</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Customer</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td>—</td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Customer → AddressList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag deact" title="Dezaktywacja wszystkich aktywnych obiektów danego typu. Dodanie nowego.">DEACT_ALL+ADD</span></td>
+  <td><span class="flag deact-err" title="Dezaktywacja wszystkich aktywnych obiektów danego typu. Błąd jeśli nie istnieje poprzedni. Dodanie nowego.">DEACT_ALL!+ADD</span></td>
+  <td><span class="flag sync" title="Dezaktywuje obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">SYNC</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Customer → PropertyList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td><span class="flag sync" title="Dezaktywuje obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">SYNC</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Customer → EmailList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag deact" title="Dezaktywacja wszystkich aktywnych obiektów danego typu. Dodanie nowego.">DEACT_ALL+ADD</span></td>
+  <td><span class="flag deact-err" title="Dezaktywacja wszystkich aktywnych obiektów danego typu. Błąd jeśli nie istnieje poprzedni. Dodanie nowego.">DEACT_ALL!+ADD</span></td>
+  <td><span class="flag sync" title="Dezaktywuje obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">SYNC</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Customer → IdentityDocumentList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag deact" title="Dezaktywacja istniejącego obiektu (ustawienie daty ważności). Dodanie nowego.">DEACT+ADD</span></td>
+  <td><span class="flag deact-err" title="Dezaktywacja istniejącego obiektu. Błąd jeśli nie istnieje. Dodanie nowego.">DEACT!+ADD</span></td>
+  <td><span class="flag sync" title="Dezaktywuje obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">SYNC</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Customer → PhoneNumberList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag deact" title="Dezaktywacja wszystkich aktywnych obiektów danego typu. Dodanie nowego.">DEACT_ALL+ADD</span></td>
+  <td><span class="flag deact-err" title="Dezaktywacja wszystkich aktywnych obiektów danego typu. Błąd jeśli nie istnieje poprzedni. Dodanie nowego.">DEACT_ALL!+ADD</span></td>
+  <td><span class="flag sync" title="Dezaktywuje obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">SYNC</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Debtor → AttributeList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td><span class="flag replace" title="Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">REPLACE</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td><span class="flag append" title="Dodaje jeśli nie istnieje. Jeśli istnieje — dopisuje wartość do istniejącej (separator: ;).">APPEND</span></td>
+</tr>
+<tr>
+  <td>Document → AttributeList</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td><span class="flag replace" title="Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">REPLACE</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td><span class="flag append" title="Dodaje jeśli nie istnieje. Jeśli istnieje — dopisuje wartość do istniejącej (separator: ;).">APPEND</span></td>
+</tr>
+<tr>
+  <td>Payment</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>Signature</td>
+  <td><span class="flag add" title="Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje.">ADD</span></td>
+  <td><span class="flag deact" title="Dezaktywacja wszystkich aktywnych obiektów danego typu. Dodanie nowego.">DEACT_ALL+ADD</span></td>
+  <td><span class="flag deact-err" title="Dezaktywacja wszystkich aktywnych obiektów danego typu. Błąd jeśli nie istnieje poprzedni. Dodanie nowego.">DEACT_ALL!+ADD</span></td>
+  <td><span class="flag sync" title="Dezaktywuje obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key).">SYNC</span></td>
+  <td><span class="flag skip" title="Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia.">SKIP</span></td>
+  <td><span class="flag add-skip" title="Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje.">ADD/SKIP</span></td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>UpdateField</td>
+  <td>—</td>
+  <td>—</td>
+  <td><span class="flag update" title="Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony.">UPDATE</span></td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td>ContractBalance</td>
+  <td>—</td>
+  <td><span class="flag upsert" title="Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key.">UPSERT</span></td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 (*) — Dozwolone tylko dla Partnerów biznesowych, dla których partner księguje operacje finansowe, a DEBT Manager jest aktualizowany tylko aktualnym saldem.
 
+!!! tip "Tooltip"
+    Najedź kursorem na kolorową etykietę, aby zobaczyć pełny opis zachowania.
+
 **Legenda:**
 
-| Kod | Opis |
+| Etykieta | Opis |
 | --- | --- |
-| L1 | Dodanie nowego obiektu (INSERT) jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje. |
-| L2 | Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key (MERGE). |
-| L3 | Aktualizacja obiektu jeśli istnieje (UPDATE). Błąd jeśli nie znaleziony. |
-| L4 | Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia. |
-| L5 | Dodanie (INSERT) jeśli nie istnieje. Pominięcie jeśli istnieje. |
-| L6 | Dezaktywacja istniejącego obiektu (ustawienie "daty ważności"). Dodanie nowego (INSERT). |
-| L7 | Dezaktywacja istniejącego obiektu. Błąd jeśli nie istnieje. Dodanie nowego (INSERT). |
-| L8 | Dezaktywacja wszystkich aktywnych obiektów danego typu. Dodanie nowego (INSERT). |
-| L9 | Dezaktywacja wszystkich aktywnych obiektów danego typu. Błąd jeśli nie istnieje poprzedni (po match key). Dodanie nowego (INSERT). |
-| L10 | Dezaktywuje obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key). |
-| L11 | Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key). |
-| L12 | Dodaje jeśli nie istnieje. Jeśli istnieje — dopisuje wartość do istniejącej (separator: `;`). |
+| <span class="flag add">ADD</span> | Dodanie nowego obiektu jeśli nie istnieje. Błąd jeśli obiekt (po match key) istnieje. |
+| <span class="flag upsert">UPSERT</span> | Dodanie nowego obiektu lub aktualizacja jeśli znaleziony po match key. |
+| <span class="flag update">UPDATE</span> | Aktualizacja obiektu jeśli istnieje. Błąd jeśli nie znaleziony. |
+| <span class="flag skip">SKIP</span> | Pominięcie aktualizacji — potrzebne przy aktualizacji obiektów na głębszym poziomie zagnieżdżenia. |
+| <span class="flag add-skip">ADD/SKIP</span> | Dodanie jeśli nie istnieje. Pominięcie jeśli istnieje. |
+| <span class="flag deact">DEACT+ADD</span> | Dezaktywacja istniejącego obiektu (ustawienie "daty ważności"). Dodanie nowego. |
+| <span class="flag deact-err">DEACT!+ADD</span> | Dezaktywacja istniejącego obiektu. Błąd jeśli nie istnieje. Dodanie nowego. |
+| <span class="flag deact">DEACT_ALL+ADD</span> | Dezaktywacja wszystkich aktywnych obiektów danego typu. Dodanie nowego. |
+| <span class="flag deact-err">DEACT_ALL!+ADD</span> | Dezaktywacja wszystkich aktywnych obiektów danego typu. Błąd jeśli nie istnieje poprzedni (po match key). Dodanie nowego. |
+| <span class="flag sync">SYNC</span> | Dezaktywuje obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key). |
+| <span class="flag replace">REPLACE</span> | Usuwa obiekty powiązane z nadrzędnym, które nie istnieją w komunikacie. Dodaje nowe. Aktualizuje istniejące (po match key). |
+| <span class="flag append">APPEND</span> | Dodaje jeśli nie istnieje. Jeśli istnieje — dopisuje wartość do istniejącej (separator: `;`). |

@@ -1,4 +1,4 @@
-site_name: DEBT Manager — API Integracyjne
+site_name: DEBT Manager — dokumentacja API TORNADO
 site_description: Dokumentacja techniczna API integracyjnego DEBT Manager
 site_url: https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/
 
@@ -24,14 +24,14 @@ theme:
       primary: custom
       accent: custom
       toggle:
-        icon: material/brightness-7
-        name: Tryb jasny
+        icon: material/weather-sunny
+        name: Przełącz na tryb jasny
     - scheme: default
       primary: custom
       accent: custom
       toggle:
-        icon: material/brightness-4
-        name: Tryb ciemny
+        icon: material/weather-night
+        name: Przełącz na tryb ciemny
 
 extra_css:
   - stylesheets/extra.css
@@ -57,7 +57,7 @@ markdown_extensions:
   - md_in_html
 
 nav:
-  - index.md
+  - Strona główna: index.md
   - Założenia:
     - zalozenia/index.md
     - Konfiguracja kontrahenta: zalozenia/konfiguracja-kontrahenta.md

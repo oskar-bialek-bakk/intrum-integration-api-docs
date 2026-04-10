@@ -28,18 +28,6 @@ mkdocs serve
 
 Dokumentacja będzie dostępna pod `http://127.0.0.1:8000`.
 
-## Synchronizacja z Confluence
-
-Dokumentacja może być synchronizowana do Confluence on-premise (np. do wewnętrznej bazy wiedzy):
-
-```bash
-cd sync
-node sync-to-confluence.js                              # sync całości
-node sync-to-confluence.js ../docs/komunikaty/case.md   # sync jednego pliku
-```
-
-Wymaga pliku `sync/.env` z danymi dostępowymi (nie wersjonowany).
-
 ## Struktura repozytorium
 
 ```

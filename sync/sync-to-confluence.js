@@ -168,7 +168,17 @@ function markdownToConfluenceHtml(md, filePath, allFiles) {
   let processed = expandSnippets(md, DOCS);
   processed = rewriteLinks(processed, allFiles);
   const { processed: withPlaceholders, placeholders } = extractAdmonitions(processed);
-  const html = marked.parse(withPlaceholders, { xhtml: true });
+  let html = marked.parse(withPlaceholders, { xhtml: true });
+  // Confluence XHTML parser rejects HTML5 boolean attributes (e.g. `<div markdown>`).
+  // `markdown` is a pymdownx/md_in_html directive — strip it.
+  html = html.replace(/\s+markdown(?=[\s>])/g, '');
+  // `open` on <details> — convert to XHTML form `open="open"`.
+  html = html.replace(/(<details\b[^>]*?)\s+open(?=[\s>])/g, '$1 open="open"');
+  // Confluence XHTML requires self-closing void elements (img, br, hr).
+  // marked's `xhtml` option doesn't handle img properly — force self-closing.
+  html = html.replace(/<img\b([^>]*?)(?<!\/)>/g, '<img$1 />');
+  html = html.replace(/<br>/g, '<br />');
+  html = html.replace(/<hr>/g, '<hr />');
   return restoreAdmonitions(html, placeholders);
 }
 

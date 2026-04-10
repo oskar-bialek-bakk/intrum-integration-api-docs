@@ -1,38 +1,80 @@
 ---
-title: "How-to: Zasilenie systemu komunikatami bez pliku importowego"
+title: "Zasilenie bez pliku"
 ---
 
-W celu zasilenia systemu pojedynczym komunikatem:
+# Zasilenie bez pliku
 
-0) Jednorazowo zalogować się do Swaggera zgodnie z opisem w punkcie Uruchomienie Swaggera dla serwera autentykacji
+<div class="api-section" markdown>
+<div class="api-section-title">Opis</div>
 
-1) Łączymy się do API [http://\[adres\_serwera\]:39451/swagger/ui/index#/Dm](http://localhost:39451/swagger/ui/index#/Dm) i wybieramy funkcję API [EnqueImportMessage](../funkcje-api/importy/enque-import-message.md). W przypadku gdy logowanie do API oparte jest o login/hasło jednorazowo autoryzujemy się w API (patrz paragraf na dole rozdziału)
+Przewodnik pokazuje jak zasilić system DEBT Manager pojedynczym komunikatem importowym **bez przygotowania pliku** — bezpośrednio przez wywołanie API.
 
-![Swagger UI - lista funkcji API](../images/howto-zasilenie-1.png)
+</div>
 
-2) Podajemy parametry funkcji:
+---
 
--   importId - pusty GUID, bo import odbywa się jako zasilenie komunikatami bez importowania pliku
--   queueName - nazwa kolejki, zgodna z wykazem komunikatów z rozdziału [Komunikaty](../komunikaty/index.md)
--   message - lista komunikatów, którymi chcemy zasilić w ramach kolejki z parametru queueName (przykłady składni JSON komunikatów można znaleźć w rozdziale [Komunikaty](../komunikaty/index.md))
+<div class="api-section" markdown>
+<div class="api-section-title">Krok 1 — Autoryzacja</div>
 
-![Swagger UI - parametry EnqueImportMessage](../images/howto-zasilenie-2.png)
+Przed wywołaniem metody API wymagane jest uzyskanie tokenu autoryzacyjnego. Metody wymagające autoryzacji są oznaczone w Swaggerze ikoną kłódki.
 
-3) Klikamy przycisk "Try it out!" - w odpowiedzi dostajemy wynik żądania importu
+1. Otwórz Swagger UI na swoim serwerze: `http://[adres_serwera]:39451/swagger`
+2. Kliknij przycisk **Authorize** i wybierz opcję **api1**.
+3. Po poprawnym zalogowaniu ikona przy metodzie zmieni się na zamkniętą kłódkę.
 
-4) Czekamy na zakończenie asynchronicznego przetwarzania. Następnie sprawdzamy zmienione dane w aplikacji DEBT Manager
+!!! tip "Jednorazowa autoryzacja"
+    Logowanie wystarczy wykonać raz na sesję — token jest zapamiętywany dla kolejnych wywołań.
 
+</div>
 
-**Uruchomienie Swaggera dla serwera autentykacji**
+---
 
-Aby móc wywołać metody Swaggera wymagana jest autentykacji w serwerze autentykacji. Przed wywołaniem metody w Swaggerze, użytkownik musi się zalogować (uzyskać token). Metody wymagające autoryzacji oznaczone są czerwonym wykrzyknikiem.
+<div class="api-section" markdown>
+<div class="api-section-title">Krok 2 — Wywołanie EnqueImportMessage</div>
 
-![Swagger - metody wymagające autoryzacji](../images/howto-zasilenie-3.png)
+Wywołaj funkcję [EnqueImportMessage](../funkcje-api/importy/enque-import-message.md) z następującymi parametrami:
 
-Po kliknięciu w ikonę wykrzyknika otworzy się okno w którym należy wybrać opcje api1 i kliknać przycisk Authorize
+<ul class="param-list">
+  <li>
+    <span class="param-name required">importId</span>
+    <span class="param-type">GUID</span>
+    <span class="param-desc">Pusty GUID (<code>00000000-0000-0000-0000-000000000000</code>) — import bez pliku.</span>
+  </li>
+  <li>
+    <span class="param-name required">queueName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa kolejki, np. <code>Case</code>, <code>Payment</code> — zgodna z wykazem z rozdziału <a href="../komunikaty/index.md">Komunikaty</a>.</span>
+  </li>
+  <li>
+    <span class="param-name required">message</span>
+    <span class="param-type">array</span>
+    <span class="param-desc">Lista komunikatów JSON — przykłady składni w rozdziale <a href="../komunikaty/index.md">Komunikaty</a>.</span>
+  </li>
+</ul>
 
-![Swagger - okno autoryzacji](../images/howto-zasilenie-4.png)
+!!! example "Przykład wywołania"
+    ```json
+    {
+      "importId": "00000000-0000-0000-0000-000000000000",
+      "queueName": "Case",
+      "message": [
+        {
+          "MatchKey": "CASE-001",
+          "MatchKeyType": 2
+        }
+      ]
+    }
+    ```
 
-Po poprawnym zalogowaniu się (uzyskaniu tokena) ikona przy metodzie zmieni się na niebieskie 'i'
+</div>
 
-![Swagger - metoda autoryzowana](../images/howto-zasilenie-5.png)
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Krok 3 — Weryfikacja wyniku</div>
+
+1. Po wysłaniu żądania w odpowiedzi otrzymasz wynik importu.
+2. Poczekaj na zakończenie **asynchronicznego przetwarzania** — status importu możesz monitorować funkcją [GetImportStatus](../funkcje-api/importy/get-import-status.md).
+3. Sprawdź zmienione dane w aplikacji DEBT Manager.
+
+</div>

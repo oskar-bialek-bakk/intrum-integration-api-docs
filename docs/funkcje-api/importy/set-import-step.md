@@ -132,20 +132,51 @@ Struktura odpowiedzi jest identyczna jak w funkcji [GetImportStatus](get-import-
 
 ---
 
-## Możliwe zmiany statusów
+<div class="api-section" markdown>
+<div class="api-section-title">Możliwe zmiany statusów</div>
 
 ![Etapy importu](../../diagrams/import-stages-state.drawio)
 
-| Stage | Wartość | Opis |
-| --- | --- | --- |
-| Adding | 1 | Dodawanie danych |
-| Transformation | 2 | Transformacja danych |
-| Validation | 3 | Walidacja danych |
-| Consumption | 4 | Konsumpcja komunikatów |
-| Finishing | 5 | Finalizacja importu |
+**Stage** — etapy importu:
 
-| StageStatus | Wartość |
-| --- | --- |
-| InProgress | 1 |
-| Done | 2 |
-| Error | 3 |
+<div class="pipeline">
+  <div class="pipeline-step">
+    <span class="step-num">1</span>
+    <span class="step-title">Adding</span>
+    <span class="step-desc">Dodawanie danych importowych do systemu.</span>
+  </div>
+  <span class="pipeline-arrow">&#x2192;</span>
+  <div class="pipeline-step">
+    <span class="step-num">2</span>
+    <span class="step-title">Transformation</span>
+    <span class="step-desc">Transformacja danych na komunikaty zrozumiałe przez API.</span>
+  </div>
+  <span class="pipeline-arrow">&#x2192;</span>
+  <div class="pipeline-step">
+    <span class="step-num">3</span>
+    <span class="step-title">Validation</span>
+    <span class="step-desc">Walidacja danych do importu, odrzucenie w przypadku błędów.</span>
+  </div>
+  <span class="pipeline-arrow">&#x2192;</span>
+  <div class="pipeline-step">
+    <span class="step-num">4</span>
+    <span class="step-title">Consumption</span>
+    <span class="step-desc">Konsumpcja komunikatów z kolejek i zasilenie systemu DM.</span>
+  </div>
+  <span class="pipeline-arrow">&#x2192;</span>
+  <div class="pipeline-step">
+    <span class="step-num">5</span>
+    <span class="step-title">Finishing</span>
+    <span class="step-desc">Finalizacja importu i raportowanie wyników.</span>
+  </div>
+</div>
+
+**StageStatus** — status etapu:
+
+<ul class="status-values">
+<li><code>1</code> — InProgress</li>
+<li><code>2</code> — Done</li>
+<li><code>3</code> — Error</li>
+</ul>
+
+</div>

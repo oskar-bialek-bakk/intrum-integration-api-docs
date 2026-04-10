@@ -1,14 +1,27 @@
 /* Table styling — vertical borders and header highlight */
 .md-typeset table:not([class]) {
   border-collapse: collapse;
+  display: table;
+  width: 100%;
 }
 
 .md-typeset table:not([class]) th {
   background-color: var(--md-default-fg-color--lightest);
   font-weight: 700;
   border: 1px solid var(--md-typeset-table-color);
+  white-space: nowrap;
 }
 
 .md-typeset table:not([class]) td {
   border: 1px solid var(--md-typeset-table-color);
+}
+
+/* Scrollable table wrapper for wide tables */
+.md-typeset .md-typeset__scrollwrap {
+  overflow-x: auto;
+}
+
+/* Make content area wider */
+.md-content {
+  max-width: none;
 }

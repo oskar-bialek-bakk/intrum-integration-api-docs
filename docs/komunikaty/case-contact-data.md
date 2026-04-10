@@ -61,7 +61,7 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
 
 ---
 
-<div class="api-section">
+<div class="api-section" markdown>
 <div class="api-section-title">Pola obiektu CaseContactData</div>
 
 !!! info "Uwaga"

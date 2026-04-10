@@ -2,10 +2,13 @@
 title: "Komunikaty"
 ---
 
+<div class="api-section" markdown>
+<div class="api-section-title">Tryby importu danych</div>
+
 Dane do systemu DEBT Manager importowane są za pomocą komunikatów. Komunikaty mogą być przekazywane do API w dwóch trybach:
 
--   **Samodzielne komunikat** - w dowolnym momencie można zasilić API komunikatem, który zmodyfikuje wybrane dane w systemie np. system zewnętrzny przekazuje do DM pojedyncze wpłaty (brak jednego pliku ze wszystkimi wpłatami) poprzez przekazanie do API pojedynczego komunikatu typu Payment
--   **Pliki importowe, dzielone na komunikaty** - tryb importowania plików polega na przyjęciu przez API pliku danego typu importu, a następnie walidacji poprawności danych w pliku i podzieleniu danych z pliku na komunikaty, którymi zasilane jest API
+-   **Samodzielny komunikat** — w dowolnym momencie można zasilić API komunikatem, który zmodyfikuje wybrane dane w systemie, np. system zewnętrzny przekazuje do DM pojedyncze wpłaty poprzez przekazanie do API pojedynczego komunikatu typu Payment.
+-   **Pliki importowe, dzielone na komunikaty** — tryb importowania plików polega na przyjęciu przez API pliku danego typu importu, a następnie walidacji poprawności danych w pliku i podzieleniu danych z pliku na komunikaty, którymi zasilane jest API.
 
 !!! info "Przykład importu danych z pliku"
 
@@ -53,30 +56,72 @@ Dane do systemu DEBT Manager importowane są za pomocą komunikatów. Komunikaty
     </tr>
     </table>
 
-## Budowa komunikatów
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Budowa komunikatów</div>
 
 Każdy komunikat składa się z dwóch typów pól:
 
--   Pola specyficzne dla komunikatu, które przenoszą właściwe dane importowane do systemu np. komunikat Payment zawiera pole z kwotą wpłaty, a komunikat Customer zawiera pole z numerami PESEL, NIP, REGON itd.
--   Pola współdzielone, takie same dla wszystkich komunikatów, które sterują mechanizmem API. Poniżej lista wspólnych pól:
+-   **Pola specyficzne** dla komunikatu, które przenoszą właściwe dane importowane do systemu, np. komunikat Payment zawiera pole z kwotą wpłaty, a komunikat Customer zawiera pole z numerami PESEL, NIP, REGON itd.
+-   **Pola współdzielone**, takie same dla wszystkich komunikatów, które sterują mechanizmem API:
 
-| Pole | Typ | Wymagane | Opis |
-| --- | --- | --- | --- |
-| ObjectId | string | Tak | Pole pozwalające zidentyfikować status przetwarzania danego komunikatu w ramach API. Dwa typowe przypadki: (1) obiekt posiada ID w systemie zewnętrznym — używamy tego ID; (2) obiekt nie posiada ID — generujemy GUID. Po przekazaniu komunikatu pole ObjectId pozwala zidentyfikować aktualny stan przetwarzania danych. |
-| ToDoAt | Datetime | Nie | Kiedy API powinno przetworzyć komunikat. Brak podania = data bieżąca. Pozwala opóźnić przetwarzanie. |
-| MatchKey | string | Tak | Klucz wyszukiwania pod który obiekt w DM należy podpiąć dane z komunikatu. Działa w powiązaniu z MatchKeyType. |
-| MatchKeyType | int | Tak | Typ klucza wyszukiwania — określa po jakim polu API wyszukuje wartości z MatchKey. Słownik w tabeli `[dm_config].[match_key_type]` — patrz tabela poniżej. |
-
-**Wartości MatchKeyType:**
-
-| ID | Opis | Pole w DM |
-| --- | --- | --- |
-| 1 | Rachunek bankowy do spłaty (Bank Account) | rachunek\_bankowy.rb\_nr |
-| 2 | Zewnętrzny numer klienta (External customer number) | dluznik.dl\_ext\_id |
-| 3 | Zewnętrzny numer umowy (External contract number) | wierzytelnosc.wi\_ext\_id |
-| 4 | Numer sprawy (Case number) | sprawa.sp\_numer |
-| 5 | Zewnętrzny numer dokumentu (External document number) | dokument.do\_ext\_id |
-| 6 | Zewnętrzny numer sprawy (External case number) | sprawa.sp\_ext\_id |
+<ul class="param-list">
+  <li>
+    <span class="param-name required">ObjectId</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Pole pozwalające zidentyfikować status przetwarzania danego komunikatu w ramach API. Dwa typowe przypadki: (1) obiekt posiada ID w systemie zewnętrznym — używamy tego ID; (2) obiekt nie posiada ID — generujemy GUID.</span>
+  </li>
+  <li>
+    <span class="param-name">ToDoAt</span>
+    <span class="param-type">datetime</span>
+    <span class="param-desc">Kiedy API powinno przetworzyć komunikat. Brak podania = data bieżąca. Pozwala opóźnić przetwarzanie.</span>
+  </li>
+  <li>
+    <span class="param-name required">MatchKey</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Klucz wyszukiwania — pod który obiekt w DM należy podpiąć dane z komunikatu. Działa w powiązaniu z <code>MatchKeyType</code>.</span>
+  </li>
+  <li>
+    <span class="param-name required">MatchKeyType</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Typ klucza wyszukiwania — określa po jakim polu API wyszukuje wartości z <code>MatchKey</code>. Słownik w tabeli <code>[dm_config].[match_key_type]</code>. Dopuszczalne wartości:</span>
+    <ul class="mk-values">
+      <li>
+        <span class="mk-id">1</span>
+        <span class="mk-label">Rachunek bankowy do spłaty (Bank Account)</span>
+        <span class="mk-field">→ rachunek_bankowy.rb_nr</span>
+      </li>
+      <li>
+        <span class="mk-id">2</span>
+        <span class="mk-label">Zewnętrzny numer klienta (External customer number)</span>
+        <span class="mk-field">→ dluznik.dl_ext_id</span>
+      </li>
+      <li>
+        <span class="mk-id">3</span>
+        <span class="mk-label">Zewnętrzny numer umowy (External contract number)</span>
+        <span class="mk-field">→ wierzytelnosc.wi_ext_id</span>
+      </li>
+      <li>
+        <span class="mk-id">4</span>
+        <span class="mk-label">Numer sprawy (Case number)</span>
+        <span class="mk-field">→ sprawa.sp_numer</span>
+      </li>
+      <li>
+        <span class="mk-id">5</span>
+        <span class="mk-label">Zewnętrzny numer dokumentu (External document number)</span>
+        <span class="mk-field">→ dokument.do_ext_id</span>
+      </li>
+      <li>
+        <span class="mk-id">6</span>
+        <span class="mk-label">Zewnętrzny numer sprawy (External case number)</span>
+        <span class="mk-field">→ sprawa.sp_ext_id</span>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 Słownik może być rozszerzany. Zmiany wymagają modyfikacji procedur SQL `_find` dla każdego typu obiektu (np. `dm_messages.customer_find`).
 
@@ -109,6 +154,10 @@ Słownik może być rozszerzany. Zmiany wymagają modyfikacji procedur SQL `_fin
     -   **Contract:** MatchKey = "numer rachunku bankowego", MatchKeyType = 1 (Bank Account)
 
     Gdy numer może się powtarzać pomiędzy portfelami, warto rozszerzyć MatchKey o id kontrahenta lub portfela, np. `774_12_333` (12 = ko\_id, 333 = uko\_id).
+
+</div>
+
+---
 
 ## Flagi aktualizacyjne obiektów (ObjectsUpdateBehaviour)
 

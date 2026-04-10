@@ -40,7 +40,7 @@ title: "AttributeCase"
 
 ---
 
-<div class="api-section">
+<div class="api-section" markdown>
 <div class="api-section-title">Pola obiektu AttributeCase</div>
 
 !!! info "Uwaga"

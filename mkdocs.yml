@@ -1,0 +1,89 @@
+site_name: DEBT Manager — API Integracyjne
+site_description: Dokumentacja techniczna API integracyjnego DEBT Manager
+site_url: https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/
+
+theme:
+  name: material
+  language: pl
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - scheme: default
+
+plugins:
+  - search:
+      lang: pl
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: docs
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - Strona główna: index.md
+  - Założenia:
+    - zalozenia/index.md
+    - Konfiguracja kontrahenta: zalozenia/konfiguracja-kontrahenta.md
+    - Procedura importów: zalozenia/procedura-importow.md
+  - Architektura fizyczna:
+    - architektura/index.md
+  - Funkcje API:
+    - funkcje-api/index.md
+    - Importy:
+      - funkcje-api/importy/index.md
+      - ImportFromFileUpload: funkcje-api/importy/import-from-file-upload.md
+      - ImportFromFileShare: funkcje-api/importy/import-from-file-share.md
+      - GetImportStatus: funkcje-api/importy/get-import-status.md
+      - GetObjectStatusByID: funkcje-api/importy/get-object-status-by-id.md
+      - GetImportFile: funkcje-api/importy/get-import-file.md
+      - GetImportFileFromFileShare: funkcje-api/importy/get-import-file-from-file-share.md
+      - EnqueImportMessage: funkcje-api/importy/enque-import-message.md
+      - RefreshDictionaries: funkcje-api/importy/refresh-dictionaries.md
+      - SetImportStep: funkcje-api/importy/set-import-step.md
+      - GetDictionaries: funkcje-api/importy/get-dictionaries.md
+      - GetMailRecipients: funkcje-api/importy/get-mail-recipients.md
+      - SetImportValidations: funkcje-api/importy/set-import-validations.md
+      - GetMailRecipientsForImportType: funkcje-api/importy/get-mail-recipients-for-import-type.md
+  - Komunikaty:
+    - komunikaty/index.md
+    - Case: komunikaty/case.md
+    - CaseContactData: komunikaty/case-contact-data.md
+    - Customer: komunikaty/customer.md
+    - Contract: komunikaty/contract.md
+    - ContractBalance: komunikaty/contract-balance.md
+    - Balance: komunikaty/balance.md
+    - Payment: komunikaty/payment.md
+    - Adjustment: komunikaty/adjustment.md
+    - Action: komunikaty/action.md
+    - AttributeCase: komunikaty/attribute-case.md
+    - AttributeDebtor: komunikaty/attribute-debtor.md
+    - Signature: komunikaty/signature.md
+    - Cache: komunikaty/cache.md
+    - RemoveCase: komunikaty/remove-case.md
+  - Kolejki:
+    - kolejki/index.md
+  - Przypadki użycia:
+    - przypadki-uzycia/index.md
+    - Import pliku testowego: przypadki-uzycia/import-pliku-testowego.md
+    - Zasilenie bez pliku: przypadki-uzycia/zasilenie-bez-pliku.md
+    - Nowy typ importu: przypadki-uzycia/nowy-typ-importu.md

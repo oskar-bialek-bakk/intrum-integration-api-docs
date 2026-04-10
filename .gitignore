@@ -1,0 +1,10 @@
+# MkDocs build output
+/site/
+
+# Sync tooling — local only
+/sync/.env
+/sync/fetched/
+/sync/node_modules/
+
+# POC — superseded by sync/
+/poc/

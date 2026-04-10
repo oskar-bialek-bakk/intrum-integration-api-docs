@@ -4,6 +4,32 @@ title: "Konfiguracja nowego kontrahenta"
 
 Zadanie skonfigurowania nowego kontrahenta wiąże się z krokami, który opisuje poniższy diagram:
 
+```mermaid
+flowchart TD
+    A["Przekazuje opis portfela"] --> B["Rejestruje kontrahenta w DM"]
+    B --> C["Konfiguruje warunki umowy"]
+    C --> D["Konfiguruje atrybuty kontrahenta"]
+    D --> E["Przekazuje mapowania portfela"]
+    E --> F["Przygotowuje raporty zwrotne\nw module Raportów BI"]
+    E --> G["Konfiguruje VPN/SFTP\ndostępy do/dla kontrahenta"]
+    G --> H["Importy: Konfiguruje mechanizm\npobierający dane od kontrahenta"]
+    H --> I["Importy: Implementuje mapowanie\nportfela na komunikaty DM"]
+    F --> J["Eksporty: Konfiguruje mechanizm\nprzenoszący dane do kontrahenta"]
+
+    style A fill:#4a9eff,color:#fff
+    style B fill:#26a269,color:#fff
+    style C fill:#26a269,color:#fff
+    style D fill:#26a269,color:#fff
+    style E fill:#e5a50a,color:#fff
+    style F fill:#e5a50a,color:#fff
+    style G fill:#c061cb,color:#fff
+    style H fill:#c061cb,color:#fff
+    style I fill:#c061cb,color:#fff
+    style J fill:#c061cb,color:#fff
+```
+
+**Legenda:** :blue_square: Kontrahent | :green_square: Biznes | :yellow_square: Biznes/Analityk | :purple_square: IT
+
 | Nazwa kroku | Odpowiedzialny | Opis kroku |
 | --- | --- | --- |
 | Przekazuje opis portfela | Kontrahent | Kontrahent przekazuje dokumentacje nowego portfela:specyfikacje plików importowych oraz przykłady plikówspecyfikacje plików eksportowychwytyczne biznesowe do obsługi np. czy można kapitalizować odsetki, sposób rozliczenia wpłat |

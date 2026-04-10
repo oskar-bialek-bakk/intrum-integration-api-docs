@@ -411,11 +411,15 @@ async function main() {
   }
 
   const inputFiles = process.argv.slice(2);
-  const allFiles = discoverFiles(inputFiles);
-  console.log(`Found ${allFiles.length} files to sync\n`);
+  // Always discover all files for parent resolution, even in single-file mode
+  const allFiles = discoverFiles([]);
+  const filesToSync = inputFiles.length > 0
+    ? discoverFiles(inputFiles)
+    : allFiles;
+  console.log(`Found ${filesToSync.length} files to sync (${allFiles.length} total for hierarchy)\n`);
 
   // Sort: index.md files first (parents before children)
-  allFiles.sort((a, b) => {
+  filesToSync.sort((a, b) => {
     const aIdx = a.relativePath.endsWith('index.md') ? 0 : 1;
     const bIdx = b.relativePath.endsWith('index.md') ? 0 : 1;
     if (aIdx !== bIdx) return aIdx - bIdx;
@@ -423,7 +427,7 @@ async function main() {
   });
 
   const parentCache = {};
-  for (const file of allFiles) {
+  for (const file of filesToSync) {
     await syncFile(file, allFiles, parentCache);
   }
 

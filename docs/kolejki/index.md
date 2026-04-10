@@ -23,3 +23,5 @@ Wyróżniamy następujące kolejki:
     Przykład stanu kolejek
 
     Przykład prezentujący status kolejek API integracyjnego w czasie gdy wykonujemy typ importu obsługiwany przez system zewnętrzny i jesteśmy w trakcie ostatniego korku - finalizacji importu:
+
+    ![Przykład stanu kolejek](../images/kolejki-status.png)

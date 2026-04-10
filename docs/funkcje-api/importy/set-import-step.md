@@ -32,3 +32,57 @@ Takie same jak w przypadku funkcji
 
 **Możliwe zmiany statusów:**
 
+```mermaid
+stateDiagram-v2
+    [*] --> Adding
+
+    Adding --> Transformation
+    Transformation --> Validation
+    Validation --> Consumption
+    Consumption --> Finishing
+    Finishing --> [*]
+
+    state Adding {
+        [*] --> A_InProgress
+        A_InProgress --> A_Done
+        A_InProgress --> A_Error
+    }
+
+    state Transformation {
+        [*] --> T_InProgress
+        T_InProgress --> T_Done
+        T_InProgress --> T_Error
+    }
+
+    state Validation {
+        [*] --> V_InProgress
+        V_InProgress --> V_Done
+        V_InProgress --> V_Error
+    }
+
+    state Consumption {
+        [*] --> C_InProgress
+        C_InProgress --> C_Done
+        C_InProgress --> C_Error
+    }
+
+    state Finishing {
+        [*] --> F_InProgress
+        F_InProgress --> F_Done
+        F_InProgress --> F_Error
+    }
+```
+
+| Stage | Wartość | Opis |
+| --- | --- | --- |
+| Adding | 1 | Dodawanie danych |
+| Transformation | 2 | Transformacja danych |
+| Validation | 3 | Walidacja danych |
+| Consumption | 4 | Konsumpcja komunikatów |
+| Finishing | 5 | Finalizacja importu |
+
+| StageStatus | Wartość |
+| --- | --- |
+| InProgress | 1 |
+| Done | 2 |
+| Error | 3 |

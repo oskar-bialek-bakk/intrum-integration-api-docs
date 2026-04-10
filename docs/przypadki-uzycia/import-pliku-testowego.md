@@ -2,23 +2,27 @@
 title: "How-to: Zaimportowanie przykładowego pliku importowego z użyciem aplikacji testowej"
 ---
 
-W celu prezentacji działania API integracyjnego dostawca  przekazuje kod źródłowy testowej aplikacji IntegrationsApiTestAPP, która pokazuje na przykładzie języka programowania C# w jaki sposób można wykonać import nowych spraw do systemu DEBT Manager z pliku Excel.
+W celu prezentacji działania API integracyjnego dostawca  przekazuje kod źródłowy testowej aplikacji IntegrationsApiTestAPP, która pokazuje na przykładzie języka programowania C# w jaki sposób można wykonać import nowych spraw do systemu DEBT Manager z pliku Excel.
 
 !!! info
     Źródła aplikacji testowej dostępne są w repozytorium: [Dm.Demo.IntegrationsApiTestAPP](https://bakkspzoo@dev.azure.com/bakkspzoo/Dm.Demo/_git/Dm.Demo.IntegrationsApiTestAPP)
 
 W celu zaimportowania przykładowego pliku importowego z użyciem aplikacji testowej należy:
 
-1) Uzupełnić w pliku domyślne parametry znajdują się app.config/IntegrationsApiTestAPP.exe.config parametry przykładowego importu spraw:
+1) Uzupełnić w pliku domyślne parametry znajdują się app.config/IntegrationsApiTestAPP.exe.config parametry przykładowego importu spraw:
 
 -   OrginalCreditorId - kontrahent w ramach którego zostaną zaimportowane sprawy
 -   PortfolioId - portfel kontrahenta w ramach którego zostaną zaimportowane sprawy
 -   ActionTypeId - akcja która wyznaczy etap dla nowo zaimportowanych spraw
 -   DocumentTypeId - typ dokumentu księgowego do którego zostanie załadowane zadłużenie
 
-2) Zbudować kod źródłowy aplikacji IntegrationsApiTestAPP
+![Konfiguracja parametrów importu](../images/howto-import-1.png)
 
-3) Uruchomić aplikację a następnie podać parametry konfiguracyjne autentykacji aplikacji (domyślne parametry znajdują się app.config/IntegrationsApiTestAPP.exe.config)
+2) Zbudować kod źródłowy aplikacji IntegrationsApiTestAPP
+
+3) Uruchomić aplikację a następnie podać parametry konfiguracyjne autentykacji aplikacji (domyślne parametry znajdują się app.config/IntegrationsApiTestAPP.exe.config)
+
+![Okno aplikacji testowej](../images/howto-import-2.png)
 
 -   API Host - adres API Integracyjnego
 -   Serwer autoryzacji - adres serwera autoryzacji

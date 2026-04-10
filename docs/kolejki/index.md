@@ -2,26 +2,91 @@
 title: "Kolejki"
 ---
 
-W ramach API integracyjnego wykorzystywane są kolejki danych, które pełnią następującą role:
+# Kolejki
 
--   zapewniają asynchroniczne przetwarzanie danych
--   pozwalają na przeniesienie wybranych elementów przetwarzania danych do systemów zewnętrznych w stosunku do API np. walidacja importu może zostać wykonana przez zewnętrzny system, który pobiera komunikat o konieczności walidacji z kolejki, wykonuje walidację i informuje API o wyniku walidacji
+<div class="api-section" markdown>
+<div class="api-section-title">Rola kolejek w API</div>
 
-Wyróżniamy następujące kolejki:
+W ramach API integracyjnego wykorzystywane są kolejki danych, które pełnią następującą rolę:
 
-| Nazwa kolejki | Typ | Konsumujący | Opis |
-| --- | --- | --- | --- |
-| DebtImportQueue_ImportValidation | Rabbit MQ | system DEBT Manager | Kolejka zawierająca importy dla których należy wykonać krok walidacji danych |
-| DebtManager.BL.DM.ExternalMessages.ExternalImportValidation, DebtManager.BL.DM.ExternalMessages_ExternalImportValidation | Rabbit MQ | zewnętrzny system | Patrz jak wyżej |
-| DebtImportQueue_ImportTransformation | Rabbit MQ | system DEBT Manager | Kolejka zawierająca importy dla których należy wykonać krok transformacji danych z importu na . |
-| DebtManager.BL.DM.ExternalMessages.ExternalImportTransformation, DebtManager.BL.DM.ExternalMessages_ExternalImportTransformation | Rabbit MQ | zewnętrzny system | Patrz jak wyżej. |
-| DebtImportQueue_ImportFinalization | Rabbit MQ | system DEBT Manager | Kolejka konsumowana przez system DEBT Manager, zawierająca importy które zostały zakończone, dająca możliwość wykonania kolejnych kroków po imporcie np.dla poprawnie zakończonych importów np. uruchomienie workflowów na zaimportowanych sprawachdla niepoprawnie zakończonych importów np. usunięcie danych, jeśli jakieś zostały zaimportowane |
-| DebtManager.BL.DM.ExternalMessages.ExternalImportFinalizer, DebtManager.BL.DM.ExternalMessages_ExternalImportFinalizer | Rabbit MQ | zewnętrzny system | Patrz jak wyżej. |
-| Baza danych: `dm_integration_[nazwa]` Schemat: `dm_messages` Tabela: `[nazwa_komunikatu]` | tabela SQL Server | system DEBT Manager | Dla każdego komunikatu istnieje w bazie API Integracyjnego tabela o nazwie `dm_messages.[nazwa_komunikatu]`, która pełni rolę kolejki danego komunikatu. Szczegółowy opis zastosowanego rozwiązania znajduje się pod [następującym linkiem](https://www.mssqltips.com/sqlservertip/1155/sql-server-database-specific-settings-service-broker/). |
+- **Asynchroniczne przetwarzanie** — zapewniają asynchroniczne przetwarzanie danych.
+- **Delegacja przetwarzania** — pozwalają na przeniesienie wybranych elementów przetwarzania danych do systemów zewnętrznych w stosunku do API, np. walidacja importu może zostać wykonana przez zewnętrzny system, który pobiera komunikat o konieczności walidacji z kolejki, wykonuje walidację i informuje API o wyniku.
 
-!!! info "Przykład stanu kolejek"
-    Przykład stanu kolejek
+</div>
 
-    Przykład prezentujący status kolejek API integracyjnego w czasie gdy wykonujemy typ importu obsługiwany przez system zewnętrzny i jesteśmy w trakcie ostatniego korku - finalizacji importu:
+---
 
-    ![Przykład stanu kolejek](../images/kolejki-status.png)
+<div class="api-section">
+<div class="api-section-title">Wykaz kolejek</div>
+
+<details class="collapsible-fields" open>
+<summary>Kolejki RabbitMQ — walidacja</summary>
+<ul class="param-list">
+  <li>
+    <span class="param-name">DebtImportQueue_ImportValidation</span>
+    <span class="param-type">RabbitMQ</span>
+    <span class="param-desc">Kolejka zawierająca importy dla których należy wykonać krok walidacji danych. Konsumowana przez <strong>system DEBT Manager</strong>.</span>
+  </li>
+  <li>
+    <span class="param-name">ExternalImportValidation</span>
+    <span class="param-type">RabbitMQ</span>
+    <span class="param-desc">Jak wyżej — wersja konsumowana przez <strong>system zewnętrzny</strong>.<br><code>DebtManager.BL.DM.ExternalMessages.ExternalImportValidation</code></span>
+  </li>
+</ul>
+</details>
+
+<details class="collapsible-fields" open>
+<summary>Kolejki RabbitMQ — transformacja</summary>
+<ul class="param-list">
+  <li>
+    <span class="param-name">DebtImportQueue_ImportTransformation</span>
+    <span class="param-type">RabbitMQ</span>
+    <span class="param-desc">Kolejka zawierająca importy dla których należy wykonać krok transformacji danych z importu na komunikaty. Konsumowana przez <strong>system DEBT Manager</strong>.</span>
+  </li>
+  <li>
+    <span class="param-name">ExternalImportTransformation</span>
+    <span class="param-type">RabbitMQ</span>
+    <span class="param-desc">Jak wyżej — wersja konsumowana przez <strong>system zewnętrzny</strong>.<br><code>DebtManager.BL.DM.ExternalMessages.ExternalImportTransformation</code></span>
+  </li>
+</ul>
+</details>
+
+<details class="collapsible-fields" open>
+<summary>Kolejki RabbitMQ — finalizacja</summary>
+<ul class="param-list">
+  <li>
+    <span class="param-name">DebtImportQueue_ImportFinalization</span>
+    <span class="param-type">RabbitMQ</span>
+    <span class="param-desc">Kolejka zawierająca importy które zostały zakończone, dająca możliwość wykonania kolejnych kroków po imporcie — np. uruchomienie workflowów na zaimportowanych sprawach (sukces) lub usunięcie danych (błąd). Konsumowana przez <strong>system DEBT Manager</strong>.</span>
+  </li>
+  <li>
+    <span class="param-name">ExternalImportFinalizer</span>
+    <span class="param-type">RabbitMQ</span>
+    <span class="param-desc">Jak wyżej — wersja konsumowana przez <strong>system zewnętrzny</strong>.<br><code>DebtManager.BL.DM.ExternalMessages.ExternalImportFinalizer</code></span>
+  </li>
+</ul>
+</details>
+
+<details class="collapsible-fields" open>
+<summary>Kolejki SQL Server — komunikaty</summary>
+<ul class="param-list">
+  <li>
+    <span class="param-name">dm_messages.[nazwa_komunikatu]</span>
+    <span class="param-type">SQL Server</span>
+    <span class="param-desc">Dla każdego komunikatu istnieje w bazie API Integracyjnego (<code>dm_integration_[nazwa]</code>, schemat <code>dm_messages</code>) tabela pełniąca rolę kolejki danego komunikatu. Konsumowana przez <strong>system DEBT Manager</strong>. Szczegółowy opis zastosowanego rozwiązania: <a href="https://www.mssqltips.com/sqlservertip/1155/sql-server-database-specific-settings-service-broker/">Service Broker pattern</a>.</span>
+  </li>
+</ul>
+</details>
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Przykład stanu kolejek</div>
+
+Poniższy zrzut prezentuje status kolejek API integracyjnego w czasie gdy wykonujemy typ importu obsługiwany przez system zewnętrzny i jesteśmy w trakcie ostatniego kroku — finalizacji importu:
+
+![Przykład stanu kolejek](../images/kolejki-status.png)
+
+</div>

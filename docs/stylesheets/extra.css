@@ -572,3 +572,366 @@
   font-size: 13px;
   letter-spacing: 0.02em;
 }
+
+/* ─── Landing page feature grid ─── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-typeset-table-color);
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+  border-color: var(--md-accent-fg-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+[data-md-color-scheme="slate"] .feature-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.feature-card .card-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.feature-card .card-title {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--md-default-fg-color) !important;
+  margin-bottom: 6px;
+}
+
+.feature-card .card-desc {
+  font-size: 13px;
+  color: var(--md-default-fg-color--light) !important;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─── Import pipeline (interactive flow diagram) ─── */
+.pipeline {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  justify-content: center;
+  align-items: stretch;
+  margin: 24px 0;
+}
+
+.pipeline-step {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 16px 12px;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-typeset-table-color);
+  border-radius: 8px;
+  text-align: center;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pipeline-step:hover {
+  border-color: var(--md-accent-fg-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  z-index: 1;
+}
+
+[data-md-color-scheme="slate"] .pipeline-step:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+}
+
+.pipeline-step .step-num {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 50%;
+  text-align: center;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+  color: var(--md-accent-fg-color);
+  background: rgba(230, 155, 5, 0.12);
+}
+
+[data-md-color-scheme="default"] .pipeline-step .step-num {
+  background: rgba(230, 155, 5, 0.10);
+}
+
+.pipeline-step .step-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+  margin-bottom: 6px;
+}
+
+.pipeline-step .step-desc {
+  font-size: 12px;
+  color: var(--md-default-fg-color--light);
+  line-height: 1.4;
+}
+
+/* Arrow between pipeline steps — vertically centered */
+.pipeline-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 28px;
+  font-size: 18px;
+  color: var(--md-default-fg-color--lightest);
+  user-select: none;
+  align-self: center;
+}
+
+/* Responsive: stack vertically on small screens */
+@media (max-width: 900px) {
+  .pipeline {
+    flex-wrap: wrap;
+  }
+  .pipeline-step {
+    flex: 1 1 140px;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pipeline {
+    flex-direction: column;
+    align-items: center;
+  }
+  .pipeline-step {
+    max-width: 100%;
+    width: 100%;
+  }
+  .pipeline-arrow {
+    transform: rotate(90deg);
+    flex: 0 0 20px;
+  }
+}
+
+/* ─── Assumption list with highlights ─── */
+.assumption-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  counter-reset: assumption;
+}
+
+.assumption-list > li {
+  position: relative;
+  padding: 10px 0 10px 36px;
+  border-bottom: 1px solid var(--md-typeset-table-color);
+  line-height: 1.6;
+  font-size: 14px;
+  color: var(--md-default-fg-color--light);
+}
+
+.assumption-list > li:last-child {
+  border-bottom: none;
+}
+
+.assumption-list > li::before {
+  counter-increment: assumption;
+  content: counter(assumption);
+  position: absolute;
+  left: 0;
+  top: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  border-radius: 50%;
+  color: var(--md-accent-fg-color);
+  background: rgba(230, 155, 5, 0.12);
+}
+
+/* ─── Role cards for konfiguracja-kontrahenta ─── */
+.role-card {
+  padding: 12px 16px;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-typeset-table-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.role-card .role-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.role-card .role-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+.role-card .role-owner {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Role colors — dark theme (default) */
+.role-owner.role-kontrahent {
+  color: #fb923c;
+  background: rgba(251, 146, 60, 0.12);
+  border: 1px solid rgba(251, 146, 60, 0.25);
+}
+.role-owner.role-biznes {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+.role-owner.role-analityk {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+}
+.role-owner.role-it {
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.12);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+}
+
+/* Role colors — light theme */
+[data-md-color-scheme="default"] .role-owner.role-kontrahent {
+  color: #ea580c;
+  background: rgba(234, 88, 12, 0.08);
+  border-color: rgba(234, 88, 12, 0.25);
+}
+[data-md-color-scheme="default"] .role-owner.role-biznes {
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+[data-md-color-scheme="default"] .role-owner.role-analityk {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+[data-md-color-scheme="default"] .role-owner.role-it {
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.25);
+}
+
+/* Left border matches role color */
+.role-card:has(.role-kontrahent) { border-left: 3px solid #fb923c; }
+.role-card:has(.role-biznes) { border-left: 3px solid #4ade80; }
+.role-card:has(.role-analityk) { border-left: 3px solid #60a5fa; }
+.role-card:has(.role-it) { border-left: 3px solid #c084fc; }
+
+[data-md-color-scheme="default"] .role-card:has(.role-kontrahent) { border-left-color: #ea580c; }
+[data-md-color-scheme="default"] .role-card:has(.role-biznes) { border-left-color: #16a34a; }
+[data-md-color-scheme="default"] .role-card:has(.role-analityk) { border-left-color: #2563eb; }
+[data-md-color-scheme="default"] .role-card:has(.role-it) { border-left-color: #7c3aed; }
+
+.role-card .role-desc {
+  font-size: 13px;
+  color: var(--md-default-fg-color--light);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* ─── Architecture-specific role colors ─── */
+/* Client = grey */
+.role-owner.role-arch-client {
+  color: #9ca3af;
+  background: rgba(156, 163, 175, 0.12);
+  border: 1px solid rgba(156, 163, 175, 0.30);
+}
+[data-md-color-scheme="default"] .role-owner.role-arch-client {
+  color: #6b7280;
+  background: rgba(107, 114, 128, 0.10);
+  border-color: rgba(107, 114, 128, 0.30);
+}
+.role-card:has(.role-arch-client) { border-left: 3px solid #9ca3af; }
+[data-md-color-scheme="default"] .role-card:has(.role-arch-client) { border-left-color: #6b7280; }
+
+/* Application Server = blue */
+.role-owner.role-arch-app {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.25);
+}
+[data-md-color-scheme="default"] .role-owner.role-arch-app {
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+.role-card:has(.role-arch-app) { border-left: 3px solid #60a5fa; }
+[data-md-color-scheme="default"] .role-card:has(.role-arch-app) { border-left-color: #2563eb; }
+
+/* Queue Server = green */
+.role-owner.role-arch-queue {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+[data-md-color-scheme="default"] .role-owner.role-arch-queue {
+  color: #16a34a;
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+.role-card:has(.role-arch-queue) { border-left: 3px solid #4ade80; }
+[data-md-color-scheme="default"] .role-card:has(.role-arch-queue) { border-left-color: #16a34a; }
+
+/* Worker Servers = yellow */
+.role-owner.role-arch-worker {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+[data-md-color-scheme="default"] .role-owner.role-arch-worker {
+  color: #d97706;
+  background: rgba(217, 119, 6, 0.08);
+  border-color: rgba(217, 119, 6, 0.25);
+}
+.role-card:has(.role-arch-worker) { border-left: 3px solid #fbbf24; }
+[data-md-color-scheme="default"] .role-card:has(.role-arch-worker) { border-left-color: #d97706; }
+
+/* DM Server = red */
+.role-owner.role-arch-dm {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+}
+[data-md-color-scheme="default"] .role-owner.role-arch-dm {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.25);
+}
+.role-card:has(.role-arch-dm) { border-left: 3px solid #f87171; }
+[data-md-color-scheme="default"] .role-card:has(.role-arch-dm) { border-left-color: #dc2626; }

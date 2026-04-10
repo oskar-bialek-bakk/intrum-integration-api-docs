@@ -1,0 +1,94 @@
+<mxfile>
+  <diagram name="Architektura" id="arch-1">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Client -->
+        <mxCell id="g1" value="Client" style="swimlane;startSize=20;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="120" width="160" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="ext" value="External&#xa;system" style="shape=mxgraph.cisco.computers_and_peripherals.workstation;sketch=0;html=1;pointerEvents=1;dashed=0;fillColor=#036897;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=11;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g1">
+          <mxGeometry x="40" y="40" width="80" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Application Server -->
+        <mxCell id="g2" value="Application Server (IIS)" style="swimlane;startSize=20;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="40" width="280" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="api" value="Integrations API&#xa;(ASP.NET WebAPI)" style="shape=mxgraph.azure.web_role;fillColor=#0078D4;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=11;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g2">
+          <mxGeometry x="90" y="40" width="100" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="staging" value="API staging DB&#xa;dm_integration_[klient]" style="shape=cylinder3;size=8;whiteSpace=wrap;fillColor=#e6d0de;strokeColor=#996185;fontSize=10;fontStyle=1;verticalAlign=bottom;align=center;" vertex="1" parent="g2">
+          <mxGeometry x="20" y="170" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="fs" value="File share&#xa;(SFTP)" style="shape=mxgraph.azure.storage;fillColor=#7FBA42;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g2">
+          <mxGeometry x="160" y="180" width="90" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_api_db" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#6c8ebf;strokeWidth=1.5;" edge="1" source="api" target="staging" parent="g2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fs_api" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#6c8ebf;strokeWidth=1.5;dashed=1;" edge="1" source="fs" target="api" parent="g2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Queue Server = green -->
+        <mxCell id="g3" value="Queue Server" style="swimlane;startSize=20;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="120" width="160" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="rmq" value="RabbitMQ" style="shape=mxgraph.aws3.queue;fillColor=#82b366;strokeColor=#ffffff;strokeWidth=2;fontColor=#333333;fontSize=11;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g3">
+          <mxGeometry x="35" y="45" width="90" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Worker Servers = yellow -->
+        <mxCell id="g4" value="Worker Servers" style="swimlane;startSize=20;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="40" width="200" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="w1" value="Windows Worker&#xa;Service 1" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
+          <mxGeometry x="55" y="40" width="90" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="w2" value="Windows Worker&#xa;Service 2" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
+          <mxGeometry x="55" y="140" width="90" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="wn" value="Windows Worker&#xa;Service n" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
+          <mxGeometry x="55" y="240" width="90" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- DEBT Manager Server -->
+        <mxCell id="g5" value="DEBT Manager Server" style="swimlane;startSize=20;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="120" width="200" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="dmdb" value="DEBT Manager DB&#xa;dm_data_dmweb_[klient]" style="shape=cylinder3;size=8;whiteSpace=wrap;fillColor=#b85450;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalAlign=bottom;align=center;" vertex="1" parent="g5">
+          <mxGeometry x="40" y="45" width="120" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges between groups -->
+        <mxCell id="e1" value="HTTP request" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#036897;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#036897;labelBackgroundColor=none;" edge="1" source="ext" target="api" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="publish" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#82b366;strokeWidth=2;fontSize=10;fontStyle=1;fontColor=#82b366;labelBackgroundColor=none;" edge="1" source="api" target="rmq" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3a" value="consume" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#d6b656;strokeWidth=1.5;fontSize=9;fontColor=#d6b656;labelBackgroundColor=none;" edge="1" source="rmq" target="w1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3b" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#d6b656;strokeWidth=1.5;" edge="1" source="rmq" target="w2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3c" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#d6b656;strokeWidth=1.5;" edge="1" source="rmq" target="wn" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4a" value="import" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#b85450;strokeWidth=1.5;fontSize=9;fontColor=#b85450;labelBackgroundColor=none;" edge="1" source="w1" target="dmdb" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4b" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#b85450;strokeWidth=1.5;" edge="1" source="w2" target="dmdb" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4c" style="edgeStyle=orthogonalEdgeStyle;curved=1;strokeColor=#b85450;strokeWidth=1.5;" edge="1" source="wn" target="dmdb" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

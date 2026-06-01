@@ -1,42 +1,50 @@
 <mxfile host="app.diagrams.net" agent="manual" version="24.0.0">
   <diagram id="conf-kontrahenta" name="Konfiguracja kontrahenta">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="900" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="700" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <mxCell id="k1" value="Kontrahent&#xa;przekazuje opis portfela" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="240" height="60" as="geometry"/>
+        <mxCell id="lane-kontrahent" value="Kontrahent" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=30;fillColor=#fbe5e5;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="30" y="40" width="240" height="640" as="geometry"/>
         </mxCell>
-        <mxCell id="b1" value="Biznes&#xa;rejestruje kontrahenta w DM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="40" y="130" width="240" height="60" as="geometry"/>
+        <mxCell id="lane-biznes" value="Biznes / Analityk" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=30;fillColor=#e8f1fb;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="290" y="40" width="240" height="640" as="geometry"/>
         </mxCell>
-        <mxCell id="b2" value="Biznes&#xa;konfiguruje warunki umowy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="40" y="220" width="240" height="60" as="geometry"/>
-        </mxCell>
-        <mxCell id="b3" value="Biznes&#xa;konfiguruje atrybuty kontrahenta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="40" y="310" width="240" height="60" as="geometry"/>
-        </mxCell>
-        <mxCell id="a1" value="Biznes / Analityk&#xa;przekazuje mapowania portfela" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="40" y="400" width="240" height="60" as="geometry"/>
-        </mxCell>
-        <mxCell id="a2" value="Biznes / Analityk&#xa;przygotowuje raporty zwrotne" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="40" y="490" width="240" height="60" as="geometry"/>
-        </mxCell>
-        <mxCell id="i1" value="IT&#xa;konfiguruje klienta API (OAuth)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="40" y="580" width="240" height="60" as="geometry"/>
-        </mxCell>
-        <mxCell id="i2" value="IT&#xa;implementuje mapowanie portfela&#xa;(dane źródłowe → komunikaty API)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="40" y="670" width="240" height="70" as="geometry"/>
+        <mxCell id="lane-it" value="IT" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=30;fillColor=#e6f2e0;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="550" y="40" width="240" height="640" as="geometry"/>
         </mxCell>
 
-        <mxCell id="e1" style="endArrow=classic;html=1;" edge="1" parent="1" source="k1" target="b1"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e2" style="endArrow=classic;html=1;" edge="1" parent="1" source="b1" target="b2"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e3" style="endArrow=classic;html=1;" edge="1" parent="1" source="b2" target="b3"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e4" style="endArrow=classic;html=1;" edge="1" parent="1" source="b3" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e5" style="endArrow=classic;html=1;" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e6" style="endArrow=classic;html=1;" edge="1" parent="1" source="a2" target="i1"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e7" style="endArrow=classic;html=1;" edge="1" parent="1" source="i1" target="i2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="k1" value="1. Przekazuje opis portfela" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="lane-kontrahent">
+          <mxGeometry x="20" y="30" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="b1" value="2. Rejestruje kontrahenta w DM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="lane-biznes">
+          <mxGeometry x="20" y="120" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2" value="3. Konfiguruje warunki umowy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="lane-biznes">
+          <mxGeometry x="20" y="200" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3" value="4. Konfiguruje atrybuty kontrahenta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="lane-biznes">
+          <mxGeometry x="20" y="280" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1" value="5. Przekazuje mapowania portfela" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="lane-biznes">
+          <mxGeometry x="20" y="360" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="i1" value="6. Konfiguruje klienta API (OAuth)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="lane-it">
+          <mxGeometry x="20" y="450" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="i2" value="7. Implementuje mapowanie portfela&#xa;(dane źródłowe → komunikaty API)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="lane-it">
+          <mxGeometry x="20" y="540" width="200" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="k1" target="b1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="b1" target="b2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="b2" target="b3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="b3" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="a1" target="i1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="i1" target="i2"><mxGeometry relative="1" as="geometry"/></mxCell>
 
       </root>
     </mxGraphModel>

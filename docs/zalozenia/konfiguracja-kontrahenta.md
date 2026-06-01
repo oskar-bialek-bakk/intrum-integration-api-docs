@@ -23,7 +23,7 @@ Zadanie skonfigurowania nowego kontrahenta wiąże się z krokami, które opisuj
     <span class="role-owner role-kontrahent">Kontrahent</span>
     <span class="role-name">Przekazuje opis portfela</span>
   </div>
-  <p class="role-desc">Kontrahent przekazuje dokumentację nowego portfela: specyfikacje plików importowych oraz przykłady plików, specyfikacje plików eksportowych, wytyczne biznesowe do obsługi — np. czy można kapitalizować odsetki, sposób rozliczenia wpłat.</p>
+  <p class="role-desc">Kontrahent przekazuje dokumentację nowego portfela: specyfikację danych źródłowych przekazywanych do obsługi oraz wytyczne biznesowe — np. czy można kapitalizować odsetki, sposób rozliczenia wpłat.</p>
 </div>
 
 <div class="role-card">
@@ -56,14 +56,6 @@ Zadanie skonfigurowania nowego kontrahenta wiąże się z krokami, które opisuj
     <span class="role-name">Przekazuje mapowania portfela</span>
   </div>
   <p class="role-desc">Przekazuje dla IT mapowania w jaki sposób dane źródłowe (otrzymane od Kontrahenta) mają mapować się na pola w aplikacji DM — np. który adres ze zbioru danych to adres zameldowania, jakie są reguły walidacji danych itd.</p>
-</div>
-
-<div class="role-card">
-  <div class="role-header">
-    <span class="role-owner role-analityk">Biznes / Analityk</span>
-    <span class="role-name">Przygotowuje raporty zwrotne do kontrahenta</span>
-  </div>
-  <p class="role-desc">Przygotowuje w ramach modułu Raportów BI raporty, które wydobywają dane potrzebne do zasilenia plików eksportowych.</p>
 </div>
 
 <div class="role-card">

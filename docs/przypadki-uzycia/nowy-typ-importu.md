@@ -4,9 +4,6 @@ title: "Nowy typ importu"
 
 # Nowy typ importu
 
-!!! warning "Nazwy tabel do zweryfikowania"
-    Konkretne nazwy tabel w skryptach SQL poniżej zostały zaktualizowane co do schematów (`dm_config.*`, `dm_validations.*`), ale nazwy tabel mogą wymagać sprawdzenia w stanie wdrożenia po stronie DM dla danego klienta.
-
 <div class="api-section" markdown>
 <div class="api-section-title">Opis</div>
 

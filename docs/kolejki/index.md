@@ -36,22 +36,6 @@ W ramach API integracyjnego wykorzystywane są kolejki danych, które pełnią n
 </details>
 
 <details class="collapsible-fields" open>
-<summary>Kolejki RabbitMQ — transformacja</summary>
-<ul class="param-list">
-  <li>
-    <span class="param-name">DebtImportQueue_ImportTransformation</span>
-    <span class="param-type">RabbitMQ</span>
-    <span class="param-desc">Kolejka zawierająca importy dla których należy wykonać krok transformacji danych z importu na komunikaty. Konsumowana przez <strong>system DEBT Manager</strong>.</span>
-  </li>
-  <li>
-    <span class="param-name">ExternalImportTransformation</span>
-    <span class="param-type">RabbitMQ</span>
-    <span class="param-desc">Jak wyżej — wersja konsumowana przez <strong>system zewnętrzny</strong>.<br><code>DebtManager.BL.DM.ExternalMessages.ExternalImportTransformation</code></span>
-  </li>
-</ul>
-</details>
-
-<details class="collapsible-fields" open>
 <summary>Kolejki RabbitMQ — finalizacja</summary>
 <ul class="param-list">
   <li>

@@ -69,7 +69,7 @@ Tablica obiektów:
 </ul>
 
 !!! note "Nieużywane pola"
-    Pola `Title`, `ExportTypeId` i `Link` są obecne w odpowiedzi, ale zawsze mają wartość `null`.
+    Pola `Title` i `Link` są obecne w odpowiedzi, ale zawsze mają wartość `null`.
 
 ```json title="Przykład odpowiedzi"
 [
@@ -79,7 +79,6 @@ Tablica obiektów:
     "Agreement": "PKL",
     "Creditor": "PKO Leasing S.A.",
     "Operation": "PKL WYCOFANE",
-    "ExportTypeId": null,
     "ImportTypeId": 12,
     "Link": null
   }

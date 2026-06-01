@@ -1,1 +1,62 @@
-<mxfile host="192.168.199.190" modified="2024-11-21T16:00:19.054Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" etag="lv37ifl9NbKkFj5CP2XO" version="14.5.0" type="atlas"><mxAtlasLibraries/><diagram id="uh_rZgigfsyVE7TYqoSS" name="Page-1">7VrbbuM2EP0aAe2DC918e/QlyQa7Rt04Rbp9oyXaZiyRKkVFtr++pERd6cSyE2WLroEAEUfkkJpzOHNEWbMm/u6OgmAzIy70NFN3d5o11UzTGJimJv50dy8t3e4wtawpcqWtMCzQAUqjLq0RcmFY6cgI8RgKqkaHYAwdVrEBSklc7bYiXnXWAKzljHphWDjAg0q3J+SyTWodmP3C/gWi9Sab2ejJ5/NB1lk6DjfAJXHJZN1o1oQSwtIrfzeBnoheFpd03O0rd/OFUYhZkwHm5Ba/LLY3t9sR2c6+Q0YXUUd6eQFeJB/4K8GMgo1wauq/4OA3/m/+9fdf5UOwfRYZ/jyBuIx87xtaQQ9h3hrz9TDkoAAki+L3Rg4jVNyAFPmQQX499WT/eWEbxxvE4CIAjvAZczZx24b5Hm8Z/JLjywAfQvO254EgRMtkOTq3UOhENEQv8AGGKY2E9QWK9QBv5KE15jZGhOOQz4Pw+lE0plaPW0jExIomOY3EYDXEWby4V7grmWTI7yDhz0P3vIu827G6En+5Azr9jNpxwaeMI5sSlSxdGoGk8Dp3XqDMLyTQZ4BuK6Ar4JYiHxCEWbKE7ljrTmtQEso2ZE0w8MpgqoF7k32No9mthHKoBtI4EkjDbCuQphLIBVmxmD82t94/Nt0yP2ZntMb4HISc8foxoI4g1e23hVS2pB/PefPceNpV0hsNWW8N2oqlpYRyNL/nhilcipoxA5gXRfpzkt+wG2T749xvDS+j/1/hvnVuOGvcz+vkKe732orlQAnl0z5kIEZAiFyAReJ3ifDiBzxUkRJo6HJ5KZtFLG8Ka5ndQIoWD65YoVq+Ja0pD9sYYnckRC5vLj3ibAXfSYRd6EpKczzo/i/pLml8P0V2scI3saHQA4xvqKrWPhJpOXQuCFVWRPU9olA/JBF1oBxXIMYfFexL3SRT35ipXomymQoKpD5fG291a+PrxGKAriFTVppwKw/Z5XQbKnSbEYy4oI6eBdOQJjZEzxPkWPKM21uzZAMvEaRNCVmiW10rLwljxD9Os8vpU9q7Ge7vZZTRr+NsNGPUEcjNU65ahtxQReWcHuAWHFLMw4gDAQtwt/n7Gke8B3xRIPEyDHKMzsSaZzPKMrQJX0Vmu0VeNvgIH5Iu8vV98FH86H0UP+oZxx5eyA9jcMpT2/RQX97mJKCyAomEEPOq4aZcSSlyrUAKH+rv5LbVUgUy6ukkm6lhBTJqCqhjf3Y66r2leDBIMpAHn7faxNaGvF7pD2C5RGz2h8CWEm3S1YbjZX6XZAwFTkbRvbO5Zio5oF7I7LrgaFzIVI5/snYxVK1cKWTxHqNtiQ3oSoLXypXyLn9xuVI8tU0CVcG+O30cfBCQGGCUy6Ekg9RlcF0NZZmmqpiyNfgRZyNgAtET5xg/KSuV1GQ1rJkNUpPiqmVWZkW5xMpHCnC4ItQvK6c3qXKaKVelpUJtNlTe71da2UyXKi2zfhjdNinVb3GVelnOUdeUdLxQmvZHFUrFU9voq6/99+mJTTkfHSoJaGJpYyu+ph0FTVOvo9nwPOjcrGNar0zULOmYei3nGJ98mmCq33KayzOEV0RKsm0i1Aa2E2nvO2n8H2YpRTgZ9cJyuXBSXH0cX+A/ndHT34Nbshui0Ze7eGf+iY78XOQBPsOQyfPoFdiK5VJyCIhzSDnjpAdT188hTXNV07PJd+cq+yyBpOQq+8O4x5vFz6DS7sWvyaybfwE=</diagram></mxfile>
+<mxfile host="app.diagrams.net" agent="manual" version="24.0.0">
+  <diagram id="proc-importow" name="Procedura importów">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="lane-client" value="Klient API" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="240" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-api" value="API integracyjne" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="290" y="40" width="240" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-dm" value="DEBT Manager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="540" y="40" width="240" height="900" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s1" value="1. POST /connect/token&#xa;→ access_token" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="lane-client">
+          <mxGeometry x="20" y="30" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" value="2. POST CreateImport&#xa;→ importId" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="lane-client">
+          <mxGeometry x="20" y="100" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="3. SetImportStep&#xa;Adding / InProgress" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="lane-client">
+          <mxGeometry x="20" y="170" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" value="4. (Opcj.) GetDictionaries&#xa;SetImportValidations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;dashed=1;" vertex="1" parent="lane-client">
+          <mxGeometry x="20" y="240" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" value="5. Pętla:&#xa;EnqueueImportMessage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="lane-client">
+          <mxGeometry x="20" y="310" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s6" value="6. SetImportStep&#xa;Adding/Validation = Done" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="lane-client">
+          <mxGeometry x="20" y="380" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s7a" value="Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="lane-api">
+          <mxGeometry x="20" y="450" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s7b" value="Consumption" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="lane-dm">
+          <mxGeometry x="20" y="520" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s7c" value="Finishing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;" vertex="1" parent="lane-api">
+          <mxGeometry x="20" y="590" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s8" value="8. GetImportStatus (polling)&#xa;aż IsFinished=true" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;" vertex="1" parent="lane-client">
+          <mxGeometry x="20" y="660" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="endArrow=classic;html=1;" edge="1" parent="1" source="s1" target="s2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="endArrow=classic;html=1;" edge="1" parent="1" source="s2" target="s3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="endArrow=classic;html=1;" edge="1" parent="1" source="s3" target="s4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="endArrow=classic;html=1;" edge="1" parent="1" source="s4" target="s5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="endArrow=classic;html=1;" edge="1" parent="1" source="s5" target="s6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="endArrow=classic;html=1;" edge="1" parent="1" source="s6" target="s7a"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="endArrow=classic;html=1;" edge="1" parent="1" source="s7a" target="s7b"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="endArrow=classic;html=1;" edge="1" parent="1" source="s7b" target="s7c"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="endArrow=classic;html=1;dashed=1;" edge="1" parent="1" source="s7c" target="s8"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

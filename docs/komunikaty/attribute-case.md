@@ -20,7 +20,7 @@ title: "AttributeCase"
   <li>
     <span class="param-name required">MatchKey</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Klucz wyszukiwania obiektu w DM. Patrz <a href="index.md#budowa-komunikatów">Budowa komunikatów</a>.</span>
+    <span class="param-desc">Klucz wyszukiwania obiektu w DM. Patrz <a href="../#budowa-komunikatów">Budowa komunikatów</a>.</span>
   </li>
   <li>
     <span class="param-name required">MatchKeyType</span>

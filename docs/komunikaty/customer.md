@@ -41,7 +41,7 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
   <li>
     <span class="param-name required">MatchKey</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Klucz wyszukiwania obiektu w DM. Patrz <a href="index.md#budowa-komunikatów">Budowa komunikatów</a>.</span>
+    <span class="param-desc">Klucz wyszukiwania obiektu w DM. Patrz <a href="../#budowa-komunikatów">Budowa komunikatów</a>.</span>
   </li>
   <li>
     <span class="param-name required">MatchKeyType</span>
@@ -85,7 +85,7 @@ Każdy obiekt — zarówno `Customer` na poziomie głównym, jak i wszystkie obi
   <li>
     <span class="param-name">ObjectId</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Identyfikator obiektu do śledzenia statusu przetwarzania (np. przez <a href="../funkcje-api/importy/get-object-status-by-id.md">GetObjectStatusByID</a>) — GUID albo ID z systemu zewnętrznego, patrz <a href="index.md#budowa-komunikatów">Budowa komunikatów</a>. Dla obiektu głównego <code>Customer</code> wymagany; dla obiektów zagnieżdżonych zazwyczaj <code>null</code> (rolę identyfikatora pełni <code>Id</code>).</span>
+    <span class="param-desc">Identyfikator obiektu do śledzenia statusu przetwarzania (np. przez <a href="../../funkcje-api/importy/get-object-status-by-id/">GetObjectStatusByID</a>) — GUID albo ID z systemu zewnętrznego, patrz <a href="../#budowa-komunikatów">Budowa komunikatów</a>. Dla obiektu głównego <code>Customer</code> wymagany; dla obiektów zagnieżdżonych zazwyczaj <code>null</code> (rolę identyfikatora pełni <code>Id</code>).</span>
   </li>
   <li>
     <span class="param-name">VersionId</span>
@@ -125,7 +125,7 @@ Każdy obiekt — zarówno `Customer` na poziomie głównym, jak i wszystkie obi
   <li>
     <span class="param-name required">UpdateBehaviour</span>
     <span class="param-type">int</span>
-    <span class="param-desc">Flaga sterująca aktualizacją konkretnego obiektu (per-obiekt). Wartości jak w polu listowym <code>ObjectsUpdateBehaviour</code> — patrz <a href="index.md#flagi-aktualizacyjne-obiektow-objectsupdatebehaviour">macierz flag</a>. Zwykle <code>6</code> (dodaj-lub-zaktualizuj) lub <code>3</code> (tylko aktualizacja, jeśli istnieje).</span>
+    <span class="param-desc">Flaga sterująca aktualizacją konkretnego obiektu (per-obiekt). Wartości jak w polu listowym <code>ObjectsUpdateBehaviour</code> — patrz <a href="../#flagi-aktualizacyjne-obiektow-objectsupdatebehaviour">macierz flag</a>. Zwykle <code>6</code> (dodaj-lub-zaktualizuj) lub <code>3</code> (tylko aktualizacja, jeśli istnieje).</span>
   </li>
 </ul>
 

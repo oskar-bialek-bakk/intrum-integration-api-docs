@@ -77,7 +77,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
   <li>
     <span class="param-name">ExternalFileName</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Nazwa importowanego pliku</span>
+    <span class="param-desc">Nazwa pliku źródłowego importu — pole historyczne; w integracjach API-2-API zwykle <code>null</code>.</span>
   </li>
   <li>
     <span class="param-name">CurrentStep</span>
@@ -115,7 +115,6 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
     <span class="param-desc">Etap importu:</span>
 <ul class="status-values">
 <li><code>1</code> — Adding</li>
-<li><code>2</code> — Transformation</li>
 <li><code>3</code> — Validation</li>
 <li><code>4</code> — Consumption</li>
 <li><code>5</code> — Finishing</li>
@@ -134,7 +133,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
   <li>
     <span class="param-name">Message</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Komunikat powiązany z etapem i statusem, np. na etapie Validation ze statusem Error: <code>"Plik importowy zawiera błędy walidacji"</code></span>
+    <span class="param-desc">Komunikat powiązany z etapem i statusem, np. na etapie Validation ze statusem Error: <code>"Import zawiera błędy walidacji"</code></span>
   </li>
   <li>
     <span class="param-name">StepDetailsList</span>
@@ -154,7 +153,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
   <li>
     <span class="param-name">Description</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Tekstowy opis, np. <code>"W linii 23 pliku importowego wystąpił błąd walidacji: brak kwoty wpłaty"</code></span>
+    <span class="param-desc">Tekstowy opis, np. <code>"W komunikacie ObjectID a0f22474-...: brak uzupełnionego pola Waluta"</code></span>
   </li>
   <li>
     <span class="param-name">Type</span>
@@ -197,7 +196,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
     <span class="param-type">int</span>
     <span class="param-desc">Status przetwarzania komunikatu:</span>
 <ul class="status-values">
-<li><code>0</code> — OFFLINE — komunikat ignorowany (czeka na rozbicie pliku na komunikaty)</li>
+<li><code>0</code> — OFFLINE — komunikat pomijany w bieżącym cyklu (status historyczny — nieużywany w trybie API-2-API)</li>
 <li><code>1</code> — QUEUED — oczekuje na upłynięcie <code>ToDoAt</code></li>
 <li><code>2</code> — SUCCESS — poprawnie przetworzony</li>
 <li><code>3</code> — ERROR — błąd przetwarzania</li>
@@ -218,7 +217,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
   <li>
     <span class="param-name">ObjectId</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Identyfikator obiektu — patrz <a href="../../komunikaty/index.md">Komunikaty</a></span>
+    <span class="param-desc">Identyfikator obiektu — patrz <a href="../../../komunikaty/">Komunikaty</a></span>
   </li>
   <li>
     <span class="param-name">MaxRetryCount</span>
@@ -267,7 +266,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
       "MaxRetryCount": 3
     }
   ],
-  "ExternalFileName": "OkCaseSample.xlsx"
+  "ExternalFileName": null
 }
 ```
 

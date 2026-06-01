@@ -21,7 +21,7 @@ System posiada API Integracyjne, którego celem jest umożliwienie przygotowywan
   <li>API integracyjne można zasilić <strong>bezpośrednio</strong> poprzez wywołanie usługi.</li>
   <li>API integracyjne <strong>kolejkuje</strong> przekazane komunikaty i przetwarza je wykorzystując tyle zasobów ile aktualnie posiada system (z możliwością zwiększenia mocy przetwarzania poprzez dodanie kolejnych maszyn konsumujących dane z kolejek).</li>
   <li>API integracyjne zasila system <strong>w trybie rzeczywistym</strong>, nie powodując zablokowania systemu DEBT Manager w trakcie zasilania.</li>
-  <li>Dostawca przygotowuje i utrzymuje API integracyjne, ale zasilanie danymi API integracyjnego może być wykonywane przez <strong>IT klienta</strong>. Dodatkowo IT klienta może przejąć na siebie wykonanie poszczególnych kroków importu: <strong>walidację</strong>, <strong>transformację</strong> i <strong>finalizację</strong>.</li>
+  <li>Dostawca przygotowuje i utrzymuje API integracyjne. Zasilanie API integracyjnego danymi może być wykonywane przez <strong>IT klienta</strong> z poziomu systemu pośredniczącego (Klient API). IT klienta może dodatkowo przejąć na siebie wykonanie etapu <strong>walidacji</strong> — zgłaszając zakończony etap przez <a href="../funkcje-api/importy/set-import-step/">SetImportStep</a>.</li>
 </ol>
 
 </div>
@@ -31,41 +31,44 @@ System posiada API Integracyjne, którego celem jest umożliwienie przygotowywan
 <div class="api-section" markdown>
 <div class="api-section-title">Przegląd procesu importu</div>
 
+!!! note "Granica zakresu dokumentacji"
+    Niniejsza dokumentacja opisuje wyłącznie kanał komunikacji **Klient API → DEBT Manager**. To, w jaki sposób Klient API otrzymuje dane do wysłania (np. transformacja danych od kontrahenta, integracja z systemem zewnętrznym), jest poza zakresem tego dokumentu.
+
 <div class="pipeline">
   <div class="pipeline-step">
     <span class="step-num">1</span>
-    <span class="step-title">Pobranie danych</span>
-    <span class="step-desc">Pobranie danych z SFTP, e-mail lub zewnętrznego systemu.</span>
+    <span class="step-title">Pobranie tokenu</span>
+    <span class="step-desc">OAuth 2.0 client credentials — patrz <a href="autoryzacja/">Autoryzacja</a>.</span>
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">
     <span class="step-num">2</span>
-    <span class="step-title">Wywołanie API</span>
-    <span class="step-desc">Wywołanie funkcji API rozpoczynającej import.</span>
+    <span class="step-title">Utworzenie importu</span>
+    <span class="step-desc">Wywołanie <a href="../funkcje-api/importy/create-import/">CreateImport</a> i odebranie <code>importId</code>.</span>
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">
     <span class="step-num">3</span>
-    <span class="step-title">Walidacja danych</span>
-    <span class="step-desc">Walidacja danych do importu, odrzucenie w przypadku błędów.</span>
+    <span class="step-title">Start fazy Adding</span>
+    <span class="step-desc"><a href="../funkcje-api/importy/set-import-step/">SetImportStep</a> Stage=Adding, Status=InProgress.</span>
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">
     <span class="step-num">4</span>
-    <span class="step-title">Transformacja</span>
-    <span class="step-desc">Transformacja danych na komunikaty zrozumiałe przez API.</span>
+    <span class="step-title">Wysłanie komunikatów</span>
+    <span class="step-desc">Pętla <a href="../funkcje-api/importy/enqueue-import-message/">EnqueueImportMessage</a> per kolejka.</span>
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">
     <span class="step-num">5</span>
-    <span class="step-title">Import do bazy DM</span>
-    <span class="step-desc">Zaimportowanie danych z komunikatów do bazy DEBT Manager.</span>
+    <span class="step-title">Zamknięcie fazy</span>
+    <span class="step-desc"><a href="../funkcje-api/importy/set-import-step/">SetImportStep</a> Stage=Adding, Status=Done (walidacja po stronie API) lub Stage=Validation, Status=Done (walidacja po stronie Klienta API).</span>
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">
     <span class="step-num">6</span>
-    <span class="step-title">Finalizacja</span>
-    <span class="step-desc">E-mail o sukcesie, zmiana statusu w sys. zewnętrznym.</span>
+    <span class="step-title">Monitorowanie</span>
+    <span class="step-desc"><a href="../funkcje-api/importy/get-import-status/">GetImportStatus</a> aż <code>IsFinished=true</code>.</span>
   </div>
 </div>
 
@@ -79,6 +82,6 @@ System posiada API Integracyjne, którego celem jest umożliwienie przygotowywan
 Szczegóły procedury konfiguracji nowego importu oraz procedurę importowania danych od kontrahenta opisano w rozdziałach:
 
 - [Konfiguracja nowego kontrahenta](konfiguracja-kontrahenta.md)
-- [Procedura importów danych od kontrahenta](procedura-importow.md)
+- [Procedura importów](procedura-importow.md)
 
 </div>

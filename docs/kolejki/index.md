@@ -73,7 +73,7 @@ W ramach API integracyjnego wykorzystywane są kolejki danych, które pełnią n
   <li>
     <span class="param-name">dm_messages.[nazwa_komunikatu]</span>
     <span class="param-type">SQL Server</span>
-    <span class="param-desc">Dla każdego komunikatu istnieje w bazie API Integracyjnego (<code>dm_integration_[nazwa]</code>, schemat <code>dm_messages</code>) tabela pełniąca rolę kolejki danego komunikatu. Konsumowana przez <strong>system DEBT Manager</strong>. Szczegółowy opis zastosowanego rozwiązania: <a href="https://www.mssqltips.com/sqlservertip/1155/sql-server-database-specific-settings-service-broker/">Service Broker pattern</a>.</span>
+    <span class="param-desc">Dla każdego komunikatu istnieje w bazie <strong>DEBT Manager</strong>, w schemacie <code>dm_messages</code>, tabela pełniąca rolę kolejki danego komunikatu. Konsumowana przez <strong>system DEBT Manager</strong>. Szczegółowy opis zastosowanego rozwiązania: <a href="https://www.mssqltips.com/sqlservertip/1155/sql-server-database-specific-settings-service-broker/">Service Broker pattern</a>.</span>
   </li>
 </ul>
 </details>

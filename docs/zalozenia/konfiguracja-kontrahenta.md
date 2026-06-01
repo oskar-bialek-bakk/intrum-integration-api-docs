@@ -55,7 +55,7 @@ Zadanie skonfigurowania nowego kontrahenta wiąże się z krokami, które opisuj
     <span class="role-owner role-analityk">Biznes / Analityk</span>
     <span class="role-name">Przekazuje mapowania portfela</span>
   </div>
-  <p class="role-desc">Przekazuje dla IT mapowania w jaki sposób pliki importowe mają mapować się na odpowiednie pola w aplikacji DM — np. który adres z pliku importowego to adres zameldowania, jakie są reguły walidacji pliku itd.</p>
+  <p class="role-desc">Przekazuje dla IT mapowania w jaki sposób dane źródłowe (otrzymane od Kontrahenta) mają mapować się na pola w aplikacji DM — np. który adres ze zbioru danych to adres zameldowania, jakie są reguły walidacji danych itd.</p>
 </div>
 
 <div class="role-card">
@@ -69,17 +69,9 @@ Zadanie skonfigurowania nowego kontrahenta wiąże się z krokami, które opisuj
 <div class="role-card">
   <div class="role-header">
     <span class="role-owner role-it">IT</span>
-    <span class="role-name">Konfiguruje VPN/SFTP dostępy</span>
+    <span class="role-name">Konfiguruje klienta API</span>
   </div>
-  <p class="role-desc">IT konfiguruje z kontrahentem VPN oraz dostępy SFTP wykorzystywane do wymiany plikowej.</p>
-</div>
-
-<div class="role-card">
-  <div class="role-header">
-    <span class="role-owner role-it">IT</span>
-    <span class="role-name">Importy: Konfiguruje mechanizm pobierania danych</span>
-  </div>
-  <p class="role-desc">IT konfiguruje mechanizm, który pobierze pliki od kontrahenta i przeniesie je do Klienta.</p>
+  <p class="role-desc">IT konfiguruje credentials OAuth (Client ID i Client Secret), przekazane przez dostawcę API integracyjnego. Implementuje wywołania endpointów: <a href="../../funkcje-api/importy/create-import/">CreateImport</a>, <a href="../../funkcje-api/importy/set-import-step/">SetImportStep</a>, <a href="../../funkcje-api/importy/enqueue-import-message/">EnqueueImportMessage</a>, <a href="../../funkcje-api/importy/get-import-status/">GetImportStatus</a>.</p>
 </div>
 
 <div class="role-card">
@@ -87,15 +79,7 @@ Zadanie skonfigurowania nowego kontrahenta wiąże się z krokami, które opisuj
     <span class="role-owner role-it">IT</span>
     <span class="role-name">Importy: Implementuje mapowanie portfela</span>
   </div>
-  <p class="role-desc">Na podstawie mapowań dostarczonych od biznesu, IT implementuje mechanizm transformujący dane z plików kontrahenta na komunikaty DM.</p>
-</div>
-
-<div class="role-card">
-  <div class="role-header">
-    <span class="role-owner role-it">IT</span>
-    <span class="role-name">Eksporty: Konfiguruje mechanizm dostarczania danych</span>
-  </div>
-  <p class="role-desc">Na podstawie specyfikacji kontrahenta, IT implementuje mechanizm formatujący pliki eksportów wystawione przez DM do oczekiwanego formatu oraz konfiguruje transport plików na udziały sieciowe kontrahenta.</p>
+  <p class="role-desc">Na podstawie mapowań dostarczonych od biznesu, IT implementuje w systemie Klient API transformację danych źródłowych (otrzymanych od Kontrahenta dowolnym kanałem) na komunikaty API rozumiane przez DEBT Manager.</p>
 </div>
 
 </div>

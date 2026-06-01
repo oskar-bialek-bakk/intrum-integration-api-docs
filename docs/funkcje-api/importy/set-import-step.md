@@ -9,7 +9,7 @@ title: "SetImportStep"
   <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/SetImportStep</div>
 </div>
 
-Ustawia aktualny krok importu — pozwala zgłosić zmianę etapu lub statusu w procesie importu.
+Pozwala Klientowi API sterować cyklem życia importu — zgłosić rozpoczęcie fazy Adding po wywołaniu [CreateImport](create-import.md), zamknąć fazę Adding po wysłaniu komunikatów, opcjonalnie przejąć etap Validation (gdy Klient API waliduje dane u siebie), oraz raportować błędy z poziomu klienta.
 
 ---
 
@@ -45,7 +45,6 @@ Ustawia aktualny krok importu — pozwala zgłosić zmianę etapu lub statusu w 
     <span class="param-desc">Etap importu:</span>
 <ul class="status-values">
 <li><code>1</code> — Adding</li>
-<li><code>2</code> — Transformation</li>
 <li><code>3</code> — Validation</li>
 <li><code>4</code> — Consumption</li>
 <li><code>5</code> — Finishing</li>
@@ -64,7 +63,7 @@ Ustawia aktualny krok importu — pozwala zgłosić zmianę etapu lub statusu w 
   <li>
     <span class="param-name">Message</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Komunikat powiązany z etapem i statusem, np. <code>"Plik importowy zawiera błędy walidacji"</code></span>
+    <span class="param-desc">Komunikat powiązany z etapem i statusem, np. <code>"Import zawiera błędy walidacji"</code></span>
   </li>
   <li>
     <span class="param-name">StepDetailsList</span>
@@ -84,7 +83,7 @@ Ustawia aktualny krok importu — pozwala zgłosić zmianę etapu lub statusu w 
   <li>
     <span class="param-name">Description</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Tekstowy opis, np. <code>"W linii 23 pliku importowego wystąpił błąd walidacji: brak kwoty wpłaty"</code></span>
+    <span class="param-desc">Tekstowy opis, np. <code>"W komunikacie ObjectID a0f22474-...: brak uzupełnionego pola Waluta"</code></span>
   </li>
   <li>
     <span class="param-name">Type</span>
@@ -144,12 +143,6 @@ Struktura odpowiedzi jest identyczna jak w funkcji [GetImportStatus](get-import-
     <span class="step-num">1</span>
     <span class="step-title">Adding</span>
     <span class="step-desc">Dodawanie danych importowych do systemu.</span>
-  </div>
-  <span class="pipeline-arrow">&#x2192;</span>
-  <div class="pipeline-step">
-    <span class="step-num">2</span>
-    <span class="step-title">Transformation</span>
-    <span class="step-desc">Transformacja danych na komunikaty zrozumiałe przez API.</span>
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">

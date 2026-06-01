@@ -3,58 +3,11 @@ title: "Komunikaty"
 ---
 
 <div class="api-section" markdown>
-<div class="api-section-title">Tryby importu danych</div>
+<div class="api-section-title">Komunikaty w cyklu życia importu</div>
 
-Dane do systemu DEBT Manager importowane są za pomocą komunikatów. Komunikaty mogą być przekazywane do API w dwóch trybach:
+Dane do systemu DEBT Manager importowane są za pomocą **komunikatów**. Każdy komunikat reprezentuje pojedynczy obiekt do dodania/aktualizacji w DM (klient, sprawa, kontrakt, wpłata itp.).
 
--   **Samodzielny komunikat** — w dowolnym momencie można zasilić API komunikatem, który zmodyfikuje wybrane dane w systemie, np. system zewnętrzny przekazuje do DM pojedyncze wpłaty poprzez przekazanie do API pojedynczego komunikatu typu Payment.
--   **Pliki importowe, dzielone na komunikaty** — tryb importowania plików polega na przyjęciu przez API pliku danego typu importu, a następnie walidacji poprawności danych w pliku i podzieleniu danych z pliku na komunikaty, którymi zasilane jest API.
-
-!!! info "Przykład importu danych z pliku"
-
-    Zakładamy, że do systemu importujemy plik Excel o poniższej strukturze:
-
-    <table class="import-example-table">
-    <tr>
-      <th>Nazwa</th><th>PESEL</th><th>Zew nr dłużnika</th><th>rodzaj dłużnika</th><th>telefon</th>
-      <th>nr rach. bankowego</th><th>Obsługa Od</th><th>Obsługa Do</th>
-      <th>data wyst.</th><th>data wymag.</th><th>data nal. odsetek</th><th>kwota wymagana</th>
-    </tr>
-    <tr>
-      <td>Jan Kowalski</td><td>83041100112</td><td>774</td><td>os.fiz.</td><td>622333111</td>
-      <td>01 1240 4416 (...)</td><td>2024-01-01</td><td>2024-03-30</td>
-      <td>2018-12-01</td><td>2019-03-01</td><td>73051</td><td>250,12</td>
-    </tr>
-    </table>
-
-    Import polega na wykonaniu dwóch kroków:
-
-    1) Walidacja danych i wykazanie błędów pliku importowego np.
-
-    -   Niepoprawne rozszerzenie pliku importowego
-    -   Import pliku o takiej samej nazwie jak już poprzednio zaimportowany plik
-    -   Import osoby, która ma podane imię i nazwisko ale brak PESEL-u
-    -   Import wpłaty bez podania daty wpłaty itd.
-
-    2) Podział danych z pliku na komunikaty, które następnie wysyłane są do API
-
-    <table class="import-example-table">
-    <tr>
-      <th>Nazwa</th><th>PESEL</th><th>Zew nr dłużnika</th><th>rodzaj dłużnika</th><th>telefon</th>
-      <th>nr rach. bankowego</th><th>Obsługa Od</th><th>Obsługa Do</th>
-      <th>data wyst.</th><th>data wymag.</th><th>data nal. odsetek</th><th>kwota wymagana</th>
-    </tr>
-    <tr>
-      <td class="band-customer">Jan Kowalski</td><td class="band-customer">83041100112</td><td class="band-customer">774</td><td class="band-customer">os.fiz.</td><td class="band-customer">622333111</td>
-      <td class="band-case">01 1240 4416 (...)</td><td class="band-case">2024-01-01</td><td class="band-case">2024-03-30</td>
-      <td class="band-contract">2018-12-01</td><td class="band-contract">2019-03-01</td><td class="band-contract">2019-03-02</td><td class="band-contract">250,12</td>
-    </tr>
-    <tr>
-      <td class="band-customer band-label" colspan="5"><strong>Customer</strong></td>
-      <td class="band-case band-label" colspan="3"><strong>Case</strong></td>
-      <td class="band-contract band-label" colspan="4"><strong>Contract</strong></td>
-    </tr>
-    </table>
+Komunikaty są zawsze wysyłane w kontekście importu — Klient API najpierw tworzy import przez [CreateImport](../funkcje-api/importy/create-import.md), następnie woła [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md) przekazując `importId`, nazwę kolejki i treść komunikatu. Szczegóły cyklu życia: [Procedura importów](../zalozenia/procedura-importow.md).
 
 </div>
 
@@ -127,7 +80,7 @@ Słownik może być rozszerzany. Zmiany wymagają modyfikacji procedur SQL `_fin
 
 !!! info "Przykład użycia pól MatchKey i MatchKeyType"
 
-    Zakładamy, że importujemy plik podzielony na następujące typy komunikatów:
+    Zakładamy, że dane do zaimportowania dzielimy na następujące typy komunikatów:
 
     <table class="import-example-table">
     <tr>

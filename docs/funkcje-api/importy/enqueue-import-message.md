@@ -9,7 +9,7 @@ title: "EnqueueImportMessage"
   <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/EnqueueImportMessage</div>
 </div>
 
-Dodaje wiadomość (komunikat) na wybraną kolejkę przetwarzania. Komunikat może być powiązany z konkretnym importem lub wysłany niezależnie (z pustym GUID).
+Dodaje wiadomość (komunikat) na wybraną kolejkę przetwarzania. Komunikat jest zawsze powiązany z konkretnym importem przez `importId` zwrócony z [CreateImport](create-import.md). Klient API woła ten endpoint po zgłoszeniu rozpoczęcia fazy Adding ([SetImportStep](set-import-step.md)).
 
 Szczegóły dostępnych kolejek i formatów komunikatów — patrz [Komunikaty](../../komunikaty/index.md).
 
@@ -22,17 +22,17 @@ Szczegóły dostępnych kolejek i formatów komunikatów — patrz [Komunikaty](
   <li>
     <span class="param-name required">importId</span>
     <span class="param-type">Guid</span>
-    <span class="param-desc">Id importu, z którym powiązany jest komunikat. Jeśli komunikat nie jest powiązany z żadnym importem, przekaż pusty GUID: <code>00000000-0000-0000-0000-000000000000</code></span>
+    <span class="param-desc">Id importu, w kontekście którego wysyłany jest komunikat. Wartość zwrócona przez <a href="../create-import/">CreateImport</a>.</span>
   </li>
   <li>
     <span class="param-name required">queueName</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Nazwa kolejki, na którą zostanie dodana wiadomość (np. <code>Case</code>, <code>Customer</code>, <code>Payment</code>). Lista kolejek — patrz <a href="../../kolejki/index.md">Kolejki</a></span>
+    <span class="param-desc">Nazwa kolejki, na którą zostanie dodana wiadomość (np. <code>Case</code>, <code>Customer</code>, <code>Payment</code>). Lista kolejek — patrz <a href="../../../kolejki/">Kolejki</a></span>
   </li>
   <li>
     <span class="param-name required">message</span>
     <span class="param-type">string (JSON)</span>
-    <span class="param-desc">Treść komunikatu w formacie JSON — lista obiektów zgodna ze strukturą wybranej kolejki. Szczegóły — patrz <a href="../../komunikaty/index.md">Komunikaty</a></span>
+    <span class="param-desc">Treść komunikatu w formacie JSON — lista obiektów zgodna ze strukturą wybranej kolejki. Szczegóły — patrz <a href="../../../komunikaty/">Komunikaty</a></span>
   </li>
 </ul>
 

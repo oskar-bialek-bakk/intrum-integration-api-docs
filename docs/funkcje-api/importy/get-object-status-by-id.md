@@ -69,7 +69,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetObjectS
     <span class="param-type">int</span>
     <span class="param-desc">Status przetwarzania komunikatu:</span>
 <ul class="status-values">
-<li><code>0</code> — OFFLINE — komunikat ignorowany (czeka na rozbicie pliku)</li>
+<li><code>0</code> — OFFLINE — komunikat pomijany w bieżącym cyklu (status historyczny — nieużywany w trybie API-2-API)</li>
 <li><code>1</code> — QUEUED — oczekuje na upłynięcie <code>ToDoAt</code></li>
 <li><code>2</code> — SUCCESS — poprawnie przetworzony</li>
 <li><code>3</code> — ERROR — błąd przetwarzania</li>
@@ -90,7 +90,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetObjectS
   <li>
     <span class="param-name">ObjectId</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Identyfikator obiektu — patrz <a href="../../komunikaty/index.md">Komunikaty</a></span>
+    <span class="param-desc">Identyfikator obiektu — patrz <a href="../../../komunikaty/">Komunikaty</a></span>
   </li>
   <li>
     <span class="param-name">MaxRetryCount</span>

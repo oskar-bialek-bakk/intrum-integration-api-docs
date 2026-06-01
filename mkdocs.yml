@@ -73,18 +73,15 @@ nav:
     - funkcje-api/index.md
     - Importy:
       - funkcje-api/importy/index.md
-      - ImportFromFileUpload: funkcje-api/importy/import-from-file-upload.md
-      - ImportFromFileShare: funkcje-api/importy/import-from-file-share.md
-      - GetImportStatus: funkcje-api/importy/get-import-status.md
-      - GetObjectStatusByID: funkcje-api/importy/get-object-status-by-id.md
-      - GetImportFile: funkcje-api/importy/get-import-file.md
-      - GetImportFileFromFileShare: funkcje-api/importy/get-import-file-from-file-share.md
-      - EnqueueImportMessage: funkcje-api/importy/enqueue-import-message.md
-      - RefreshDictionaries: funkcje-api/importy/refresh-dictionaries.md
+      - CreateImport: funkcje-api/importy/create-import.md
       - SetImportStep: funkcje-api/importy/set-import-step.md
       - GetDictionaries: funkcje-api/importy/get-dictionaries.md
-      - GetMailRecipients: funkcje-api/importy/get-mail-recipients.md
+      - RefreshDictionaries: funkcje-api/importy/refresh-dictionaries.md
       - SetImportValidations: funkcje-api/importy/set-import-validations.md
+      - EnqueueImportMessage: funkcje-api/importy/enqueue-import-message.md
+      - GetImportStatus: funkcje-api/importy/get-import-status.md
+      - GetObjectStatusByID: funkcje-api/importy/get-object-status-by-id.md
+      - GetMailRecipients: funkcje-api/importy/get-mail-recipients.md
       - GetMailRecipientsForImportType: funkcje-api/importy/get-mail-recipients-for-import-type.md
   - Komunikaty:
     - komunikaty/index.md
@@ -104,6 +101,5 @@ nav:
     - RemoveCase: komunikaty/remove-case.md
   - Przypadki użycia:
     - przypadki-uzycia/index.md
-    - Import pliku testowego: przypadki-uzycia/import-pliku-testowego.md
-    - Zasilenie bez pliku: przypadki-uzycia/zasilenie-bez-pliku.md
+    - Pierwszy import: przypadki-uzycia/pierwszy-import.md
     - Nowy typ importu: przypadki-uzycia/nowy-typ-importu.md

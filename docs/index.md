@@ -37,7 +37,7 @@ Dokumentacja techniczna API integracyjnego systemu DEBT Manager. API umożliwia 
 <a class="feature-card" href="przypadki-uzycia/">
   <span class="card-icon">▶</span>
   <span class="card-title">Przypadki użycia</span>
-  <p class="card-desc">Praktyczne scenariusze użycia API — nowy typ importu, import pliku, zasilenie bez pliku.</p>
+  <p class="card-desc">Praktyczne scenariusze krok po kroku: pierwszy import API-2-API, konfiguracja nowego typu importu.</p>
 </a>
 
 </div>

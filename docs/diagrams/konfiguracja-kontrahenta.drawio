@@ -1,1 +1,44 @@
-<mxfile host="192.168.199.190" modified="2025-05-16T15:29:23.553Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" etag="38sbzfmY46hw7vlB9M_m" version="14.5.0" type="atlas"><mxAtlasLibraries/><diagram id="kv-2y9CKtYurdfO7RGQ7" name="Page-1">7VrbUuM4EP0aV+0+QPmaOI8kYYACdlOEmanalynFFomIbblkeUL4+m3Fchxbdm7gsNTCS6R2qyX1Od1SG2vWIHy5Yiie3VMfB5qp+y+aNdRM03AtF36EZJlJeraVCaaM+FKpEIzJK5ZCXUpT4uOkpMgpDTiJy0KPRhH2eEmGGKOLstoTDcqzxmgqZ9QLwdhDAVbUfhKfzzKpa3YL+TUm01k+s9HpZU9ClCtLw8kM+XSxIbIuNWvAKOVZK3wZ4EA4L/dLNu5bw9P1whiO+D4DOlduJwp/vHLw8bh3nTzw/q8zaeU3ClK54VsacYZmwqip/xHF5/Azuv37T7kJvsw9A/uJRTMNgzvyhAMSQa8P6+HEIzFaLQqeXXicMvEAMxJijqE9DKT+qJD1FzPC8ThGnrC5ADKBbMbDAHoGNAFfjmAIW/eDAMUJmayWo4OEYS9lCfmNH3CS0UhIf2OxHhRcBGQagYxTYTiBeUg0fRSdodUBCU25WNFgTSMxWHVx7i+wil82RNLlV5jCftgSVOTTM9uW+MsAOMv5sCjolItmG0yydClEksHTte0CZGhInA/A3FEwv4gDMkfeM9LMTgDz9ycMWlPRGuKJIMI9ioDpbF8SfAzWbWG4xmcLhIZeg6HttIWhYSkgKthseDSmJOKrNTh9zRlWIKKMz+iURijYBEl13FY27e1N2yk507DrnKn60mjNl13Fld+1gaP1B0s+p4uIzOHh8P4r/x2X/yzjuPxnd1uLHfXQ+6DY6R7qzUroOPuFjmW25UpX8eTNI5wcKBQkiyZJvPbFV+AcGji94+LG6bQWN73/Sty4hzqzHDdW7fmtutK0W3OlqbhyxF7xHL2mzxjkNCaJcAR4CQiPtrm5ytMJ5ZyGgqocIupClEDC3TATyHDk55JJQL15ribrLncbdROaMg9v21SmB/ameBt6ef7Ffl56NYDHYOsc4rK0jDos5NCRYNzm0dOp5MvqlTrbkhxWgXS9jjegbCsoP+BnnHCWoTxfl1pIkFFNnHXXjo+AfiekzokQNbvlpGhUI7QBUcWSYe8wlG1ZMQQuRMsNNZnkmlfs1M9TMC2z+L68Uys8qOqfyFTyDoH5ScqXVQp+Bqblhc/JqWZazpFU61Zvbd1z3eoVf512mGdY9Rtol3qdBuqlknsLxNJoTqCVhnSx/Byk+7D05h6b3ipFl1k9+RpI9l40yC9YTfebEMV0gSKCPt0lp7tvnuqdiDOGUbncnviSY6pvosoR/2P0Fxgef3scQcenCdcGttbrxUv1ZaNPQdMXVNh6MAmfjmW3qCMuC+lm/YckZQL8xIsC7m7VG5r1dGE0jXzs7yrmWse2a583VC47wD34sLB6DTM1ZZiaEc6Wq4063tVrR58sQ6l385tQpCIwegHyModD7M0gXb2GmjkQ5AQOW1rfWoEc0wnBkNxq6IyiVTHnf/G5ic97HnDvwGf3UD7bxlv4nI8+GZ/VNwolPkMnwCEgXj6AcekAFjWorvJ4zf6VOtA4Sp4oRIZI5K7jLUOR2DOuq4NvS0VulOX2MI3IHK0qEFHi7nhh+P+JjwoD96xuD46OSvFr2ztio6rfPSgyqruqvthvOzLUavhynhyX6iHNQ8wkpJ7qMgbELeYr39fme2fPy+nb830+0/753rHeku/z0S2w+p+Rbf+053fGr8uZ412PRt8Nt+bDDSiwllPK6SLjMUMZxU39dcEob8jOKldrlMSpEFI/DYSNh5XdLCjEg/7NV/5e1++ucsGpJrv3IrxpKzec7g7Gq0Ns/SDKm5V/Sdnv9lYBusWHUJl68TmZdfkv</diagram></mxfile>
+<mxfile host="app.diagrams.net" agent="manual" version="24.0.0">
+  <diagram id="conf-kontrahenta" name="Konfiguracja kontrahenta">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="k1" value="Kontrahent&#xa;przekazuje opis portfela" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1" value="Biznes&#xa;rejestruje kontrahenta w DM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="130" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2" value="Biznes&#xa;konfiguruje warunki umowy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3" value="Biznes&#xa;konfiguruje atrybuty kontrahenta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="40" y="310" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="a1" value="Biznes / Analityk&#xa;przekazuje mapowania portfela" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="400" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" value="Biznes / Analityk&#xa;przygotowuje raporty zwrotne" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="490" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="i1" value="IT&#xa;konfiguruje klienta API (OAuth)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="580" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="i2" value="IT&#xa;implementuje mapowanie portfela&#xa;(dane źródłowe → komunikaty API)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="40" y="670" width="240" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" style="endArrow=classic;html=1;" edge="1" parent="1" source="k1" target="b1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="endArrow=classic;html=1;" edge="1" parent="1" source="b1" target="b2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="endArrow=classic;html=1;" edge="1" parent="1" source="b2" target="b3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="endArrow=classic;html=1;" edge="1" parent="1" source="b3" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="endArrow=classic;html=1;" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="endArrow=classic;html=1;" edge="1" parent="1" source="a2" target="i1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="endArrow=classic;html=1;" edge="1" parent="1" source="i1" target="i2"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

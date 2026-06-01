@@ -22,7 +22,7 @@ Ta dokumentacja to **jedno źródło prawdy** dla całej integracji:
 
 - 📘 **Czytelna jak książka** — zamiast rozproszonego Confluence i Worda masz spójne, przeszukiwalne podręczniki.
 - 🎯 **Precyzyjna jak spec** — każdy endpoint, każde pole komunikatu, każdy status opisany z przykładami JSON.
-- 🚀 **Praktyczna jak tutorial** — gotowe przewodniki „jak zaimportować", „jak zasilić", „jak dodać nowy typ importu".
+- 🚀 **Praktyczna jak tutorial** — gotowe przewodniki „jak wykonać pierwszy import API-2-API", „jak dodać nowy typ importu".
 - 🎨 **Nowoczesny design** — dark mode, brandowe kolory BAKK, pełna responsywność, kopiowalne snippety kodu.
 
 ---
@@ -48,7 +48,7 @@ Od czego zacząć: **architektura fizyczna**, konfiguracja kontrahenta, procedur
 <td width="50%" valign="top">
 
 ### 🔌 [Funkcje API](docs/funkcje-api/)
-**13 endpointów** pokrywających pełen cykl życia importu: upload pliku, kolejkowanie komunikatów, śledzenie statusu, słowniki walidacyjne, e-maile odbiorców.
+Endpointy pokrywające pełen cykl życia importu API-2-API: **CreateImport**, **EnqueueImportMessage**, śledzenie statusu, słowniki walidacyjne, e-maile odbiorców.
 
 </td>
 </tr>
@@ -62,7 +62,7 @@ Od czego zacząć: **architektura fizyczna**, konfiguracja kontrahenta, procedur
 <td width="50%" valign="top">
 
 ### 🎬 [Przypadki użycia](docs/przypadki-uzycia/)
-Praktyczne scenariusze krok po kroku: **import z pliku testowego**, **zasilenie bez pliku**, **konfiguracja nowego typu importu**. Od zera do działającej integracji.
+Praktyczne scenariusze krok po kroku: **pierwszy import API-2-API**, **konfiguracja nowego typu importu**. Od zera do działającej integracji.
 
 </td>
 </tr>

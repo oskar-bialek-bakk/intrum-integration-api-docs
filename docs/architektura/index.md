@@ -34,10 +34,28 @@ title: "Architektura fizyczna"
 
 <div class="role-card">
   <div class="role-header">
-    <span class="role-owner role-arch-app">Application Server</span>
-    <span class="role-name">API staging database</span>
+    <span class="role-owner role-arch-dm">DM Server</span>
+    <span class="role-name">Schematy integracyjne w bazie DEBT Manager</span>
   </div>
-  <p class="role-desc">Baza danych <code>dm_integration_[klient]</code> wykorzystywana do przetwarzania danych zanim finalnie zostaną zaimportowane do bazy DEBT Manager.</p>
+  <p class="role-desc">Dane pomocnicze API integracyjnego (rekordy importów, komunikaty, reguły walidacji, konfiguracja typów importów) znajdują się w bazie <strong>DEBT Manager</strong> w wydzielonych schematach integracyjnych:</p>
+  <ul class="param-list">
+    <li>
+      <span class="param-name"><code>dm_config</code></span>
+      <span class="param-desc">Konfiguracja typów importów, słowniki walidacyjne, mapowania, ustawienia kontrahenta.</span>
+    </li>
+    <li>
+      <span class="param-name"><code>dm_imports</code></span>
+      <span class="param-desc">Rekordy importów — cykl życia, etapy, statusy, historia kroków.</span>
+    </li>
+    <li>
+      <span class="param-name"><code>dm_messages</code></span>
+      <span class="param-desc">Komunikaty oczekujące na konsumpcję oraz historia przetwarzania.</span>
+    </li>
+    <li>
+      <span class="param-name"><code>dm_validations</code></span>
+      <span class="param-desc">Reguły walidacyjne aktywne w ramach importów (powiązane z <a href="../funkcje-api/importy/set-import-validations/">SetImportValidations</a>).</span>
+    </li>
+  </ul>
 </div>
 
 <div class="role-card">

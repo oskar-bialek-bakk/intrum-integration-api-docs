@@ -4,10 +4,13 @@ title: "Nowy typ importu"
 
 # Nowy typ importu
 
+!!! warning "Nazwy tabel do zweryfikowania"
+    Konkretne nazwy tabel w skryptach SQL poniżej zostały zaktualizowane co do schematów (`dm_config.*`, `dm_validations.*`), ale nazwy tabel mogą wymagać sprawdzenia w stanie wdrożenia po stronie DM dla danego klienta.
+
 <div class="api-section" markdown>
 <div class="api-section-title">Opis</div>
 
-Przewodnik pokazuje jak skonfigurować nowy typ importu obsługiwanego zewnętrznie. Operacja wymaga wykonania dwóch insertów SQL — jednego w bazie **DEBT Manager**, drugiego w bazie **integracyjnej API**.
+Przewodnik pokazuje jak skonfigurować nowy typ importu obsługiwanego zewnętrznie. Operacja wymaga wykonania insertów SQL w bazie **DEBT Manager** — w schematach `dm_config` (definicja typu importu) oraz `dm_validations` (reguły walidacji powiązane z typem importu).
 
 </div>
 
@@ -41,7 +44,7 @@ DECLARE
   <li>
     <span class="param-name required">@integration_import_type_id</span>
     <span class="param-type">int</span>
-    <span class="param-desc">ID typu importu w bazie integracyjnej API.</span>
+    <span class="param-desc">ID typu importu w schemacie <code>dm_config</code> w bazie DEBT Manager.</span>
   </li>
   <li>
     <span class="param-name required">@dm_orginal_creditor_id</span>
@@ -60,9 +63,9 @@ DECLARE
 ---
 
 <div class="api-section" markdown>
-<div class="api-section-title">Krok 2 — Rejestracja typu importu w DEBT Manager</div>
+<div class="api-section-title">Krok 2 — Rejestracja typu importu w DEBT Manager (schemat `dbo`)</div>
 
-Poniższy insert dodaje nowy typ importu do tabeli `import_typ` w bazie DEBT Manager. Klasa `IntegrationsApiImport` oznacza, że import będzie obsługiwany przez API integracyjne (a nie przez wbudowany mechanizm DM).
+Poniższy insert dodaje nowy typ importu do tabeli `dbo.import_typ` w bazie DEBT Manager. Klasa `IntegrationsApiImport` oznacza, że import będzie obsługiwany przez API integracyjne (a nie przez wbudowany mechanizm DM).
 
 ```sql
 INSERT INTO [dbo].[import_typ]
@@ -81,9 +84,9 @@ SELECT
 ---
 
 <div class="api-section" markdown>
-<div class="api-section-title">Krok 3 — Konfiguracja w bazie integracyjnej</div>
+<div class="api-section-title">Krok 3 — Konfiguracja typu importu (schemat `dm_config` w bazie DEBT Manager)</div>
 
-Drugi insert rejestruje typ importu w bazie integracyjnej API (`dm_config.import_type`). Klasy `ExternalRabbitMq*` oznaczają, że walidacja, transformacja i finalizacja są obsługiwane zewnętrznie przez system klienta (komunikacja przez RabbitMQ).
+Drugi insert rejestruje typ importu w schemacie `dm_config` w bazie DEBT Manager (`dm_config.import_type`). Klasy `ExternalRabbitMq*` oznaczają, że walidacja, transformacja i finalizacja są obsługiwane zewnętrznie przez system klienta (komunikacja przez RabbitMQ). Reguły walidacji powiązane z typem importu konfiguruje się oddzielnie w schemacie `dm_validations` (poza zakresem tego przewodnika).
 
 ```sql
 INSERT INTO [dm_config].[import_type]

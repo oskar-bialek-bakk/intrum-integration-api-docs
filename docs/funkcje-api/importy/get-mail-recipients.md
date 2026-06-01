@@ -6,7 +6,7 @@ title: "GetMailRecipients"
 
 <div class="endpoint-header">
   <div class="method-badge get">GET</div>
-  <div class="endpoint-url">https://[adres_api]/GetMailRecipients</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetMailRecipients</div>
 </div>
 
 Pobiera listę adresatów wiadomości e-mail, do których wysyłane są informacje o zakończeniu importów/eksportów. Bez parametrów zwraca pełną listę adresatów.
@@ -35,7 +35,7 @@ Pobiera listę adresatów wiadomości e-mail, do których wysyłane są informac
     Jeśli nie przekażemy żadnego z parametrów, funkcja zwróci pełną listę adresatów.
 
 ```bash title="Przykład wywołania"
-curl "https://[adres_api]/GetMailRecipients?importId=2fa859e9-8479-4c7e-b1bb-c85f90f2402c" \
+curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetMailRecipients?importId=2fa859e9-8479-4c7e-b1bb-c85f90f2402c" \
   -H "Authorization: Bearer {TOKEN}"
 ```
 

@@ -6,7 +6,7 @@ title: "GetImportStatus"
 
 <div class="endpoint-header">
   <div class="method-badge get">GET</div>
-  <div class="endpoint-url">https://[adres_api]/GetImportStatus</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportStatus</div>
 </div>
 
 Pobiera aktualny status danego importu — bieżący krok, historię kroków oraz opcjonalnie statusy poszczególnych komunikatów.
@@ -32,7 +32,7 @@ Pobiera aktualny status danego importu — bieżący krok, historię kroków ora
 </ul>
 
 ```bash title="Przykład wywołania"
-curl "https://[adres_api]/GetImportStatus?importId=2fa859e9-8479-4c7e-b1bb-c85f90f2402c&includeMessagesStatus=true" \
+curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportStatus?importId=2fa859e9-8479-4c7e-b1bb-c85f90f2402c&includeMessagesStatus=true" \
   -H "Authorization: Bearer {TOKEN}"
 ```
 

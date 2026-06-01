@@ -37,7 +37,7 @@ Grupa endpointów odpowiedzialna za cały cykl życia importu danych — od prze
 <div class="role-card">
   <div class="role-header">
     <span class="method-badge post">POST</span>
-    <span class="role-name"><a href="importy/enque-import-message/">EnqueImportMessage</a></span>
+    <span class="role-name"><a href="importy/enqueue-import-message/">EnqueueImportMessage</a></span>
   </div>
   <p class="role-desc">Zakolejkowanie pojedynczego komunikatu importowego.</p>
 </div>

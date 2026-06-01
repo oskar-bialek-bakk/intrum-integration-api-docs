@@ -21,7 +21,9 @@ title: "Customer"
   <span class="tree-connector">├── </span><span class="tree-leaf">AttributesList</span> <span class="tree-type">lista atrybutów dłużnika</span><br>
   <span class="tree-connector">├── </span><span class="tree-leaf">EmailList</span> <span class="tree-type">adresy e-mail</span><br>
   <span class="tree-connector">├── </span><span class="tree-leaf">PhoneNumberList</span> <span class="tree-type">numery telefonów</span><br>
+  <span class="tree-connector">│&nbsp;&nbsp;&nbsp;└── </span><span class="tree-leaf">PhonePropertyList</span> <span class="tree-type">właściwości telefonu</span><br>
   <span class="tree-connector">├── </span><span class="tree-leaf">AddressList</span> <span class="tree-type">adresy korespondencyjne / zameldowania</span><br>
+  <span class="tree-connector">│&nbsp;&nbsp;&nbsp;└── </span><span class="tree-leaf">AddressPropertyList</span> <span class="tree-type">właściwości adresu</span><br>
   <span class="tree-connector">├── </span><span class="tree-leaf">IdentityDocumentList</span> <span class="tree-type">dokumenty tożsamości</span><br>
   <span class="tree-connector">└── </span><span class="tree-leaf">CustomerPropertyList</span> <span class="tree-type">właściwości dłużnika</span>
 </div>
@@ -69,17 +71,101 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
 
 ---
 
+<div class="api-section" markdown>
+<div class="api-section-title">Pola wspólne dla każdego obiektu w komunikacie</div>
+
+Każdy obiekt — zarówno `Customer` na poziomie głównym, jak i wszystkie obiekty zagnieżdżone (`AttributesList[*]`, `PhoneNumberList[*]`, `AddressList[*]` itd.) — zawiera dodatkowo poniższy zestaw pól technicznych. Pola te służą do śledzenia statusu przetwarzania, kontroli wersji oraz sterowania zachowaniem aktualizacji.
+
+<ul class="param-list">
+  <li>
+    <span class="param-name required">Id</span>
+    <span class="param-type">GUID</span>
+    <span class="param-desc">Identyfikator obiektu w ramach pojedynczego komunikatu. Wymagany, unikalny per obiekt.</span>
+  </li>
+  <li>
+    <span class="param-name">ObjectId</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Identyfikator obiektu do śledzenia statusu przetwarzania (np. przez <a href="../funkcje-api/importy/get-object-status-by-id.md">GetObjectStatusByID</a>) — GUID albo ID z systemu zewnętrznego, patrz <a href="index.md#budowa-komunikatów">Budowa komunikatów</a>. Dla obiektu głównego <code>Customer</code> wymagany; dla obiektów zagnieżdżonych zazwyczaj <code>null</code> (rolę identyfikatora pełni <code>Id</code>).</span>
+  </li>
+  <li>
+    <span class="param-name">VersionId</span>
+    <span class="param-type">GUID</span>
+    <span class="param-desc">Identyfikator wersji obiektu. Wypełniany w przypadku aktualizacji konkretnej wersji obiektu w DM; <code>null</code> przy operacji dodania.</span>
+  </li>
+  <li>
+    <span class="param-name">OrderInMessage</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Kolejność obiektu w komunikacie. Dla obiektów zagnieżdżonych typowo <code>-2147483648</code> (brak kolejności). Dla obiektów głównych — kolejność wynikająca z pliku/źródła danych.</span>
+  </li>
+  <li>
+    <span class="param-name required">ToDoAt</span>
+    <span class="param-type">datetime (ISO 8601, UTC)</span>
+    <span class="param-desc">Moment, od którego API może rozpocząć przetwarzanie obiektu. Format: <code>2025-11-18T06:28:57.4287002Z</code>.</span>
+  </li>
+  <li>
+    <span class="param-name">QueueId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID kolejki, do której trafia obiekt główny (dla <code>Customer</code> typowo <code>2</code>). Dla obiektów zagnieżdżonych <code>0</code>.</span>
+  </li>
+  <li>
+    <span class="param-name">QueueName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Nazwa kolejki (np. <code>"Customer"</code>). Dla obiektów zagnieżdżonych <code>null</code>.</span>
+  </li>
+  <li>
+    <span class="param-name">Tag</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Pole dowolnego użytku — etykieta diagnostyczna lub korelacyjna. Najczęściej <code>null</code>.</span>
+  </li>
+  <li>
+    <span class="param-name">ObjectName</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Czytelna nazwa obiektu używana w logach API. Dla obiektu głównego: <code>"ObjectId &lt;guid&gt;"</code>. Dla obiektów zagnieżdżonych: <code>"-2147483648 object in message"</code>.</span>
+  </li>
+  <li>
+    <span class="param-name required">UpdateBehaviour</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Flaga sterująca aktualizacją konkretnego obiektu (per-obiekt). Wartości jak w polu listowym <code>ObjectsUpdateBehaviour</code> — patrz <a href="index.md#flagi-aktualizacyjne-obiektow-objectsupdatebehaviour">macierz flag</a>. Zwykle <code>6</code> (dodaj-lub-zaktualizuj) lub <code>3</code> (tylko aktualizacja, jeśli istnieje).</span>
+  </li>
+</ul>
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Pole na poziomie koperty komunikatu</div>
+
+Wewnątrz pola `message` (po deserializacji) na najwyższym poziomie obowiązują dodatkowo:
+
+<ul class="param-list">
+  <li>
+    <span class="param-name required">Objects</span>
+    <span class="param-type">array</span>
+    <span class="param-desc">Lista obiektów <code>Customer</code> do przetworzenia w ramach jednego komunikatu.</span>
+  </li>
+  <li>
+    <span class="param-name required">ObjectsUpdateBehaviour</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Domyślna flaga aktualizacji stosowana, gdy obiekt z listy nie ma własnej (<code>UpdateBehaviour</code>).</span>
+  </li>
+  <li>
+    <span class="param-name">ObjectsAddedUserId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID użytkownika DM, który rejestrowany jest jako autor wprowadzonych zmian (audyt). Typowo <code>5</code> = konto integracyjne.</span>
+  </li>
+</ul>
+
+</div>
+
+---
+
 <div class="api-section">
 <div class="api-section-title">Pola obiektu Customer</div>
 
 <details class="collapsible-fields">
 <summary>Customer — pola główne</summary>
 <ul class="param-list">
-  <li>
-    <span class="param-name required">ObjectId</span>
-    <span class="param-type">string</span>
-    <span class="param-desc">Identyfikator obiektu do śledzenia statusu przetwarzania (GUID lub ID z systemu zewnętrznego).</span>
-  </li>
   <li>
     <span class="param-name">DebtorPortfolioId</span>
     <span class="param-type">int</span>
@@ -298,6 +384,37 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
     <span class="param-type">string</span>
     <span class="param-desc">Zewnętrzny identyfikator.</span>
   </li>
+  <li>
+    <span class="param-name">PhonePropertyList</span>
+    <span class="param-type">obiekt z listą</span>
+    <span class="param-desc">Lista właściwości telefonu (z własnym <code>ObjectsUpdateBehaviour</code>) — patrz sekcja niżej.</span>
+  </li>
+</ul>
+</details>
+
+<details class="collapsible-fields">
+<summary>PhonePropertyList — właściwości telefonu</summary>
+<ul class="param-list">
+  <li>
+    <span class="param-name required">TypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID typu właściwości (słownik).</span>
+  </li>
+  <li>
+    <span class="param-name required">SubtypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID podtypu właściwości (słownik).</span>
+  </li>
+  <li>
+    <span class="param-name">ValidFrom</span>
+    <span class="param-type">datetime</span>
+    <span class="param-desc">Data początku obowiązywania właściwości.</span>
+  </li>
+  <li>
+    <span class="param-name">ValidTo</span>
+    <span class="param-type">datetime</span>
+    <span class="param-desc">Data końca obowiązywania właściwości (typowo <code>2100-01-01T00:00:00</code> dla otwartego okresu).</span>
+  </li>
 </ul>
 </details>
 
@@ -363,6 +480,37 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
     <span class="param-name">ExternalId</span>
     <span class="param-type">string</span>
     <span class="param-desc">Zewnętrzny identyfikator.</span>
+  </li>
+  <li>
+    <span class="param-name">AddressPropertyList</span>
+    <span class="param-type">obiekt z listą</span>
+    <span class="param-desc">Lista właściwości adresu (z własnym <code>ObjectsUpdateBehaviour</code>) — patrz sekcja niżej.</span>
+  </li>
+</ul>
+</details>
+
+<details class="collapsible-fields">
+<summary>AddressPropertyList — właściwości adresu</summary>
+<ul class="param-list">
+  <li>
+    <span class="param-name required">TypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID typu właściwości (słownik).</span>
+  </li>
+  <li>
+    <span class="param-name required">SubtypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID podtypu właściwości (słownik).</span>
+  </li>
+  <li>
+    <span class="param-name">ValidFrom</span>
+    <span class="param-type">datetime</span>
+    <span class="param-desc">Data początku obowiązywania.</span>
+  </li>
+  <li>
+    <span class="param-name">ValidTo</span>
+    <span class="param-type">datetime</span>
+    <span class="param-desc">Data końca obowiązywania (typowo <code>2100-01-01T00:00:00</code>).</span>
   </li>
 </ul>
 </details>
@@ -439,77 +587,165 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
 ---
 
 <div class="api-section" markdown>
-<div class="api-section-title">Przykład JSON</div>
+<div class="api-section-title">Przykłady JSON</div>
 
-=== "Pełny komunikat"
+Wszystkie przykłady poniżej to **rzeczywiste komunikaty** z konfiguracji testowej Intrum (`dmapi-intrum-dev`). Dane osobowe są zanonimizowane (losowe nazwy firm, numery NIP nie spełniają walidacji), telefony i adresy syntetyczne. Daty `ToDoAt` pochodzą z konkretnego runu pipeline z 2025-11-18.
 
-    ```json
+=== "Pełny komunikat (2 dłużników)"
+
+    Komunikat zasilający kolejkę `Customer` dwoma obiektami dłużnika — każdy z atrybutem, telefonami i adresem. Flaga `ObjectsUpdateBehaviour: 6` na poziomie listy = "dodaj-lub-zaktualizuj".
+
+    ```json title="Koperta API (request body)"
     {
       "importId": "00000000-0000-0000-0000-000000000000",
       "queueName": "Customer",
-      "message": "{...}" // (1)
+      "message": "{...}"
     }
     ```
 
-    1. Pole `message` to **string zawierający JSON** — poniżej rozpakowana zawartość.
+    Pole `message` to **string zawierający JSON** — poniżej rozpakowana zawartość.
 
-    ```json title="Zawartość pola message"
+    ```json title="Zawartość pola message (po deserializacji)"
     {
       "Objects": [
         {
+          "MatchKey": "test_9_6_640536561",
+          "MatchKeyType": 2,
           "DebtorPortfolioId": 1,
-          "ExternalId": "EXT12345",
+          "ExternalId": "640536561",
           "CustomerTypeId": 1,
-          "FirstName": "John",
-          "LastName": "Doe",
-          "CompanyFullName": "John Doe Enterprises Ltd.",
-          "CompanyShortName": "JDE Ltd.",
+          "FirstName": null,
+          "LastName": null,
+          "CompanyFullName": "HUBYH CXTFH DTDDLV YOHUTEZOYZNB HUWPHO",
+          "CompanyShortName": null,
           "SexId": 1,
-          "PESEL": "12345678901",
-          "REGON": "987654321",
-          "NIP": "123-45-67-890",
-          "KRS": "0000123456",
-          "FamilyName": "Doe",
-          "Description": "A valued customer",
-          "BirthDate": "1985-05-20T00:00:00",
+          "PESEL": null,
+          "REGON": null,
+          "NIP": "EK4689703218",
+          "KRS": null,
+          "FamilyName": null,
+          "Description": null,
+          "BirthDate": null,
           "DeathDate": null,
-          "SecondName": "Michael",
-          "MotherName": "Jane Doe",
-          "FatherName": "Richard Doe",
-          "BirthPlace": "New York",
+          "SecondName": null,
+          "MotherName": null,
+          "FatherName": null,
+          "BirthPlace": null,
           "CompanyStatusId": null,
           "LiquidationDate": null,
           "BankruptcyDate": null,
-          "CountryId": 1,
-          "Death": false,
-          "Bankruptcy": false,
-          "SourceId": 5,
+          "CountryId": null,
+          "Death": null,
+          "Bankruptcy": null,
+          "SourceId": null,
           "AttributesList": {
             "Objects": [
-              { "TypeId": 2, "Value": "test", "ExternalId": null }
-            ],
-            "ObjectsUpdateBehaviour": 6
-          },
-          "EmailList": {
-            "Objects": [
               {
-                "Email": "jan.kowalski@example.com",
-                "SourceId": 1,
-                "EmailTypeId": 1,
-                "ExternalId": "1",
-                "AdditionalInformation": ""
+                "MatchKey": null,
+                "MatchKeyType": 0,
+                "Value": "0",
+                "TypeId": 7689,
+                "ExternalId": null,
+                "Id": "fe1b382e-96f3-4019-8a12-a68f367f30eb",
+                "OrderInMessage": -2147483648,
+                "ObjectId": null,
+                "VersionId": null,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "QueueId": 0,
+                "QueueName": null,
+                "Tag": null,
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
               }
             ],
             "ObjectsUpdateBehaviour": 6
           },
+          "EmailList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
           "PhoneNumberList": {
             "Objects": [
               {
-                "PhoneNumber": "600123456",
-                "SourceId": 1,
-                "Comment": "",
-                "PhoneNumberTypeId": 1,
-                "ExternalId": "1"
+                "MatchKey": null,
+                "MatchKeyType": 0,
+                "PhoneNumber": "706581109",
+                "SourceId": 2,
+                "Comment": null,
+                "PhoneNumberTypeId": 2,
+                "ExternalId": null,
+                "PhonePropertyList": {
+                  "Objects": [
+                    {
+                      "MatchKey": null,
+                      "MatchKeyType": 0,
+                      "TypeId": 2,
+                      "SubtypeId": 2,
+                      "ValidFrom": "2025-11-18T00:00:00",
+                      "ValidTo": "2100-01-01T00:00:00",
+                      "Id": "837281aa-08ab-45a8-bd6a-71b81b233cb4",
+                      "OrderInMessage": -2147483648,
+                      "ObjectId": null,
+                      "VersionId": null,
+                      "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                      "QueueId": 0,
+                      "QueueName": null,
+                      "Tag": null,
+                      "ObjectName": "-2147483648 object in message",
+                      "UpdateBehaviour": 6
+                    }
+                  ],
+                  "ObjectsUpdateBehaviour": 6
+                },
+                "Id": "f33bfd2c-b1d3-4fc1-a5fa-87f01b925208",
+                "OrderInMessage": -2147483648,
+                "ObjectId": null,
+                "VersionId": null,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "QueueId": 0,
+                "QueueName": null,
+                "Tag": null,
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
+              },
+              {
+                "MatchKey": null,
+                "MatchKeyType": 0,
+                "PhoneNumber": "706304621",
+                "SourceId": 2,
+                "Comment": null,
+                "PhoneNumberTypeId": 2,
+                "ExternalId": null,
+                "PhonePropertyList": {
+                  "Objects": [
+                    {
+                      "MatchKey": null,
+                      "MatchKeyType": 0,
+                      "TypeId": 2,
+                      "SubtypeId": 2,
+                      "ValidFrom": "2025-11-18T00:00:00",
+                      "ValidTo": "2100-01-01T00:00:00",
+                      "Id": "c19a28f8-e3b9-40b8-882c-676639352353",
+                      "OrderInMessage": -2147483648,
+                      "ObjectId": null,
+                      "VersionId": null,
+                      "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                      "QueueId": 0,
+                      "QueueName": null,
+                      "Tag": null,
+                      "ObjectName": "-2147483648 object in message",
+                      "UpdateBehaviour": 6
+                    }
+                  ],
+                  "ObjectsUpdateBehaviour": 6
+                },
+                "Id": "9152126e-cee5-44f2-af95-a6c34583b4ba",
+                "OrderInMessage": -2147483648,
+                "ObjectId": null,
+                "VersionId": null,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "QueueId": 0,
+                "QueueName": null,
+                "Tag": null,
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
               }
             ],
             "ObjectsUpdateBehaviour": 6
@@ -517,59 +753,371 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
           "AddressList": {
             "Objects": [
               {
-                "AddressTypeId": 12,
-                "SourceId": 1,
-                "Country": "Polska",
-                "Street": "Marszałkowska",
-                "HouseNumber": "1",
-                "ApartmentNumber": "10",
-                "PostalCode": "00-001",
-                "City": "Warszawa",
-                "PostalOffice": "Warszawa",
-                "AdditionalInformation": "",
-                "RegionId": 1,
-                "ExternalId": "1"
+                "MatchKey": null,
+                "MatchKeyType": 0,
+                "AddressTypeId": 1,
+                "SourceId": 2,
+                "Country": null,
+                "Street": "DK.FLGZTZFSGNRJL 51",
+                "HouseNumber": null,
+                "ApartmentNumber": null,
+                "PostalCode": "96-050",
+                "City": "FHCVPVBOCJNFH",
+                "PostalOffice": null,
+                "AdditionalInformation": null,
+                "RegionId": null,
+                "ExternalId": null,
+                "AddressPropertyList": {
+                  "Objects": [
+                    {
+                      "MatchKey": null,
+                      "MatchKeyType": 0,
+                      "TypeId": 2,
+                      "SubtypeId": 2,
+                      "ValidFrom": "2025-11-18T00:00:00",
+                      "ValidTo": "2100-01-01T00:00:00",
+                      "Id": "4ad7a38c-00e1-450c-ba7f-2921c61f8540",
+                      "OrderInMessage": -2147483648,
+                      "ObjectId": null,
+                      "VersionId": null,
+                      "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                      "QueueId": 0,
+                      "QueueName": null,
+                      "Tag": null,
+                      "ObjectName": "-2147483648 object in message",
+                      "UpdateBehaviour": 6
+                    }
+                  ],
+                  "ObjectsUpdateBehaviour": 6
+                },
+                "Id": "ed2e54bb-7ae9-47f5-aa9d-7826c24df353",
+                "OrderInMessage": -2147483648,
+                "ObjectId": null,
+                "VersionId": null,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "QueueId": 0,
+                "QueueName": null,
+                "Tag": null,
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
               }
             ],
             "ObjectsUpdateBehaviour": 6
           },
-          "IdentityDocumentList": {
-            "Objects": [
-              {
-                "DocumentTypeId": 1,
-                "Series": "ABC",
-                "Number": "123456",
-                "IssueDate": "2020-01-15T00:00:00",
-                "ExpiryDate": "2030-01-15T00:00:00",
-                "IssuingAuthority": "Prezydent m.st. Warszawy",
-                "SourceId": 1
-              }
-            ],
-            "ObjectsUpdateBehaviour": 6
-          },
-          "CustomerPropertyList": {
-            "Objects": [
-              {
-                "TypeId": 3,
-                "SubtypeId": 11,
-                "ValidFrom": "1985-05-20T00:00:00",
-                "ValidTo": null
-              }
-            ],
-            "ObjectsUpdateBehaviour": 6
-          },
+          "IdentityDocumentList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "CustomerPropertyList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "Id": "b2ec4620-1765-42dc-9733-4561d3f35be1",
+          "OrderInMessage": 92,
+          "ObjectId": "5fb23fd0-a9f5-46d3-a57e-0b9cbfc6d9af",
+          "VersionId": null,
+          "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+          "QueueId": 2,
+          "QueueName": "Customer",
+          "Tag": null,
+          "ObjectName": "ObjectId 5fb23fd0-a9f5-46d3-a57e-0b9cbfc6d9af",
+          "UpdateBehaviour": 6
+        },
+        {
+          "MatchKey": "test_9_6_640124357",
           "MatchKeyType": 2,
-          "ObjectId": "00000000-0000-0000-0000-000000000000",
-          "MatchKey": "Customer_MK_1"
+          "DebtorPortfolioId": 1,
+          "ExternalId": "640124357",
+          "CustomerTypeId": 1,
+          "FirstName": null,
+          "LastName": null,
+          "CompanyFullName": "KHTEZK LOCBLZOC DRVUBF",
+          "CompanyShortName": null,
+          "SexId": 1,
+          "PESEL": null,
+          "REGON": null,
+          "NIP": "EK1956231624",
+          "KRS": null,
+          "FamilyName": null,
+          "Description": null,
+          "BirthDate": null,
+          "DeathDate": null,
+          "SecondName": null,
+          "MotherName": null,
+          "FatherName": null,
+          "BirthPlace": null,
+          "CompanyStatusId": null,
+          "LiquidationDate": null,
+          "BankruptcyDate": null,
+          "CountryId": null,
+          "Death": null,
+          "Bankruptcy": null,
+          "SourceId": null,
+          "AttributesList": {
+            "Objects": [
+              {
+                "MatchKey": null,
+                "MatchKeyType": 0,
+                "Value": "0",
+                "TypeId": 7689,
+                "ExternalId": null,
+                "Id": "4a7450d0-47a1-42e1-986b-863b405ac63f",
+                "OrderInMessage": -2147483648,
+                "ObjectId": null,
+                "VersionId": null,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "QueueId": 0,
+                "QueueName": null,
+                "Tag": null,
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
+              }
+            ],
+            "ObjectsUpdateBehaviour": 6
+          },
+          "EmailList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "PhoneNumberList": {
+            "Objects": [
+              {
+                "MatchKey": null,
+                "MatchKeyType": 0,
+                "PhoneNumber": "269593276",
+                "SourceId": 2,
+                "Comment": null,
+                "PhoneNumberTypeId": 2,
+                "ExternalId": null,
+                "PhonePropertyList": {
+                  "Objects": [
+                    {
+                      "MatchKey": null,
+                      "MatchKeyType": 0,
+                      "TypeId": 2,
+                      "SubtypeId": 2,
+                      "ValidFrom": "2025-11-18T00:00:00",
+                      "ValidTo": "2100-01-01T00:00:00",
+                      "Id": "f11019d0-d9c3-4533-95b7-fa0f49924e2e",
+                      "OrderInMessage": -2147483648,
+                      "ObjectId": null,
+                      "VersionId": null,
+                      "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                      "QueueId": 0,
+                      "QueueName": null,
+                      "Tag": null,
+                      "ObjectName": "-2147483648 object in message",
+                      "UpdateBehaviour": 6
+                    }
+                  ],
+                  "ObjectsUpdateBehaviour": 6
+                },
+                "Id": "9f4bd359-ae27-4edb-a20c-3cd34a865129",
+                "OrderInMessage": -2147483648,
+                "ObjectId": null,
+                "VersionId": null,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "QueueId": 0,
+                "QueueName": null,
+                "Tag": null,
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
+              }
+            ],
+            "ObjectsUpdateBehaviour": 6
+          },
+          "AddressList": {
+            "Objects": [
+              {
+                "MatchKey": null,
+                "MatchKeyType": 0,
+                "AddressTypeId": 1,
+                "SourceId": 2,
+                "Country": null,
+                "Street": "DK.PZFXGJL V 65",
+                "HouseNumber": null,
+                "ApartmentNumber": null,
+                "PostalCode": "73-600",
+                "City": "ŻHLHZ",
+                "PostalOffice": null,
+                "AdditionalInformation": null,
+                "RegionId": null,
+                "ExternalId": null,
+                "AddressPropertyList": {
+                  "Objects": [
+                    {
+                      "MatchKey": null,
+                      "MatchKeyType": 0,
+                      "TypeId": 2,
+                      "SubtypeId": 2,
+                      "ValidFrom": "2025-11-18T00:00:00",
+                      "ValidTo": "2100-01-01T00:00:00",
+                      "Id": "1d5f2a4b-105a-4f90-9c88-4aec35ee3000",
+                      "OrderInMessage": -2147483648,
+                      "ObjectId": null,
+                      "VersionId": null,
+                      "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                      "QueueId": 0,
+                      "QueueName": null,
+                      "Tag": null,
+                      "ObjectName": "-2147483648 object in message",
+                      "UpdateBehaviour": 6
+                    }
+                  ],
+                  "ObjectsUpdateBehaviour": 6
+                },
+                "Id": "694f2eeb-5731-4ff9-a98d-1953e92faa9c",
+                "OrderInMessage": -2147483648,
+                "ObjectId": null,
+                "VersionId": null,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "QueueId": 0,
+                "QueueName": null,
+                "Tag": null,
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
+              }
+            ],
+            "ObjectsUpdateBehaviour": 6
+          },
+          "IdentityDocumentList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "CustomerPropertyList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "Id": "0e93ab82-b94c-4ac5-ac5c-8dd5fcb982e4",
+          "OrderInMessage": 214,
+          "ObjectId": "4546140b-282c-4909-bbe3-fd1259c26cf6",
+          "VersionId": null,
+          "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+          "QueueId": 2,
+          "QueueName": "Customer",
+          "Tag": null,
+          "ObjectName": "ObjectId 4546140b-282c-4909-bbe3-fd1259c26cf6",
+          "UpdateBehaviour": 6
         }
       ],
-      "ObjectsUpdateBehaviour": 6
+      "ObjectsUpdateBehaviour": 6,
+      "ObjectsAddedUserId": 5
+    }
+    ```
+
+=== "Wariant: dodaj-lub-zaktualizuj (flaga 6)"
+
+    Pojedynczy dłużnik z flagą `ObjectsUpdateBehaviour: 6` i `UpdateBehaviour: 6` per-obiekt. Semantyka: jeżeli dłużnik o danym `MatchKey` istnieje — aktualizuj; jeżeli nie — dodaj.
+
+    ```json title="Zawartość pola message"
+    {
+      "Objects": [
+        {
+          "MatchKey": "updateTest_9_6_646009963",
+          "MatchKeyType": 2,
+          "DebtorPortfolioId": 1,
+          "ExternalId": "640536561",
+          "CustomerTypeId": 1,
+          "FirstName": "Jan",
+          "LastName": "Kowalski",
+          "CompanyFullName": "HUBYH CXTFH DTDDLV YOHUTEZOYZNB HUWPHO",
+          "SexId": 1,
+          "NIP": "EK4689703218",
+          "AttributesList": {
+            "Objects": [
+              {
+                "MatchKey": null,
+                "MatchKeyType": 0,
+                "Value": "0",
+                "TypeId": 7689,
+                "Id": "fe1b382e-96f3-4019-8a12-a68f367f30eb",
+                "OrderInMessage": -2147483648,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "QueueId": 0,
+                "QueueName": null,
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
+              }
+            ],
+            "ObjectsUpdateBehaviour": 6
+          },
+          "EmailList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "PhoneNumberList": {
+            "Objects": [
+              {
+                "PhoneNumber": "706581109",
+                "SourceId": 2,
+                "PhoneNumberTypeId": 2,
+                "PhonePropertyList": {
+                  "Objects": [
+                    {
+                      "TypeId": 2,
+                      "SubtypeId": 2,
+                      "ValidFrom": "2025-11-18T00:00:00",
+                      "ValidTo": "2100-01-01T00:00:00",
+                      "Id": "837281aa-08ab-45a8-bd6a-71b81b233cb4",
+                      "OrderInMessage": -2147483648,
+                      "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                      "ObjectName": "-2147483648 object in message",
+                      "UpdateBehaviour": 6
+                    }
+                  ],
+                  "ObjectsUpdateBehaviour": 6
+                },
+                "Id": "f33bfd2c-b1d3-4fc1-a5fa-87f01b925208",
+                "OrderInMessage": -2147483648,
+                "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+                "ObjectName": "-2147483648 object in message",
+                "UpdateBehaviour": 6
+              }
+            ],
+            "ObjectsUpdateBehaviour": 6
+          },
+          "AddressList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "IdentityDocumentList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "CustomerPropertyList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "Id": "11ec4620-1765-42dc-9733-4561d3f35be1",
+          "OrderInMessage": 92,
+          "ObjectId": "11b23fd0-a9f5-46d3-a57e-0b9cbfc6d9af",
+          "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+          "QueueId": 2,
+          "QueueName": "Customer",
+          "ObjectName": "ObjectId 11b23fd0-a9f5-46d3-a57e-0b9cbfc6d9af",
+          "UpdateBehaviour": 6
+        }
+      ],
+      "ObjectsUpdateBehaviour": 6,
+      "ObjectsAddedUserId": 5
+    }
+    ```
+
+=== "Wariant: tylko aktualizuj (flaga 3)"
+
+    Ten sam dłużnik z flagami `ObjectsUpdateBehaviour: 3` i `UpdateBehaviour: 3`. Semantyka: jeżeli obiekt o danym `MatchKey` istnieje — aktualizuj; jeżeli nie — **nie dodawaj** (komunikat zostanie odrzucony na poziomie tego obiektu). Listy zagnieżdżone (`AttributesList`, `PhoneNumberList`…) zachowują własną flagę aktualizacji.
+
+    ```json title="Zawartość pola message"
+    {
+      "Objects": [
+        {
+          "MatchKey": "updateTest_9_3_646009963",
+          "MatchKeyType": 2,
+          "DebtorPortfolioId": 1,
+          "ExternalId": "640536561",
+          "CustomerTypeId": 1,
+          "FirstName": "Jan",
+          "LastName": "Nowak",
+          "CompanyFullName": "HUBYH CXTFH DTDDLV YOHUTEZOYZNB HUWPHO",
+          "SexId": 1,
+          "NIP": "EK4689703218",
+          "AttributesList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "EmailList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "PhoneNumberList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "AddressList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "IdentityDocumentList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "CustomerPropertyList": { "Objects": [], "ObjectsUpdateBehaviour": 6 },
+          "Id": "22ec4620-1765-42dc-9733-4561d3f35be1",
+          "OrderInMessage": 92,
+          "ObjectId": "22b23fd0-a9f5-46d3-a57e-0b9cbfc6d9af",
+          "ToDoAt": "2025-11-18T06:28:57.4287002Z",
+          "QueueId": 2,
+          "QueueName": "Customer",
+          "ObjectName": "ObjectId 22b23fd0-a9f5-46d3-a57e-0b9cbfc6d9af",
+          "UpdateBehaviour": 3
+        }
+      ],
+      "ObjectsUpdateBehaviour": 3,
+      "ObjectsAddedUserId": 5
     }
     ```
 
 === "Minimalny przykład"
 
-    Tylko wymagane pola — dodanie osoby fizycznej bez list zagnieżdżonych.
+    Najmniejszy zestaw pól umożliwiający dodanie osoby fizycznej — bez list zagnieżdżonych.
 
     ```json title="Koperta API"
     {
@@ -583,16 +1131,24 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
     {
       "Objects": [
         {
+          "MatchKey": "DEB-000001",
+          "MatchKeyType": 2,
+          "ExternalId": "DEB-000001",
           "CustomerTypeId": 1,
           "FirstName": "Jan",
           "LastName": "Kowalski",
           "PESEL": "83041100112",
-          "MatchKeyType": 2,
-          "ObjectId": "00000000-0000-0000-0000-000000000000",
-          "MatchKey": "774"
+          "Id": "00000000-0000-0000-0000-000000000001",
+          "ObjectId": "00000000-0000-0000-0000-000000000001",
+          "ToDoAt": "2025-11-18T06:28:57Z",
+          "QueueId": 2,
+          "QueueName": "Customer",
+          "ObjectName": "ObjectId 00000000-0000-0000-0000-000000000001",
+          "UpdateBehaviour": 6
         }
       ],
-      "ObjectsUpdateBehaviour": 6
+      "ObjectsUpdateBehaviour": 6,
+      "ObjectsAddedUserId": 5
     }
     ```
 
@@ -603,7 +1159,7 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
 <div class="api-section" markdown>
 <div class="api-section-title">Powiązania</div>
 
-- Wysyłanie komunikatu — endpoint [EnqueImportMessage](../funkcje-api/importy/enque-import-message.md)
+- Wysyłanie komunikatu — endpoint [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md)
 - Macierz flag aktualizacyjnych — [ObjectsUpdateBehaviour](index.md#flagi-aktualizacyjne-obiektow-objectsupdatebehaviour)
 - Powiązane komunikaty: [Case](case.md) (sprawa dłużnika), [Contract](contract.md) (wierzytelność), [Signature](signature.md) (podpis)
 

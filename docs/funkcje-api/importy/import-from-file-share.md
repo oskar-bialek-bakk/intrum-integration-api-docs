@@ -6,7 +6,7 @@ title: "ImportFromFileShare"
 
 <div class="endpoint-header">
   <div class="method-badge post">POST</div>
-  <div class="endpoint-url">https://[adres_api]/ImportFromFileShare</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/ImportFromFileShare</div>
 </div>
 
 Wykonuje import pliku z lokalizacji sieciowej (file share). Ścieżka do pliku przekazywana jest jako parametr query.
@@ -32,7 +32,7 @@ Wykonuje import pliku z lokalizacji sieciowej (file share). Ścieżka do pliku p
 </ul>
 
 ```bash title="Przykład wywołania"
-curl -X POST "https://[adres_api]/ImportFromFileShare?importTypeId=16&fileLocalization=ServerFiles%5CImport%5CSample.xlsx" \
+curl -X POST "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/ImportFromFileShare?importTypeId=16&fileLocalization=ServerFiles%5CImport%5CSample.xlsx" \
   -H "Authorization: Bearer {TOKEN}"
 ```
 

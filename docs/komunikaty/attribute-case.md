@@ -133,7 +133,7 @@ title: "AttributeCase"
 <div class="api-section" markdown>
 <div class="api-section-title">Powiązania</div>
 
-- Wysyłanie komunikatu — endpoint [EnqueImportMessage](../funkcje-api/importy/enque-import-message.md)
+- Wysyłanie komunikatu — endpoint [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md)
 - Powiązane komunikaty: [Case](case.md) (sprawa), [AttributeDebtor](attribute-debtor.md) (atrybuty dłużnika)
 
 </div>

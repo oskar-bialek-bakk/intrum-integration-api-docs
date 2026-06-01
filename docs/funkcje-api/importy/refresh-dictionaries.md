@@ -6,7 +6,7 @@ title: "RefreshDictionaries"
 
 <div class="endpoint-header">
   <div class="method-badge get">GET</div>
-  <div class="endpoint-url">https://[adres_api]/RefreshDictionaries</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/RefreshDictionaries</div>
 </div>
 
 Odświeża cache wszystkich słowników używanych do walidacji importów (te same słowniki, które zwraca [GetDictionaries](get-dictionaries.md)). Wywołanie nie wymaga parametrów.
@@ -22,7 +22,7 @@ Odświeża cache wszystkich słowników używanych do walidacji importów (te sa
 Brak parametrów.
 
 ```bash title="Przykład wywołania"
-curl "https://[adres_api]/RefreshDictionaries" \
+curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/RefreshDictionaries" \
   -H "Authorization: Bearer {TOKEN}"
 ```
 

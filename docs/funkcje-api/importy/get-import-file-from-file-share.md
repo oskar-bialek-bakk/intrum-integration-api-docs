@@ -6,7 +6,7 @@ title: "GetImportFileFromFileShare"
 
 <div class="endpoint-header">
   <div class="method-badge get">GET</div>
-  <div class="endpoint-url">https://[adres_api]/GetImportFileFromFileShare</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportFileFromFileShare</div>
 </div>
 
 Kopiuje plik wybranego importu do lokalizacji na zasobie sieciowym, a następnie zwraca ścieżkę do tego pliku.
@@ -27,7 +27,7 @@ Kopiuje plik wybranego importu do lokalizacji na zasobie sieciowym, a następnie
 </ul>
 
 ```bash title="Przykład wywołania"
-curl "https://[adres_api]/GetImportFileFromFileShare?ImportId=1538E757-F973-47B3-BD8A-76E384C25BDA" \
+curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportFileFromFileShare?ImportId=1538E757-F973-47B3-BD8A-76E384C25BDA" \
   -H "Authorization: Bearer {TOKEN}"
 ```
 

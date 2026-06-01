@@ -6,7 +6,7 @@ title: "GetMailRecipientsForImportType"
 
 <div class="endpoint-header">
   <div class="method-badge get">GET</div>
-  <div class="endpoint-url">https://[adres_api]/GetMailRecipientsForImportType</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetMailRecipientsForImportType</div>
 </div>
 
 Pobiera listę adresatów wiadomości e-mail dla wskazanego typu importu.
@@ -27,7 +27,7 @@ Pobiera listę adresatów wiadomości e-mail dla wskazanego typu importu.
 </ul>
 
 ```bash title="Przykład wywołania"
-curl "https://[adres_api]/GetMailRecipientsForImportType?importTypeId=12" \
+curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetMailRecipientsForImportType?importTypeId=12" \
   -H "Authorization: Bearer {TOKEN}"
 ```
 

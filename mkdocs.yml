@@ -66,6 +66,7 @@ nav:
     - zalozenia/index.md
     - Konfiguracja kontrahenta: zalozenia/konfiguracja-kontrahenta.md
     - Procedura importów: zalozenia/procedura-importow.md
+    - Autoryzacja: zalozenia/autoryzacja.md
     - Architektura fizyczna: architektura/index.md
     - Kolejki: kolejki/index.md
   - Funkcje API:
@@ -78,7 +79,7 @@ nav:
       - GetObjectStatusByID: funkcje-api/importy/get-object-status-by-id.md
       - GetImportFile: funkcje-api/importy/get-import-file.md
       - GetImportFileFromFileShare: funkcje-api/importy/get-import-file-from-file-share.md
-      - EnqueImportMessage: funkcje-api/importy/enque-import-message.md
+      - EnqueueImportMessage: funkcje-api/importy/enqueue-import-message.md
       - RefreshDictionaries: funkcje-api/importy/refresh-dictionaries.md
       - SetImportStep: funkcje-api/importy/set-import-step.md
       - GetDictionaries: funkcje-api/importy/get-dictionaries.md

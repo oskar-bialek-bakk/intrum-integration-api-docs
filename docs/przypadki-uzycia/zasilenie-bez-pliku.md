@@ -16,23 +16,21 @@ Przewodnik pokazuje jak zasilić system DEBT Manager pojedynczym komunikatem imp
 <div class="api-section" markdown>
 <div class="api-section-title">Krok 1 — Autoryzacja</div>
 
-Przed wywołaniem metody API wymagane jest uzyskanie tokenu autoryzacyjnego. Metody wymagające autoryzacji są oznaczone w Swaggerze ikoną kłódki.
+Przed wywołaniem metody API wymagane jest uzyskanie tokenu autoryzacyjnego (OAuth 2.0 client credentials). Pełna procedura — wraz z przykładem `curl`, ustawieniem w Postman i logowaniem w Swagger UI — opisana jest w rozdziale [Autoryzacja](../zalozenia/autoryzacja.md).
 
-1. Otwórz Swagger UI na swoim serwerze: `http://[adres_serwera]:39451/swagger`
-2. Kliknij przycisk **Authorize** i wybierz opcję **api1**.
-3. Po poprawnym zalogowaniu ikona przy metodzie zmieni się na zamkniętą kłódkę.
+W skrócie:
 
-!!! tip "Jednorazowa autoryzacja"
-    Logowanie wystarczy wykonać raz na sesję — token jest zapamiętywany dla kolejnych wywołań.
+1. `POST` na `https://dmlogin-intrum-dev.groupad1.com/connect/token` z `client_id=integration`, `client_secret={CLIENT_SECRET}`, `scope=api1`, `grant_type=client_credentials`.
+2. Z odpowiedzi pobierz `access_token` i przekazuj go w nagłówku `Authorization: Bearer <access_token>` przy każdym wywołaniu API integracyjnego.
 
 </div>
 
 ---
 
 <div class="api-section" markdown>
-<div class="api-section-title">Krok 2 — Wywołanie EnqueImportMessage</div>
+<div class="api-section-title">Krok 2 — Wywołanie EnqueueImportMessage</div>
 
-Wywołaj funkcję [EnqueImportMessage](../funkcje-api/importy/enque-import-message.md) z następującymi parametrami:
+Wywołaj funkcję [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md) z następującymi parametrami:
 
 <ul class="param-list">
   <li>

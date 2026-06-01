@@ -6,7 +6,7 @@ title: "SetImportStep"
 
 <div class="endpoint-header">
   <div class="method-badge post">POST</div>
-  <div class="endpoint-url">https://[adres_api]/SetImportStep</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/SetImportStep</div>
 </div>
 
 Ustawia aktualny krok importu — pozwala zgłosić zmianę etapu lub statusu w procesie importu.

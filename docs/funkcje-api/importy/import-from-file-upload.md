@@ -6,7 +6,7 @@ title: "ImportFromFileUpload"
 
 <div class="endpoint-header">
   <div class="method-badge post">POST</div>
-  <div class="endpoint-url">https://[adres_api]/ImportFromFileUpload</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/ImportFromFileUpload</div>
 </div>
 
 Wykonuje import wybranego pliku. Plik przesyłany jest jako `multipart/form-data`.
@@ -37,7 +37,7 @@ Wykonuje import wybranego pliku. Plik przesyłany jest jako `multipart/form-data
 </ul>
 
 ```bash title="Przykład wywołania"
-curl -X POST "https://[adres_api]/ImportFromFileUpload?importTypeId=16" \
+curl -X POST "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/ImportFromFileUpload?importTypeId=16" \
   -H "Authorization: Bearer {TOKEN}" \
   -F "file=@SampleImport.xlsx"
 ```

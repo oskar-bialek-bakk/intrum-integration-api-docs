@@ -6,7 +6,7 @@ title: "SetImportValidations"
 
 <div class="endpoint-header">
   <div class="method-badge post">POST</div>
-  <div class="endpoint-url">https://[adres_api]/SetImportValidations</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/SetImportValidations</div>
 </div>
 
 Uruchamia walidacje sprawdzane w ramach kroku walidacyjnego w imporcie. Pozwala zdefiniować reguły walidacyjne i ich poziom ważności.

@@ -225,7 +225,7 @@ Lista `AttachedFiles` ma własne pole `ObjectsUpdateBehaviour` — patrz [macier
 <div class="api-section" markdown>
 <div class="api-section-title">Powiązania</div>
 
-- Wysyłanie komunikatu — endpoint [EnqueImportMessage](../funkcje-api/importy/enque-import-message.md)
+- Wysyłanie komunikatu — endpoint [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md)
 - Macierz flag aktualizacyjnych — [ObjectsUpdateBehaviour](index.md#flagi-aktualizacyjne-obiektow-objectsupdatebehaviour)
 - Powiązane komunikaty: [Case](case.md) (sprawa), [AttributeCase](attribute-case.md) (atrybuty sprawy)
 

@@ -1,12 +1,12 @@
 ---
-title: "EnqueImportMessage"
+title: "EnqueueImportMessage"
 ---
 
-# EnqueImportMessage
+# EnqueueImportMessage
 
 <div class="endpoint-header">
   <div class="method-badge post">POST</div>
-  <div class="endpoint-url">https://[adres_api]/EnqueImportMessage</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/EnqueueImportMessage</div>
 </div>
 
 Dodaje wiadomość (komunikat) na wybraną kolejkę przetwarzania. Komunikat może być powiązany z konkretnym importem lub wysłany niezależnie (z pustym GUID).

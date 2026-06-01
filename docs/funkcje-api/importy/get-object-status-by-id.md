@@ -6,7 +6,7 @@ title: "GetObjectStatusByID"
 
 <div class="endpoint-header">
   <div class="method-badge get">GET</div>
-  <div class="endpoint-url">https://[adres_api]/GetObjectStatusByID</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetObjectStatusByID</div>
 </div>
 
 Pobiera aktualny status danego obiektu (komunikatu) na wybranej kolejce.
@@ -32,7 +32,7 @@ Pobiera aktualny status danego obiektu (komunikatu) na wybranej kolejce.
 </ul>
 
 ```bash title="Przykład wywołania"
-curl "https://[adres_api]/GetObjectStatusByID?queueName=Customer&objectId=f40430d2-5c1e-4dff-8caf-f73af2f0301f" \
+curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetObjectStatusByID?queueName=Customer&objectId=f40430d2-5c1e-4dff-8caf-f73af2f0301f" \
   -H "Authorization: Bearer {TOKEN}"
 ```
 

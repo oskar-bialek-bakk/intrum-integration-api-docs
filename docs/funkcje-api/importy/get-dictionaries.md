@@ -6,7 +6,7 @@ title: "GetDictionaries"
 
 <div class="endpoint-header">
   <div class="method-badge get">GET</div>
-  <div class="endpoint-url">https://[adres_api]/GetDictionaries</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetDictionaries</div>
 </div>
 
 Pobiera wartości wszystkich słowników używanych przez API. Zwraca listę tabel słownikowych wraz z ich wpisami.
@@ -19,7 +19,7 @@ Pobiera wartości wszystkich słowników używanych przez API. Zwraca listę tab
 Brak parametrów.
 
 ```bash title="Przykład wywołania"
-curl "https://[adres_api]/GetDictionaries" \
+curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetDictionaries" \
   -H "Authorization: Bearer {TOKEN}"
 ```
 

@@ -6,7 +6,7 @@ title: "GetImportFile"
 
 <div class="endpoint-header">
   <div class="method-badge get">GET</div>
-  <div class="endpoint-url">https://[adres_api]/GetImportFile</div>
+  <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportFile</div>
 </div>
 
 Zwraca plik importu na podstawie ID importu. Odpowiedź zawiera binarną zawartość pliku.
@@ -27,7 +27,7 @@ Zwraca plik importu na podstawie ID importu. Odpowiedź zawiera binarną zawarto
 </ul>
 
 ```bash title="Przykład wywołania"
-curl "https://[adres_api]/GetImportFile?importId=43A79F4D-CBFE-4799-AE2A-48B68CD5EA97" \
+curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportFile?importId=43A79F4D-CBFE-4799-AE2A-48B68CD5EA97" \
   -H "Authorization: Bearer {TOKEN}" \
   -o import_file.xlsx
 ```

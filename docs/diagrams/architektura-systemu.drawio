@@ -14,7 +14,7 @@
         </mxCell>
 
         <!-- Application Server -->
-        <mxCell id="g2" value="Application Server (IIS)" style="swimlane;startSize=20;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
+        <mxCell id="g2" value="Application Server (Azure App Service)" style="swimlane;startSize=20;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="250" y="120" width="280" height="160" as="geometry"/>
         </mxCell>
         <mxCell id="api" value="Integrations API&#xa;(ASP.NET WebAPI)" style="shape=mxgraph.azure.web_role;fillColor=#0078D4;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=11;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g2">
@@ -32,13 +32,13 @@
         <mxCell id="g4" value="Worker Servers" style="swimlane;startSize=20;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="830" y="40" width="200" height="340" as="geometry"/>
         </mxCell>
-        <mxCell id="w1" value="Windows Worker&#xa;Service 1" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
+        <mxCell id="w1" value="Azure WebJob 1" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
           <mxGeometry x="55" y="40" width="90" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="w2" value="Windows Worker&#xa;Service 2" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
+        <mxCell id="w2" value="Azure WebJob 2" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
           <mxGeometry x="55" y="140" width="90" height="50" as="geometry"/>
         </mxCell>
-        <mxCell id="wn" value="Windows Worker&#xa;Service n" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
+        <mxCell id="wn" value="Azure WebJob n" style="shape=mxgraph.azure.worker_role;fillColor=#D9A741;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="g4">
           <mxGeometry x="55" y="240" width="90" height="50" as="geometry"/>
         </mxCell>
 
@@ -46,7 +46,7 @@
         <mxCell id="g5" value="DEBT Manager Server" style="swimlane;startSize=20;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="1100" y="60" width="240" height="280" as="geometry"/>
         </mxCell>
-        <mxCell id="dmdb" value="DEBT Manager DB&#xa;dm_data_dmweb_[klient]" style="shape=cylinder3;size=8;whiteSpace=wrap;fillColor=#b85450;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalAlign=bottom;align=center;" vertex="1" parent="g5">
+        <mxCell id="dmdb" value="DEBT Manager DB&#xa;dm_data_dmweb_intrum" style="shape=cylinder3;size=8;whiteSpace=wrap;fillColor=#b85450;strokeColor=#ffffff;strokeWidth=2;fontColor=#ffffff;fontSize=10;fontStyle=1;verticalAlign=bottom;align=center;" vertex="1" parent="g5">
           <mxGeometry x="60" y="40" width="120" height="70" as="geometry"/>
         </mxCell>
         <mxCell id="dmschemas" value="Schematy integracyjne:&#xa;• dm_config&#xa;• dm_imports&#xa;• dm_messages&#xa;• dm_validations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=8;spacingTop=4;" vertex="1" parent="g5">

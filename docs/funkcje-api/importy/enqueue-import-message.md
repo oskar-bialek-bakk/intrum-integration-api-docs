@@ -9,9 +9,12 @@ title: "EnqueueImportMessage"
   <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/EnqueueImportMessage</div>
 </div>
 
-Dodaje wiadomość (komunikat) na wybraną kolejkę przetwarzania. Komunikat jest zawsze powiązany z konkretnym importem przez `importId` zwrócony z [CreateImport](create-import.md). Klient API woła ten endpoint po zgłoszeniu rozpoczęcia fazy Adding ([SetImportStep](set-import-step.md)).
+Dodaje komunikat (wiadomość) do kolejki przetwarzania w bazie DEBT Manager (`dm_messages.[nazwa]`). Komunikat jest zawsze powiązany z konkretnym importem przez `importId` zwrócony z [CreateImport](create-import.md). Klient API woła ten endpoint po zgłoszeniu rozpoczęcia fazy Adding ([SetImportStep](set-import-step.md)).
 
-Szczegóły dostępnych kolejek i formatów komunikatów — patrz [Komunikaty](../../komunikaty/index.md).
+Pole `queueName` przyjmuje nazwę komunikatu (np. `Case`, `Customer`, `Payment`) — pełna lista wraz z formatami: [Wykaz komunikatów](../../komunikaty/index.md#wykaz-komunikatow).
+
+!!! note "queueName vs. kolejki techniczne RabbitMQ"
+    Wartość `queueName` to nazwa komunikatu / kolejki SQL Server w schemacie `dm_messages` (np. `Case` → `dm_messages.case_details`). Nie należy jej mylić z **kolejkami technicznymi RabbitMQ** (np. `DebtImportQueue_ImportValidation`), które są używane wyłącznie do orkiestracji walidacji i finalizacji importu i nie są dostępne przez to API. Szczegóły: [Kolejki techniczne](../../kolejki/index.md).
 
 ---
 
@@ -27,12 +30,12 @@ Szczegóły dostępnych kolejek i formatów komunikatów — patrz [Komunikaty](
   <li>
     <span class="param-name required">queueName</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Nazwa kolejki, na którą zostanie dodana wiadomość (np. <code>Case</code>, <code>Customer</code>, <code>Payment</code>). Lista kolejek — patrz <a href="../../../kolejki/">Kolejki</a></span>
+    <span class="param-desc">Nazwa komunikatu, który zostanie dodany do kolejki przetwarzania (np. <code>Case</code>, <code>Customer</code>, <code>Payment</code>). Pełny wykaz — patrz <a href="../../../komunikaty/#wykaz-komunikatow">Wykaz komunikatów</a>.</span>
   </li>
   <li>
     <span class="param-name required">message</span>
     <span class="param-type">string (JSON)</span>
-    <span class="param-desc">Treść komunikatu w formacie JSON — lista obiektów zgodna ze strukturą wybranej kolejki. Szczegóły — patrz <a href="../../../komunikaty/">Komunikaty</a></span>
+    <span class="param-desc">Treść komunikatu w formacie JSON — lista obiektów zgodna ze strukturą wybranego komunikatu. Szczegóły — patrz <a href="../../../komunikaty/">Komunikaty</a>.</span>
   </li>
 </ul>
 

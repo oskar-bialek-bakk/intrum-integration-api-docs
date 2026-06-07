@@ -56,7 +56,7 @@ System posiada API Integracyjne, którego celem jest umożliwienie przygotowywan
   <div class="pipeline-step">
     <span class="step-num">4</span>
     <span class="step-title">Wysłanie komunikatów</span>
-    <span class="step-desc">Pętla <a href="../funkcje-api/importy/enqueue-import-message/">EnqueueImportMessage</a> per kolejka.</span>
+    <span class="step-desc">Pętla <a href="../funkcje-api/importy/enqueue-import-message/">EnqueueImportMessage</a> — jedno wywołanie per typ komunikatu.</span>
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">

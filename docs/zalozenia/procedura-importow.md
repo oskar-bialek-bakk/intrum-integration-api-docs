@@ -70,7 +70,7 @@ W procedurze importu występuje jeden główny aktor techniczny: **Klient API** 
     <span class="role-owner role-it">Klient API</span>
     <span class="role-name">5. Wysłanie komunikatów</span>
   </div>
-  <p class="role-desc">Klient API wykonuje pętlę wywołań <a href="../../funkcje-api/importy/enqueue-import-message/">EnqueueImportMessage</a> — po jednym wywołaniu na kolejkę (Customer, Case, Contract, Payment, …), z możliwością batchowania wielu obiektów w jednym wywołaniu.</p>
+  <p class="role-desc">Klient API wykonuje pętlę wywołań <a href="../../funkcje-api/importy/enqueue-import-message/">EnqueueImportMessage</a> — po jednym wywołaniu na typ komunikatu (Customer, Case, Contract, Payment, …), z możliwością batchowania wielu obiektów w jednym wywołaniu.</p>
 </div>
 
 <div class="role-card">

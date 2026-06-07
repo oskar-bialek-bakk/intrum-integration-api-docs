@@ -7,7 +7,43 @@ title: "Komunikaty"
 
 Dane do systemu DEBT Manager importowane są za pomocą **komunikatów**. Każdy komunikat reprezentuje pojedynczy obiekt do dodania/aktualizacji w DM (klient, sprawa, kontrakt, wpłata itp.).
 
-Komunikaty są zawsze wysyłane w kontekście importu — Klient API najpierw tworzy import przez [CreateImport](../funkcje-api/importy/create-import.md), następnie woła [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md) przekazując `importId`, nazwę kolejki i treść komunikatu. Szczegóły cyklu życia: [Procedura importów](../zalozenia/procedura-importow.md).
+Komunikaty są zawsze wysyłane w kontekście importu — Klient API najpierw tworzy import przez [CreateImport](../funkcje-api/importy/create-import.md), następnie woła [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md) przekazując `importId`, nazwę komunikatu (w polu `queueName`) oraz treść komunikatu. Szczegóły cyklu życia: [Procedura importów](../zalozenia/procedura-importow.md).
+
+!!! info "Nazwa komunikatu = wartość pola `queueName`"
+    Każdy typ komunikatu ma w bazie DEBT Manager dedykowaną tabelę-kolejkę w schemacie `dm_messages` (np. `dm_messages.case_details` dla komunikatu `Case`). **Nazwa komunikatu** (np. `Case`, `Customer`, `Payment`) jest jednocześnie wartością pola `queueName` używanego w endpointach [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md) i [GetObjectStatusByID](../funkcje-api/importy/get-object-status-by-id.md).
+
+    Nie należy mylić tego z **kolejkami technicznymi RabbitMQ** używanymi do orkiestracji walidacji i finalizacji importu — te są opisane w rozdziale [Kolejki techniczne](../kolejki/index.md) i nie są dostępne przez pole `queueName`.
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title" id="wykaz-komunikatow">Wykaz komunikatów</div>
+
+Poniższa lista zawiera wszystkie komunikaty obsługiwane przez API integracyjne. Nazwa komunikatu jest jednocześnie wartością pola `queueName` w [EnqueueImportMessage](../funkcje-api/importy/enqueue-import-message.md).
+
+<table class="message-list">
+<thead>
+<tr><th>Nazwa komunikatu (<code>queueName</code>)</th><th>Opis</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="case/"><code>Case</code></a></td><td>Dodaje sprawę z atrybutami oraz powiązania klientów i wierzytelności do sprawy.</td></tr>
+<tr><td><a href="case-contact-data/"><code>CaseContactData</code></a></td><td>Wiąże wybrane dane teleadresowe dłużnika z jedną z jego spraw.</td></tr>
+<tr><td><a href="customer/"><code>Customer</code></a></td><td>Dodaje dłużnika z atrybutami, danymi kontaktowymi (adresy, telefony, e-mail), dokumentami tożsamości i właściwościami.</td></tr>
+<tr><td><a href="contract/"><code>Contract</code></a></td><td>Dodaje wierzytelność z inicjalnym stanem finansowym.</td></tr>
+<tr><td><a href="contract-balance/"><code>ContractBalance</code></a></td><td>Aktualizuje stan finansowy wierzytelności lub zamyka powiązane sprawy windykacyjne.</td></tr>
+<tr><td><a href="balance/"><code>Balance</code></a></td><td>Nadpisuje saldo na wybranym koncie dokumentu (gdy saldo przychodzi z systemu zewnętrznego, a DM nie rozksięgowuje wpłat).</td></tr>
+<tr><td><a href="payment/"><code>Payment</code></a></td><td>Dodaje płatności.</td></tr>
+<tr><td><a href="adjustment/"><code>Adjustment</code></a></td><td>Dodaje korekty.</td></tr>
+<tr><td><a href="action/"><code>Action</code></a></td><td>Dodaje akcje z rezultatem i atrybutami.</td></tr>
+<tr><td><a href="attribute-case/"><code>AttributeCase</code></a></td><td>Dodaje/aktualizuje atrybuty sprawy. Dla jednej sprawy tylko jeden atrybut danego typu.</td></tr>
+<tr><td><a href="attribute-debtor/"><code>AttributeDebtor</code></a></td><td>Dodaje/aktualizuje atrybuty klienta. Dla jednego klienta tylko jeden atrybut danego typu.</td></tr>
+<tr><td><a href="signature/"><code>Signature</code></a></td><td>Dodaje sygnatury.</td></tr>
+<tr><td><a href="cache/"><code>Cache</code></a></td><td>Komunikat techniczny — odświeża wybrane domeny cache dla danego match key.</td></tr>
+<tr><td><a href="remove-case/"><code>RemoveCase</code></a></td><td>Usuwa wybraną sprawę z systemu.</td></tr>
+</tbody>
+</table>
 
 </div>
 

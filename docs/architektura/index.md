@@ -29,7 +29,7 @@ title: "Architektura fizyczna"
     <span class="role-owner role-arch-app">Application Server</span>
     <span class="role-name">Integrations API (ASP.NET WebAPI)</span>
   </div>
-  <p class="role-desc">Usługa API Integracyjnego (opisana w rozdziale <a href="../funkcje-api/">Funkcje API</a>) odpowiedzialna za obsługę importu i jego statuowanie. Hostowana na IIS.</p>
+  <p class="role-desc">Usługa API Integracyjnego (opisana w rozdziale <a href="../funkcje-api/">Funkcje API</a>) odpowiedzialna za obsługę importu i jego statuowanie. Hostowana jako <strong>Azure App Service (Web App)</strong>.</p>
 </div>
 
 <div class="role-card">
@@ -63,15 +63,15 @@ title: "Architektura fizyczna"
     <span class="role-owner role-arch-queue">Queue Server</span>
     <span class="role-name">RabbitMQ</span>
   </div>
-  <p class="role-desc">Serwer kolejek RabbitMQ zapewniający asynchroniczną komunikację w API (opisane w rozdziale <a href="../kolejki/">Kolejki</a>).</p>
+  <p class="role-desc">Serwer kolejek RabbitMQ zapewniający asynchroniczną komunikację w API — orkiestracja walidacji i finalizacji importów (szczegóły: <a href="../kolejki/">Kolejki techniczne</a>).</p>
 </div>
 
 <div class="role-card">
   <div class="role-header">
     <span class="role-owner role-arch-worker">Worker Servers</span>
-    <span class="role-name">Windows Worker Services (1..n)</span>
+    <span class="role-name">Azure WebJobs (1..n)</span>
   </div>
-  <p class="role-desc">Usługi serwisów Windows pełniące role konsumentów wiadomości wpadających na serwer kolejek RabbitMQ. Skalowalne horyzontalnie — dodanie kolejnych maszyn zwiększa moc przetwarzania.</p>
+  <p class="role-desc">Procesy <strong>Azure WebJobs</strong> hostowane wraz z Web App, pełniące rolę konsumentów wiadomości z serwera kolejek RabbitMQ. Skalowalne horyzontalnie — zwiększenie liczby instancji Web App zwiększa moc przetwarzania.</p>
 </div>
 
 <div class="role-card">
@@ -79,7 +79,7 @@ title: "Architektura fizyczna"
     <span class="role-owner role-arch-dm">DM Server</span>
     <span class="role-name">DEBT Manager database</span>
   </div>
-  <p class="role-desc">Baza danych <code>dm_data_dmweb_[klient]</code> systemu DEBT Manager, do której importowane są dane.</p>
+  <p class="role-desc">Baza danych <code>dm_data_dmweb_intrum</code> systemu DEBT Manager, do której importowane są dane.</p>
 </div>
 
 </div>

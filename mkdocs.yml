@@ -68,7 +68,7 @@ nav:
     - Procedura importów: zalozenia/procedura-importow.md
     - Autoryzacja: zalozenia/autoryzacja.md
     - Architektura fizyczna: architektura/index.md
-    - Kolejki: kolejki/index.md
+    - Kolejki techniczne: kolejki/index.md
   - Funkcje API:
     - funkcje-api/index.md
     - Importy:

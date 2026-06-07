@@ -25,7 +25,7 @@ W trybie API-2-API import przechodzi przez 4 etapy. Klient API steruje pierwszym
   <div class="pipeline-step">
     <span class="step-num">4</span>
     <span class="step-title">Consumption</span>
-    <span class="step-desc">DM konsumuje komunikaty z kolejek RabbitMQ.</span>
+    <span class="step-desc">DM konsumuje komunikaty z kolejek <code>dm_messages.*</code> w SQL Server.</span>
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">

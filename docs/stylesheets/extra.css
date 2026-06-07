@@ -573,6 +573,36 @@
   letter-spacing: 0.02em;
 }
 
+/* ─── Message list table (Wykaz komunikatów) ─── */
+.message-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.95em;
+}
+
+.message-list th,
+.message-list td {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--md-typeset-table-color);
+  vertical-align: top;
+}
+
+.message-list th {
+  background: var(--md-code-bg-color);
+  font-weight: 600;
+}
+
+.message-list td:first-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.message-list td:first-child code {
+  font-weight: 600;
+}
+
 /* ─── Landing page feature grid ─── */
 .feature-grid {
   display: grid;

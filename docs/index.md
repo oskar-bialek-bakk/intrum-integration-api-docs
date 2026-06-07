@@ -19,7 +19,7 @@ Dokumentacja techniczna API integracyjnego systemu DEBT Manager. API umożliwia 
 <a class="feature-card" href="zalozenia/">
   <span class="card-icon">⚙</span>
   <span class="card-title">Założenia</span>
-  <p class="card-desc">Konfiguracja kontrahentów, procedura importów, architektura fizyczna i kolejki.</p>
+  <p class="card-desc">Konfiguracja kontrahentów, procedura importów, architektura fizyczna i kolejki techniczne.</p>
 </a>
 
 <a class="feature-card" href="funkcje-api/">

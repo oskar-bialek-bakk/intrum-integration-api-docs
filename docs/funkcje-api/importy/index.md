@@ -7,7 +7,7 @@ title: "Importy — przegląd"
 <div class="api-section" markdown>
 <div class="api-section-title">Cykl życia importu</div>
 
-W trybie API-2-API import przechodzi przez 4 etapy. Klient API steruje pierwszym etapem (Adding) i opcjonalnie trzecim (Validation, jeśli waliduje dane u siebie); API odpowiada za pozostałe.
+W trybie API-2-API import przechodzi przez 4 etapy. Klient API steruje pierwszym etapem (Adding) i opcjonalnie drugim (Validation, jeśli waliduje dane u siebie); API odpowiada za pozostałe.
 
 <div class="pipeline">
   <div class="pipeline-step">
@@ -17,7 +17,7 @@ W trybie API-2-API import przechodzi przez 4 etapy. Klient API steruje pierwszym
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">
-    <span class="step-num">3</span>
+    <span class="step-num">2</span>
     <span class="step-title">Validation</span>
     <span class="step-desc">Walidacja danych — wykonywana przez API (reguły z SetImportValidations) lub przez Klienta API u siebie.</span>
   </div>
@@ -35,8 +35,8 @@ W trybie API-2-API import przechodzi przez 4 etapy. Klient API steruje pierwszym
   </div>
 </div>
 
-!!! note "Stage 2 Transformation"
-    Wartość `Stage=2 (Transformation)` zachowana w schemacie API ze względów historycznych. W trybie API-2-API nie jest używana — komunikaty są już dostarczane przez Klienta API w docelowym formacie.
+!!! note "Stage 3 Transformation"
+    Wartość `Stage=3 (Transformation)` jest celowo pominięta w tej dokumentacji. W trybie API-2-API nie jest używana — komunikaty są już dostarczane przez Klienta API w docelowym formacie.
 
 </div>
 

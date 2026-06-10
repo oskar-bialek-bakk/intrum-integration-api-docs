@@ -115,7 +115,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
     <span class="param-desc">Etap importu:</span>
 <ul class="status-values">
 <li><code>1</code> — Adding</li>
-<li><code>3</code> — Validation</li>
+<li><code>2</code> — Validation</li>
 <li><code>4</code> — Consumption</li>
 <li><code>5</code> — Finishing</li>
 </ul>
@@ -166,7 +166,25 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
 <li><code>4</code> — Ommit</li>
 </ul>
   </li>
+  <li>
+    <span class="param-name">MatchKey</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Wartość, której dotyczy naruszenie reguły walidacyjnej (np. wartość niepoprawnego pola albo identyfikator obiektu z danych źródłowych). <code>null</code> dla szczegółów niepochodzących z reguł walidacyjnych</span>
+  </li>
+  <li>
+    <span class="param-name">MatchKeyType</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Typ klucza w <code>MatchKey</code> wg słownika <code>[dm_config].[match_key_type]</code> (ten sam słownik co w polach komunikatów, patrz <a href="../../../komunikaty/">Komunikaty</a>). <code>null</code>, gdy wartość nie jest kluczem ze słownika</span>
+  </li>
+  <li>
+    <span class="param-name">BrokenRule</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID naruszonej reguły walidacyjnej, ta sama wartość co <code>Rules[].Id</code> w <a href="../set-import-validations/">SetImportValidations</a> (słownik <code>dm_config.validations</code>). <code>null</code> dla szczegółów niepochodzących z reguł walidacyjnych</span>
+  </li>
 </ul>
+
+!!! info "Naruszenia reguł walidacyjnych"
+    Naruszenia reguł egzekwowanych przez API (domyślnych oraz zarejestrowanych przez <a href="../set-import-validations/">SetImportValidations</a>) raportowane są jako szczegóły kroku **Consumption** (<code>Stage=4</code>), bo reguły sprawdzane są per komunikat bezpośrednio przed zapisem danych. Jeden wpis odpowiada jednemu naruszeniu; przy ponownych próbach przetworzenia odrzuconego komunikatu wpisy mogą się powtórzyć.
 
 **Struktura `ImportMessage`:**
 

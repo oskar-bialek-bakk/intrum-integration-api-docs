@@ -62,7 +62,7 @@ W procedurze importu występuje jeden główny aktor techniczny: **Klient API** 
     <span class="role-owner role-it">Klient API</span>
     <span class="role-name">4. (Opcjonalnie) Słowniki i reguły walidacji</span>
   </div>
-  <p class="role-desc">Klient API może pobrać słowniki walidacyjne (<a href="../../funkcje-api/importy/get-dictionaries/">GetDictionaries</a> / <a href="../../funkcje-api/importy/refresh-dictionaries/">RefreshDictionaries</a>) i ustawić reguły walidacji egzekwowane przez API (<a href="../../funkcje-api/importy/set-import-validations/">SetImportValidations</a>).</p>
+  <p class="role-desc">Klient API może pobrać słowniki walidacyjne (<a href="../../funkcje-api/importy/get-dictionaries/">GetDictionaries</a> / <a href="../../funkcje-api/importy/refresh-dictionaries/">RefreshDictionaries</a>) i zarejestrować reguły walidacji egzekwowane przez API (<a href="../../funkcje-api/importy/set-import-validations/">SetImportValidations</a>). Reguły są sprawdzane per komunikat w trakcie etapu Consumption, przed zapisem danych; krytyczne reguły domyślne działają zawsze, także bez rejestracji. Naruszenia widoczne są w szczegółach kroku Consumption w <a href="../../funkcje-api/importy/get-import-status/">GetImportStatus</a>.</p>
 </div>
 
 <div class="role-card">
@@ -78,8 +78,8 @@ W procedurze importu występuje jeden główny aktor techniczny: **Klient API** 
     <span class="role-owner role-it">Klient API</span>
     <span class="role-name">6. Zamknięcie fazy</span>
   </div>
-  <p class="role-desc"><strong>Walidacja po stronie API:</strong> SetImportStep <code>Stage=1 (Adding)</code>, <code>StageStatus=2 (Done)</code>. API podejmie Stage 3 Validation.<br>
-  <strong>Walidacja po stronie Klienta API:</strong> SetImportStep <code>Stage=3 (Validation)</code>, <code>StageStatus=2 (Done)</code> — API pomija własną walidację i przechodzi do Consumption.</p>
+  <p class="role-desc"><strong>Walidacja po stronie API:</strong> SetImportStep <code>Stage=1 (Adding)</code>, <code>StageStatus=2 (Done)</code>. API podejmie Stage 2 Validation.<br>
+  <strong>Walidacja po stronie Klienta API:</strong> SetImportStep <code>Stage=2 (Validation)</code>, <code>StageStatus=2 (Done)</code> — API pomija własną walidację i przechodzi do Consumption.</p>
 </div>
 
 <div class="role-card">

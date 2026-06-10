@@ -92,7 +92,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetDiction
   -H "Authorization: Bearer {TOKEN}"
 ```
 
-Oraz ustawić reguły walidacji egzekwowane przez API w Stage 3:
+Oraz zarejestrować reguły walidacji egzekwowane przez API (sprawdzane per komunikat w trakcie etapu Consumption; krytyczne reguły domyślne działają zawsze, także bez rejestracji):
 
 ```bash
 curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/SetImportValidations \
@@ -101,7 +101,7 @@ curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Set
   -d '{
     "ImportId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
     "Rules": [
-      { "Id": 1, "Level": 3 }
+      { "Id": 3001, "Level": 3 }
     ]
   }'
 ```
@@ -173,7 +173,7 @@ curl -X POST "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Se
   }'
 ```
 
-API podejmie Stage 3 Validation z regułami z Kroku 4.
+API podejmie Stage 2 Validation z regułami z Kroku 4.
 
 **Wariant B — Walidacja po stronie Klienta API** (gdy Klient API zwalidował dane u siebie przed wysłaniem):
 ```bash
@@ -181,7 +181,7 @@ curl -X POST "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Se
   -H "Authorization: Bearer {TOKEN}" \
   -H "Content-Type: application/json" \
   -d '{
-    "Stage": 3,
+    "Stage": 2,
     "StageStatus": 2
   }'
 ```
@@ -203,7 +203,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
 
 Z odpowiedzi sprawdź pole `IsFinished` — gdy `true`, import jest zakończony. W `CurrentStep` widzisz aktualny etap i jego status. W `ImportMessages` widzisz statusy poszczególnych komunikatów (`StatusId`: 2=SUCCESS, 3=ERROR, 5=INPROGRESS).
 
-Jeśli `CurrentStep.Stage=3 (Validation)` i `StageStatus=3 (Error)` — import wstrzymany na walidacji. Szczegóły błędów w `CurrentStep.StepDetailsList`.
+Jeśli `CurrentStep.Stage=2 (Validation)` i `StageStatus=3 (Error)` — import wstrzymany na walidacji. Szczegóły błędów w `CurrentStep.StepDetailsList`.
 
 Szczegóły — [GetImportStatus](../funkcje-api/importy/get-import-status.md).
 

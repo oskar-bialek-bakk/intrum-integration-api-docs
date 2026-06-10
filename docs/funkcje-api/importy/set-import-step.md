@@ -45,7 +45,7 @@ Pozwala Klientowi API sterować cyklem życia importu — zgłosić rozpoczęcie
     <span class="param-desc">Etap importu:</span>
 <ul class="status-values">
 <li><code>1</code> — Adding</li>
-<li><code>3</code> — Validation</li>
+<li><code>2</code> — Validation</li>
 <li><code>4</code> — Consumption</li>
 <li><code>5</code> — Finishing</li>
 </ul>
@@ -111,7 +111,7 @@ Pozwala Klientowi API sterować cyklem życia importu — zgłosić rozpoczęcie
 {
   "Id": 0,
   "Added": "2024-04-19T12:00:00",
-  "Stage": 3,
+  "Stage": 2,
   "StageStatus": 2,
   "Message": null,
   "StepDetailsList": []
@@ -146,7 +146,7 @@ Struktura odpowiedzi jest identyczna jak w funkcji [GetImportStatus](get-import-
   </div>
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">
-    <span class="step-num">3</span>
+    <span class="step-num">2</span>
     <span class="step-title">Validation</span>
     <span class="step-desc">Walidacja danych do importu, odrzucenie w przypadku błędów.</span>
   </div>

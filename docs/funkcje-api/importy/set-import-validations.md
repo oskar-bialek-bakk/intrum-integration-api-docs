@@ -9,7 +9,12 @@ title: "SetImportValidations"
   <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/SetImportValidations</div>
 </div>
 
-Uruchamia walidacje sprawdzane w ramach kroku walidacyjnego w imporcie. Pozwala zdefiniować reguły walidacyjne i ich poziom ważności.
+Rejestruje dla importu reguły walidacyjne egzekwowane przez API. Reguły są sprawdzane w trakcie konsumpcji (Stage 4), per komunikat, przed zapisem danych do DEBT Manager. Naruszenia reguł są raportowane w szczegółach kroku Consumption w [GetImportStatus](get-import-status.md) (pola `MatchKey`, `MatchKeyType`, `BrokenRule` w strukturze `StepDetail`).
+
+!!! info "Model działania reguł"
+    -   **Reguły domyślne** (krytyczne reguły referencyjne i techniczne, np. poprawność powiązań między obiektami) działają **zawsze**, niezależnie od rejestracji. Nie da się ich wyłączyć ani zmienić ich poziomu: wpis w `Rules` dla takiej reguły jest ignorowany.
+    -   **Pozostałe reguły** działają tylko wtedy, gdy zostaną zarejestrowane dla danego importu przez to wywołanie. Reguła niezarejestrowana nie jest sprawdzana.
+    -   Import bez wywołania `SetImportValidations` jest walidowany wyłącznie regułami domyślnymi.
 
 ---
 
@@ -35,17 +40,17 @@ Uruchamia walidacje sprawdzane w ramach kroku walidacyjnego w imporcie. Pozwala 
   <li>
     <span class="param-name required">Id</span>
     <span class="param-type">int</span>
-    <span class="param-desc">ID warunku walidacyjnego z tabeli <code>dm_config.validations</code></span>
+    <span class="param-desc">ID reguły walidacyjnej ze słownika <code>dm_config.validations</code>. Ta sama wartość wraca w polu <code>BrokenRule</code> szczegółów kroku w <a href="../get-import-status/">GetImportStatus</a></span>
   </li>
   <li>
     <span class="param-name required">Level</span>
     <span class="param-type">int</span>
-    <span class="param-desc">Zachowanie walidacyjne:</span>
+    <span class="param-desc">Zachowanie reguły dla tego importu:</span>
 <ul class="status-values">
-<li><code>1</code> — Info — komunikat informacyjny</li>
-<li><code>2</code> — Warning — ostrzeżenie przed potencjalnymi problemami</li>
-<li><code>3</code> — Error — błąd walidacyjny (jeden błąd powoduje odrzucenie całego importu)</li>
-<li><code>4</code> — Ommit — komunikat spełniający tę regułę jest pomijany w imporcie (pozostałe wczytywane normalnie)</li>
+<li><code>1</code> — Info — naruszenia są tylko raportowane (szczegół kroku typu Info); komunikaty przetwarzane normalnie</li>
+<li><code>2</code> — Warning — naruszenia są tylko raportowane (szczegół kroku typu Warning); komunikaty przetwarzane normalnie</li>
+<li><code>3</code> — Error — komunikat naruszający regułę jest odrzucany (status komunikatu <code>ERROR</code>, dane nie zapisują się do DM); pozostałe komunikaty przetwarzane normalnie; naruszenia raportowane jako szczegół kroku typu Error. Import z odrzuconymi komunikatami zakończy się statusem Error</li>
+<li><code>4</code> — Ommit — reguła jest sprawdzana, ale nie blokuje: naruszenia są raportowane jako szczegół kroku typu Ommit, a komunikaty przetwarzane normalnie</li>
 </ul>
   </li>
 </ul>
@@ -55,8 +60,12 @@ Uruchamia walidacje sprawdzane w ramach kroku walidacyjnego w imporcie. Pozwala 
   "ImportId": "10000000-0000-0000-0000-000000000000",
   "Rules": [
     {
-      "Id": 1,
-      "Level": 1
+      "Id": 3001,
+      "Level": 3
+    },
+    {
+      "Id": 4002,
+      "Level": 2
     }
   ]
 }

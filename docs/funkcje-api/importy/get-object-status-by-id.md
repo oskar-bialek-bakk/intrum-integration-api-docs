@@ -80,7 +80,7 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetObjectS
   <li>
     <span class="param-name">StatusMessage</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Dodatkowy opis statusu (np. dla ERROR — opis błędu)</span>
+    <span class="param-desc">Dodatkowy opis statusu (np. dla ERROR — opis błędu). Komunikat odrzucony przez regułę walidacyjną o poziomie Error ma tu informację o liczbie naruszeń, np. <code>"Validation failed: 2 BLOCKING violation(s)"</code>; szczegóły naruszeń (pola, wartości, ID reguł) są w szczegółach kroku Consumption w <a href="../get-import-status/">GetImportStatus</a></span>
   </li>
   <li>
     <span class="param-name">Retries</span>

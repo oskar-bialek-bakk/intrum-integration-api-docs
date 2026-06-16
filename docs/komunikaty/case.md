@@ -78,11 +78,6 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
     <span class="param-desc">Numer rachunku bankowego do spłat.</span>
   </li>
   <li>
-    <span class="param-name">CreateRepaymentAccount</span>
-    <span class="param-type">bool</span>
-    <span class="param-desc">Czy utworzyć rachunek do spłat, jeśli nie istnieje.</span>
-  </li>
-  <li>
     <span class="param-name">Comment</span>
     <span class="param-type">string</span>
     <span class="param-desc">Komentarz do sprawy.</span>
@@ -106,7 +101,7 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
   <li>
     <span class="param-name required">ActionTypeId</span>
     <span class="param-type">int</span>
-    <span class="param-desc">ID typu akcji (słownik).</span>
+    <span class="param-desc">ID typu akcji wyznaczającej początkowy etap sprawy. Wartości odpowiadają etapom (słownik <code>sprawa_etap_typ</code>), np. <code>8</code> (Polubowny). Wartość musi istnieć też w słowniku <code>akcja_typ</code>.</span>
   </li>
   <li>
     <span class="param-name">ResultTypeId</span>
@@ -200,100 +195,60 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
 <div class="api-section" markdown>
 <div class="api-section-title">Przykład JSON</div>
 
-=== "Pełny komunikat"
+Sprawa wiąże klienta i wierzytelność przez `CustomerContractList`. Wyślij komunikaty w kolejności **Customer → Contract → Case** (Case linkuje pozostałe po MatchKey). `CustomerRoleId` ze słownika `sprawa_rola_typ` (`1` = Dłużnik główny).
 
-    ```json
-    {
-      "importId": "00000000-0000-0000-0000-000000000000",
-      "queueName": "Case",
-      "message": "{...}" // (1)
-    }
-    ```
-
-    1. Pole `message` to **string zawierający JSON** — poniżej rozpakowana zawartość.
+=== "Minimalny (powiązany z Customer 990000001 + Contract 880000001)"
 
     ```json title="Zawartość pola message"
     {
       "Objects": [
         {
-          "ExternalCaseNumber": "SZC00/W/WTSPR/9877817/33/24_10013_94",
-          "RepaymentAccount": "17124069577501000008529904",
-          "CreateRepaymentAccount": false,
-          "Comment": null,
-          "ServiceStartDate": "2023-09-18T00:00:00",
-          "ServiceEndDate": null,
-          "StageAction": {
-            "ActionTypeId": 20,
-            "ResultTypeId": null,
-            "Comment": "",
-            "ResultAddedDate": "2024-04-10T00:00:00+02:00",
-            "ResultPlannedDate": "2024-04-10T00:00:00+02:00",
-            "IsClosed": true,
-            "MatchKey": null,
-            "MatchKeyType": 0
-          },
+          "ObjectId": "a570d857-fb10-4d46-aaca-8f4707d4657f",
+          "MatchKey": "770000001",
+          "MatchKeyType": 6,
+          "ExternalCaseNumber": "770000001",
+          "StageAction": { "ActionTypeId": 8 },
+          "CustomerContractList": {
+            "Objects": [
+              { "CustomerRoleId": 1, "CustomerMatchKey": "990000001", "CustomerMatchKeyType": 2, "ContractMatchKey": "880000001", "ContractMatchKeyType": 3 }
+            ],
+            "ObjectsUpdateBehaviour": 6
+          }
+        }
+      ],
+      "ObjectsUpdateBehaviour": 6,
+      "ObjectsAddedUserId": 5
+    }
+    ```
+
+=== "Z atrybutem (powiązany z Customer 990000002 + Contract 880000002)"
+
+    ```json title="Zawartość pola message"
+    {
+      "Objects": [
+        {
+          "ObjectId": "e6e0e3ea-070c-43f1-8b80-4e9a66e4c551",
+          "MatchKey": "770000002",
+          "MatchKeyType": 6,
+          "ExternalCaseNumber": "770000002",
+          "Comment": "Sprawa testowa Anna Nowak",
+          "StageAction": { "ActionTypeId": 8 },
           "AttributesList": {
             "Objects": [
-              { "Value": "test", "TypeId": 126 }
+              { "TypeId": 8272, "Value": "I C 456/24" }
             ],
             "ObjectsUpdateBehaviour": 6
           },
           "CustomerContractList": {
             "Objects": [
-              {
-                "CustomerRoleId": 1,
-                "CustomerMatchKey": "Customer_MK_1",
-                "CustomerMatchKeyType": 2,
-                "ContractMatchKey": "Contract_MK_1",
-                "ContractMatchKeyType": 3
-              }
+              { "CustomerRoleId": 1, "CustomerMatchKey": "990000002", "CustomerMatchKeyType": 2, "ContractMatchKey": "880000002", "ContractMatchKeyType": 3 }
             ],
             "ObjectsUpdateBehaviour": 6
-          },
-          "MatchKey": "Case_MK_1",
-          "MatchKeyType": 6,
-          "ObjectId": "00000000-0000-0000-0000-000000000000"
+          }
         }
       ],
-      "ObjectsUpdateBehaviour": 6
-    }
-    ```
-
-=== "Minimalny przykład"
-
-    Tylko wymagane pola — dodanie sprawy z jednym powiązaniem klient–wierzytelność.
-
-    ```json title="Koperta API"
-    {
-      "importId": "00000000-0000-0000-0000-000000000000",
-      "queueName": "Case",
-      "message": "{...}"
-    }
-    ```
-
-    ```json title="Zawartość pola message"
-    {
-      "Objects": [
-        {
-          "ExternalCaseNumber": "SP/2024/001",
-          "CustomerContractList": {
-            "Objects": [
-              {
-                "CustomerRoleId": 1,
-                "CustomerMatchKey": "Customer_MK_1",
-                "CustomerMatchKeyType": 2,
-                "ContractMatchKey": "Contract_MK_1",
-                "ContractMatchKeyType": 3
-              }
-            ],
-            "ObjectsUpdateBehaviour": 6
-          },
-          "MatchKey": "Case_MK_1",
-          "MatchKeyType": 6,
-          "ObjectId": "00000000-0000-0000-0000-000000000000"
-        }
-      ],
-      "ObjectsUpdateBehaviour": 6
+      "ObjectsUpdateBehaviour": 6,
+      "ObjectsAddedUserId": 5
     }
     ```
 

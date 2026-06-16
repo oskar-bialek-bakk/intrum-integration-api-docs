@@ -62,6 +62,11 @@ title: "AttributeDebtor"
     <span class="param-desc">Wartość atrybutu.</span>
   </li>
   <li>
+    <span class="param-name">ExternalId</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Zewnętrzny identyfikator atrybutu (wykorzystywany m.in. przy dopasowaniu po MatchKeyType=11).</span>
+  </li>
+  <li>
     <span class="param-name">ToDoAt</span>
     <span class="param-type">datetime</span>
     <span class="param-desc">Data zaplanowanego wykonania.</span>
@@ -80,7 +85,7 @@ title: "AttributeDebtor"
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "AttributeDebtor",
       "message": "{...}" // (1)
     }
@@ -108,7 +113,7 @@ title: "AttributeDebtor"
 
     ```json title="Koperta API"
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "AttributeDebtor",
       "message": "{...}"
     }

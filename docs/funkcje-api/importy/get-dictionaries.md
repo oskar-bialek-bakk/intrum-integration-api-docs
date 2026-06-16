@@ -34,12 +34,12 @@ Tablica słowników. Każdy element zawiera:
 
 <ul class="param-list">
   <li>
-    <span class="param-name">Name</span>
+    <span class="param-name">name</span>
     <span class="param-type">string</span>
     <span class="param-desc">Nazwa tabeli słownikowej w postaci <code>nazwa_schematu.nazwa_tabeli</code></span>
   </li>
   <li>
-    <span class="param-name">Rows</span>
+    <span class="param-name">rows</span>
     <span class="param-type">DictionaryRow[]</span>
     <span class="param-desc">Lista wierszy występujących w słowniku</span>
   </li>
@@ -49,34 +49,37 @@ Tablica słowników. Każdy element zawiera:
 
 <ul class="param-list">
   <li>
-    <span class="param-name">Id</span>
-    <span class="param-type">int</span>
+    <span class="param-name">id</span>
+    <span class="param-type">long</span>
     <span class="param-desc">ID wpisu z tabeli słownikowej</span>
   </li>
   <li>
-    <span class="param-name">Name</span>
-    <span class="param-type">string</span>
-    <span class="param-desc">Nazwa wpisu z tabeli słownikowej</span>
+    <span class="param-name">value</span>
+    <span class="param-type">object</span>
+    <span class="param-desc">Wartość wpisu słownikowego (zwykle tekst, np. nazwa pozycji)</span>
   </li>
 </ul>
+
+!!! note "Nazewnictwo pól"
+    Odpowiedź jest serializowana z polityką camelCase. Wiersz słownika ma pola `id` i `value` (nie `Name`).
 
 ```json title="Przykład odpowiedzi"
 [
   {
-    "Name": "dbo.umowa_kontrahent",
-    "Rows": [
-      { "Id": 94, "Name": "IT Import Test" },
-      { "Id": 1, "Name": "PKL" },
-      { "Id": 2, "Name": "VELO" }
+    "name": "dbo.umowa_kontrahent",
+    "rows": [
+      { "id": 94, "value": "IT Import Test" },
+      { "id": 1, "value": "PKL" },
+      { "id": 2, "value": "VELO" }
     ]
   },
   {
-    "Name": "dbo.sygnatura_typ",
-    "Rows": [
-      { "Id": 1, "Name": "Sądowa" },
-      { "Id": 2, "Name": "Komornicza" },
-      { "Id": 3, "Name": "Policyjna" },
-      { "Id": 4, "Name": "Prokuratorska" }
+    "name": "dbo.sygnatura_typ",
+    "rows": [
+      { "id": 1, "value": "Sądowa" },
+      { "id": 2, "value": "Komornicza" },
+      { "id": 3, "value": "Policyjna" },
+      { "id": 4, "value": "Prokuratorska" }
     ]
   }
 ]

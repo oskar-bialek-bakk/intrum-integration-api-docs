@@ -85,7 +85,7 @@ title: "Signature"
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Signature",
       "message": "{...}" // (1)
     }
@@ -114,7 +114,7 @@ title: "Signature"
 
     ```json title="Koperta API"
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Signature",
       "message": "{...}"
     }

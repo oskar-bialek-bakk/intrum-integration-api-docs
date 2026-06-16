@@ -100,28 +100,29 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
 
 <ul class="param-list">
   <li>
-    <span class="param-name">Id</span>
+    <span class="param-name">id</span>
     <span class="param-type">int</span>
     <span class="param-desc">ID kroku</span>
   </li>
   <li>
-    <span class="param-name">Added</span>
+    <span class="param-name">added</span>
     <span class="param-type">Datetime</span>
     <span class="param-desc">Data dodania kroku</span>
   </li>
   <li>
-    <span class="param-name">Stage</span>
+    <span class="param-name">stage_id</span>
     <span class="param-type">int</span>
     <span class="param-desc">Etap importu:</span>
 <ul class="status-values">
 <li><code>1</code> — Adding</li>
-<li><code>2</code> — Validation</li>
+<li><code>2</code> — Transformation</li>
+<li><code>3</code> — Validation</li>
 <li><code>4</code> — Consumption</li>
 <li><code>5</code> — Finishing</li>
 </ul>
   </li>
   <li>
-    <span class="param-name">StageStatus</span>
+    <span class="param-name">status_id</span>
     <span class="param-type">int</span>
     <span class="param-desc">Status etapu:</span>
 <ul class="status-values">
@@ -131,14 +132,14 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
 </ul>
   </li>
   <li>
-    <span class="param-name">Message</span>
+    <span class="param-name">message</span>
     <span class="param-type">string</span>
     <span class="param-desc">Komunikat powiązany z etapem i statusem, np. na etapie Validation ze statusem Error: <code>"Import zawiera błędy walidacji"</code></span>
   </li>
   <li>
-    <span class="param-name">StepDetailsList</span>
+    <span class="param-name">stepDetailsList</span>
     <span class="param-type">StepDetail[]</span>
-    <span class="param-desc">Lista szczegółowych statusów danego kroku (np. na kroku walidacja — lista błędów walidacji)</span>
+    <span class="param-desc">Lista szczegółowych statusów danego kroku (np. na kroku walidacji: lista błędów walidacji)</span>
   </li>
 </ul>
 
@@ -146,17 +147,17 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
 
 <ul class="param-list">
   <li>
-    <span class="param-name">Id</span>
+    <span class="param-name">id</span>
     <span class="param-type">Guid</span>
     <span class="param-desc">ID szczegółowego statusu</span>
   </li>
   <li>
-    <span class="param-name">Description</span>
+    <span class="param-name">description</span>
     <span class="param-type">string</span>
     <span class="param-desc">Tekstowy opis, np. <code>"W komunikacie ObjectID a0f22474-...: brak uzupełnionego pola Waluta"</code></span>
   </li>
   <li>
-    <span class="param-name">Type</span>
+    <span class="param-name">import_step_details_type_id</span>
     <span class="param-type">int</span>
     <span class="param-desc">Typ szczegółowego statusu:</span>
 <ul class="status-values">
@@ -167,55 +168,55 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
 </ul>
   </li>
   <li>
-    <span class="param-name">MatchKey</span>
+    <span class="param-name">matchKey</span>
     <span class="param-type">string</span>
     <span class="param-desc">Wartość, której dotyczy naruszenie reguły walidacyjnej (np. wartość niepoprawnego pola albo identyfikator obiektu z danych źródłowych). <code>null</code> dla szczegółów niepochodzących z reguł walidacyjnych</span>
   </li>
   <li>
-    <span class="param-name">MatchKeyType</span>
+    <span class="param-name">matchKeyType</span>
     <span class="param-type">int</span>
-    <span class="param-desc">Typ klucza w <code>MatchKey</code> wg słownika <code>[dm_config].[match_key_type]</code> (ten sam słownik co w polach komunikatów, patrz <a href="../../../komunikaty/">Komunikaty</a>). <code>null</code>, gdy wartość nie jest kluczem ze słownika</span>
+    <span class="param-desc">Typ klucza w <code>matchKey</code> wg słownika <code>[dm_config].[match_key_type]</code> (ten sam słownik co w polach komunikatów, patrz <a href="../../../komunikaty/">Komunikaty</a>). <code>null</code>, gdy wartość nie jest kluczem ze słownika</span>
   </li>
   <li>
-    <span class="param-name">BrokenRule</span>
+    <span class="param-name">brokenRule</span>
     <span class="param-type">int</span>
     <span class="param-desc">ID naruszonej reguły walidacyjnej, ta sama wartość co <code>Rules[].Id</code> w <a href="../set-import-validations/">SetImportValidations</a> (słownik <code>dm_config.validations</code>). <code>null</code> dla szczegółów niepochodzących z reguł walidacyjnych</span>
   </li>
 </ul>
 
 !!! info "Naruszenia reguł walidacyjnych"
-    Naruszenia reguł egzekwowanych przez API (domyślnych oraz zarejestrowanych przez <a href="../set-import-validations/">SetImportValidations</a>) raportowane są jako szczegóły kroku **Consumption** (<code>Stage=4</code>), bo reguły sprawdzane są per komunikat bezpośrednio przed zapisem danych. Jeden wpis odpowiada jednemu naruszeniu; przy ponownych próbach przetworzenia odrzuconego komunikatu wpisy mogą się powtórzyć.
+    Naruszenia reguł egzekwowanych przez API (domyślnych oraz zarejestrowanych przez <a href="../set-import-validations/">SetImportValidations</a>) raportowane są jako szczegóły kroku **Consumption** (<code>stage_id=4</code>), bo reguły sprawdzane są per komunikat bezpośrednio przed zapisem danych. Jeden wpis odpowiada jednemu naruszeniu; przy ponownych próbach przetworzenia odrzuconego komunikatu wpisy mogą się powtórzyć.
 
 **Struktura `ImportMessage`:**
 
 <ul class="param-list">
   <li>
-    <span class="param-name">QueueName</span>
+    <span class="param-name">queue_name</span>
     <span class="param-type">string</span>
     <span class="param-desc">Nazwa kolejki, na której przetwarzany jest komunikat</span>
   </li>
   <li>
-    <span class="param-name">Added</span>
+    <span class="param-name">added</span>
     <span class="param-type">Datetime</span>
     <span class="param-desc">Data dodania komunikatu do kolejki</span>
   </li>
   <li>
-    <span class="param-name">ToDoAt</span>
+    <span class="param-name">to_do_at</span>
     <span class="param-type">Datetime</span>
     <span class="param-desc">Data, po której komunikat może zostać pobrany do przetwarzania</span>
   </li>
   <li>
-    <span class="param-name">Processed</span>
+    <span class="param-name">processed</span>
     <span class="param-type">Datetime</span>
-    <span class="param-desc">Data zakończenia przetwarzania. Puste, jeśli <code>ToDoAt</code> jest w przyszłości</span>
+    <span class="param-desc">Data zakończenia przetwarzania. Puste, jeśli <code>to_do_at</code> jest w przyszłości</span>
   </li>
   <li>
-    <span class="param-name">StatusId</span>
+    <span class="param-name">status_id</span>
     <span class="param-type">int</span>
     <span class="param-desc">Status przetwarzania komunikatu:</span>
 <ul class="status-values">
 <li><code>0</code> — OFFLINE — komunikat pomijany w bieżącym cyklu (status historyczny — nieużywany w trybie API-2-API)</li>
-<li><code>1</code> — QUEUED — oczekuje na upłynięcie <code>ToDoAt</code></li>
+<li><code>1</code> — QUEUED — oczekuje na upłynięcie <code>to_do_at</code></li>
 <li><code>2</code> — SUCCESS — poprawnie przetworzony</li>
 <li><code>3</code> — ERROR — błąd przetwarzania</li>
 <li><code>4</code> — REJECTED — odrzucony, nie podjęto próby przetwarzania</li>
@@ -223,72 +224,80 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
 </ul>
   </li>
   <li>
-    <span class="param-name">StatusMessage</span>
+    <span class="param-name">status_message</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Dodatkowy opis statusu (np. dla ERROR — opis błędu)</span>
+    <span class="param-desc">Dodatkowy opis statusu (np. dla ERROR: opis błędu)</span>
   </li>
   <li>
-    <span class="param-name">Retries</span>
+    <span class="param-name">retries</span>
     <span class="param-type">int</span>
     <span class="param-desc">Aktualna próba przetwarzania komunikatu</span>
   </li>
   <li>
-    <span class="param-name">ObjectId</span>
+    <span class="param-name">object_id</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Identyfikator obiektu — patrz <a href="../../../komunikaty/">Komunikaty</a></span>
+    <span class="param-desc">Identyfikator obiektu (patrz <a href="../../../komunikaty/">Komunikaty</a>)</span>
   </li>
   <li>
-    <span class="param-name">MaxRetryCount</span>
+    <span class="param-name">version_id</span>
+    <span class="param-type">long</span>
+    <span class="param-desc">ID wersji obiektu w DM. <code>null</code>/<code>0</code>, gdy nie dotyczy</span>
+  </li>
+  <li>
+    <span class="param-name">max_retry_count</span>
     <span class="param-type">int</span>
-    <span class="param-desc">Maksymalna liczba prób. Jeśli <code>Retries = MaxRetryCount</code>, komunikat nie będzie ponownie przetwarzany</span>
+    <span class="param-desc">Maksymalna liczba prób. Jeśli <code>retries = max_retry_count</code>, komunikat nie będzie ponownie przetwarzany</span>
   </li>
 </ul>
 
 ```json title="Przykład odpowiedzi"
 {
-  "ImportId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
-  "ImportTypeName": "DM Integration API Sample - External Payments Import",
-  "DebtManagerImportId": 3,
-  "DebtManagerCreditorId": 10013,
-  "DebtManagerPortfolioId": 94,
-  "IsFinished": false,
-  "CurrentStep": {
-    "Id": 42,
-    "Added": "2024-04-19T11:28:26.983",
-    "Stage": 4,
-    "StageStatus": 1,
-    "Message": null,
-    "StepDetailsList": []
+  "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
+  "importTypeName": "DM Integration API Sample - External Payments Import",
+  "debtManagerImportId": 3,
+  "debtManagerCreditorId": 10013,
+  "debtManagerPortfolioId": 94,
+  "isFinished": false,
+  "currentStep": {
+    "id": 42,
+    "added": "2024-04-19T11:28:26.983",
+    "stage_id": 4,
+    "status_id": 1,
+    "message": null,
+    "stepDetailsList": []
   },
-  "StepsHistory": [
+  "stepsHistory": [
     {
-      "Id": 36,
-      "Added": "2024-04-19T11:24:58.467",
-      "Stage": 1,
-      "StageStatus": 1,
-      "Message": null,
-      "StepDetailsList": []
+      "id": 36,
+      "added": "2024-04-19T11:24:58.467",
+      "stage_id": 1,
+      "status_id": 1,
+      "message": null,
+      "stepDetailsList": []
     }
   ],
-  "ImportMessages": [
+  "importMessages": [
     {
-      "QueueName": "Case",
-      "Added": "2024-04-19T11:28:26.91",
-      "ToDoAt": "2024-04-19T11:28:26.87",
-      "Processed": null,
-      "StatusId": 5,
-      "StatusMessage": null,
-      "Retries": 0,
-      "ObjectId": "bd459997-d8b3-4ae5-b00f-fe1a5042bd5a",
-      "VersionId": 21,
-      "MaxRetryCount": 3
+      "queue_name": "Case",
+      "added": "2024-04-19T11:28:26.91",
+      "to_do_at": "2024-04-19T11:28:26.87",
+      "processed": null,
+      "status_id": 5,
+      "status_message": null,
+      "retries": 0,
+      "object_id": "bd459997-d8b3-4ae5-b00f-fe1a5042bd5a",
+      "version_id": 21,
+      "max_retry_count": 3
     }
   ],
-  "ExternalFileName": null
+  "externalFileName": null
 }
 ```
 
+!!! note "Nazewnictwo pól odpowiedzi"
+    Odpowiedź jest serializowana z polityką **camelCase**, dlatego pola obiektu importu mają małą pierwszą literę (`importId`, `importTypeName`, `currentStep`...). Pola zagnieżdżonych struktur `ImportStep`, `StepDetail` i `ImportMessage` zachowują nazwy z bazy w formacie **snake_case** (`stage_id`, `status_id`, `queue_name`, `to_do_at`, `object_id`, `version_id`, `max_retry_count`, `import_step_details_type_id`). Używaj dokładnie tych kluczy.
+
 !!! note "Skrócony przykład"
-    Powyższy JSON zawiera skróconą historię kroków i komunikatów. W rzeczywistej odpowiedzi listy `StepsHistory` i `ImportMessages` mogą zawierać wiele elementów.
+    Powyższy JSON zawiera skróconą historię kroków i komunikatów. W rzeczywistej odpowiedzi listy `stepsHistory` i `importMessages` mogą zawierać wiele elementów.
 
 </div>

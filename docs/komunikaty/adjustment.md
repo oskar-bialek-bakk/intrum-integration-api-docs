@@ -87,6 +87,11 @@ title: "Adjustment"
     <span class="param-desc">Kurs wymiany waluty.</span>
   </li>
   <li>
+    <span class="param-name required">OnlyInformational</span>
+    <span class="param-type">bool</span>
+    <span class="param-desc">Czy korekta jest wyłącznie informacyjna (bez księgowania / zmiany salda). Pole wymagane: trzeba jawnie podać <code>true</code> lub <code>false</code>.</span>
+  </li>
+  <li>
     <span class="param-name">OperationDate</span>
     <span class="param-type">datetime</span>
     <span class="param-desc">Data operacji.</span>
@@ -120,7 +125,7 @@ title: "Adjustment"
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Adjustment",
       "message": "{...}" // (1)
     }
@@ -172,7 +177,7 @@ title: "Adjustment"
 
     ```json title="Koperta API"
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Adjustment",
       "message": "{...}"
     }

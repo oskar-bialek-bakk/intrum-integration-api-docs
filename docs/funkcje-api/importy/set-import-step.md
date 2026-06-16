@@ -30,25 +30,15 @@ Pozwala Klientowi API sterować cyklem życia importu — zgłosić rozpoczęcie
 
 <ul class="param-list">
   <li>
-    <span class="param-name">Id</span>
-    <span class="param-type">int</span>
-    <span class="param-desc">ID kroku</span>
-  </li>
-  <li>
-    <span class="param-name">Added</span>
-    <span class="param-type">Datetime</span>
-    <span class="param-desc">Data dodania kroku</span>
-  </li>
-  <li>
     <span class="param-name required">Stage</span>
     <span class="param-type">int</span>
-    <span class="param-desc">Etap importu:</span>
+    <span class="param-desc">Etap importu (wartości, które ustawia Klient API):</span>
 <ul class="status-values">
 <li><code>1</code> — Adding</li>
-<li><code>2</code> — Validation</li>
-<li><code>4</code> — Consumption</li>
+<li><code>3</code> — Validation</li>
 <li><code>5</code> — Finishing</li>
 </ul>
+<span class="param-desc">Etap <code>2</code> (Transformation) i <code>4</code> (Consumption) ustawia wyłącznie API wewnętrznie. W trybie API-2-API faza Transformation jest pomijana.</span>
   </li>
   <li>
     <span class="param-name required">StageStatus</span>
@@ -60,15 +50,30 @@ Pozwala Klientowi API sterować cyklem życia importu — zgłosić rozpoczęcie
 <li><code>3</code> — Error</li>
 </ul>
   </li>
+</ul>
+
+**Pola zaawansowane (opcjonalne w podstawowym użyciu):**
+
+<ul class="param-list">
+  <li>
+    <span class="param-name">Id</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Zwykle pomijany przy zgłaszaniu zmiany statusu; identyfikuje konkretny krok przy korektach.</span>
+  </li>
+  <li>
+    <span class="param-name">Added</span>
+    <span class="param-type">Datetime</span>
+    <span class="param-desc">Moment kroku; jeśli pominięty, API przyjmuje czas bieżący (UTC). Zwykle pomijany.</span>
+  </li>
   <li>
     <span class="param-name">Message</span>
     <span class="param-type">string</span>
-    <span class="param-desc">Komunikat powiązany z etapem i statusem, np. <code>"Import zawiera błędy walidacji"</code></span>
+    <span class="param-desc">Opcjonalny komentarz powiązany z etapem/statusem (np. powód błędu przy <code>StageStatus=3</code>).</span>
   </li>
   <li>
     <span class="param-name">StepDetailsList</span>
     <span class="param-type">StepDetail[]</span>
-    <span class="param-desc">Lista szczegółowych statusów danego kroku</span>
+    <span class="param-desc">Szczegółowe wpisy (np. lista naruszeń), używane gdy klient sam raportuje walidację. Zwykle pusta/pominięta.</span>
   </li>
 </ul>
 
@@ -93,6 +98,7 @@ Pozwala Klientowi API sterować cyklem życia importu — zgłosić rozpoczęcie
 <li><code>1</code> — Info</li>
 <li><code>2</code> — Warning</li>
 <li><code>3</code> — Error</li>
+<li><code>4</code> — Ommit</li>
 </ul>
   </li>
   <li>
@@ -107,16 +113,36 @@ Pozwala Klientowi API sterować cyklem życia importu — zgłosić rozpoczęcie
   </li>
 </ul>
 
-```json title="Przykład request body"
+To typowy przypadek: Klient API zgłasza, że etap Validation został ukończony po jego stronie (importId podaje w query).
+
+```json title="Przykład minimalny (oznaczenie zmiany statusu)"
 {
-  "Id": 0,
-  "Added": "2024-04-19T12:00:00",
-  "Stage": 2,
+  "Stage": 3,
+  "StageStatus": 2
+}
+```
+
+Pola zaawansowane wypełnia się tylko, gdy są potrzebne (np. `Message` z opisem, `StepDetailsList` przy własnej walidacji).
+
+```json title="Przykład pełny (z polami zaawansowanymi)"
+{
+  "Stage": 3,
   "StageStatus": 2,
-  "Message": null,
+  "Message": "Walidacja po stronie klienta zakończona",
   "StepDetailsList": []
 }
 ```
+
+!!! note "Dozwolone przejścia Klienta API"
+    API egzekwuje maszynę stanów importu. Klient API może ustawić wyłącznie następujące pary `Stage`/`StageStatus`:
+
+    - `1`/`1` — Adding / InProgress (start fazy dodawania, zaraz po `CreateImport`),
+    - `1`/`2` — Adding / Done (zamknięcie dodawania; API samo uruchamia walidację po swojej stronie),
+    - `3`/`2` — Validation / Done (gdy Klient API waliduje dane u siebie i pomija walidację API),
+    - `5`/`2` lub `5`/`3` — Finishing / Done albo Finishing / Error,
+    - `Error` (StageStatus `3`) na bieżącym etapie.
+
+    Inne wartości (np. `Stage=2` Transformation) zwrócą błąd `Forbidden import state change`.
 
 </div>
 
@@ -147,6 +173,12 @@ Struktura odpowiedzi jest identyczna jak w funkcji [GetImportStatus](get-import-
   <span class="pipeline-arrow">&#x2192;</span>
   <div class="pipeline-step">
     <span class="step-num">2</span>
+    <span class="step-title">Transformation</span>
+    <span class="step-desc">Transformacja danych po stronie API. Faza wewnętrzna, pomijana w trybie API-2-API.</span>
+  </div>
+  <span class="pipeline-arrow">&#x2192;</span>
+  <div class="pipeline-step">
+    <span class="step-num">3</span>
     <span class="step-title">Validation</span>
     <span class="step-desc">Walidacja danych do importu, odrzucenie w przypadku błędów.</span>
   </div>

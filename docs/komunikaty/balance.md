@@ -67,6 +67,11 @@ title: "Balance"
     <span class="param-desc">Typ konta księgowego (słownik).</span>
   </li>
   <li>
+    <span class="param-name">SubAccountTypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Typ subkonta księgowego (słownik <code>ksiegowanie_konto_subkonto</code>).</span>
+  </li>
+  <li>
     <span class="param-name required">Amount</span>
     <span class="param-type">decimal</span>
     <span class="param-desc">Nowa kwota salda.</span>
@@ -74,12 +79,12 @@ title: "Balance"
   <li>
     <span class="param-name">OperationDate</span>
     <span class="param-type">datetime</span>
-    <span class="param-desc">Data operacji.</span>
+    <span class="param-desc">Data operacji. Nie może być datą z przyszłości.</span>
   </li>
   <li>
     <span class="param-name">BookingDate</span>
     <span class="param-type">datetime</span>
-    <span class="param-desc">Data księgowania.</span>
+    <span class="param-desc">Data księgowania. Nie może być datą z przyszłości.</span>
   </li>
   <li>
     <span class="param-name">DueDate</span>
@@ -110,7 +115,7 @@ title: "Balance"
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Balance",
       "message": "{...}" // (1)
     }
@@ -156,7 +161,7 @@ title: "Balance"
 
     ```json title="Koperta API"
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Balance",
       "message": "{...}"
     }

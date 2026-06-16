@@ -6,7 +6,7 @@
 
 *Importy danych • Kolejki komunikatów • Monitorowanie statusów • Integracja bez tarcia*
 
-[![Docs](https://img.shields.io/badge/docs-online-ffaa00?style=for-the-badge&logo=readthedocs&logoColor=white)](https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/)
+[![Docs](https://img.shields.io/badge/docs-online-ffaa00?style=for-the-badge&logo=readthedocs&logoColor=white)](https://intrum-documentation.azurewebsites.net/integration-api/)
 [![MkDocs Material](https://img.shields.io/badge/MkDocs-Material-3e3e3e?style=for-the-badge&logo=materialformkdocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 [![BAKK](https://img.shields.io/badge/by-BAKK-e69b05?style=for-the-badge)](https://bakk.com)
 
@@ -29,9 +29,9 @@ Ta dokumentacja to **jedno źródło prawdy** dla całej integracji:
 
 ## 🌐 Dokumentacja online
 
-> ### 👉 **[oskar-bialek-bakk.github.io/intrum-integration-api-docs](https://oskar-bialek-bakk.github.io/intrum-integration-api-docs/)**
+> ### 👉 **[intrum-documentation.azurewebsites.net/integration-api](https://intrum-documentation.azurewebsites.net/integration-api/)**
 
-Strona budowana **automatycznie** przy każdym pushu — MkDocs Material + GitHub Pages, zero ręcznej roboty.
+Strona budowana **automatycznie** przy każdym pushu (MkDocs Material, deploy na Azure App Service `intrum-documentation`). Repozytorium jest dodatkowo mirrorowane na GitHub.
 
 ---
 
@@ -90,10 +90,12 @@ Dokumentacja wystartuje pod **`http://127.0.0.1:8000`** z live-reload — zmieni
 ├── 📄 mkdocs.yml              # Konfiguracja MkDocs Material (theme, nav, plugins)
 ├── 📄 requirements.txt        # Zależności Pythona
 ├── 📁 docs/                   # ← Źródłowe pliki Markdown (edytujesz tutaj)
-│   ├── 📁 zalozenia/          # Architektura, konfiguracja, procedura
-│   ├── 📁 funkcje-api/        # Opisy 13 endpointów API
+│   ├── 📁 zalozenia/          # Konfiguracja, procedura importów, autoryzacja
+│   ├── 📁 architektura/       # Architektura systemu (specyfika Intrum)
+│   ├── 📁 funkcje-api/        # Opisy 10 endpointów API
 │   │   └── 📁 importy/
 │   ├── 📁 komunikaty/         # 14 specyfikacji komunikatów
+│   ├── 📁 kolejki/            # Kolejki techniczne (RabbitMQ)
 │   ├── 📁 przypadki-uzycia/   # Przewodniki how-to
 │   ├── 📁 diagrams/           # Diagramy draw.io (architektura, flow)
 │   ├── 📁 images/             # Logo, favicon, zrzuty ekranu

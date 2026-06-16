@@ -13,6 +13,11 @@ Dodaje komunikat (wiadomość) do kolejki przetwarzania w bazie DEBT Manager (`d
 
 Pole `queueName` przyjmuje nazwę komunikatu (np. `Case`, `Customer`, `Payment`) — pełna lista wraz z formatami: [Wykaz komunikatów](../../komunikaty/index.md#wykaz-komunikatow).
 
+!!! warning "Wymagany aktywny import w fazie Adding"
+    `importId` jest **obowiązkowy** i musi wskazywać istniejący import. Pusty GUID (`00000000-0000-0000-0000-000000000000`) jest odrzucany (błąd `ImportId is required.`).
+
+    Dodatkowo import musi być w stanie **Adding / InProgress** (`stage_id=1`, `status_id=1`), czyli po wywołaniu [SetImportStep](set-import-step.md) z `Stage=1`/`StageStatus=1`, a przed jego zamknięciem (`Adding/Done`). Wysłanie komunikatu do importu w innym stanie zwraca błąd (`Import ... cannot accept messages`).
+
 !!! note "queueName vs. kolejki techniczne RabbitMQ"
     Wartość `queueName` to nazwa komunikatu / kolejki SQL Server w schemacie `dm_messages` (np. `Case` → `dm_messages.case_details`). Nie należy jej mylić z **kolejkami technicznymi RabbitMQ** (np. `DebtImportQueue_ImportValidation`), które są używane wyłącznie do orkiestracji walidacji i finalizacji importu i nie są dostępne przez to API. Szczegóły: [Kolejki techniczne](../../kolejki/index.md).
 
@@ -82,7 +87,12 @@ Pole `queueName` przyjmuje nazwę komunikatu (np. `Case`, `Customer`, `Payment`)
   <li>
     <span class="param-name">StatusDetails</span>
     <span class="param-type">string[]</span>
-    <span class="param-desc">Lista szczegółów — np. <code>"Błąd w ObjectID a0f22474-...: Brak uzupełnionego pola Waluta"</code></span>
+    <span class="param-desc">Lista szczegółów, np. <code>"Błąd w ObjectID a0f22474-...: Brak uzupełnionego pola Waluta"</code></span>
+  </li>
+  <li>
+    <span class="param-name">MessageIds</span>
+    <span class="param-type">string[]</span>
+    <span class="param-desc">Lista identyfikatorów komunikatów utworzonych w kolejce w wyniku tego wywołania. Wypełniana przy powodzeniu (przy błędzie zwykle pusta).</span>
   </li>
 </ul>
 
@@ -93,7 +103,11 @@ Pole `queueName` przyjmuje nazwę komunikatu (np. `Case`, `Customer`, `Payment`)
       "Status": 0,
       "StatusName": "Success",
       "StatusMessage": null,
-      "StatusDetails": []
+      "StatusDetails": [],
+      "MessageIds": [
+        "9f4bd359-ae27-4edb-a20c-3cd34a865129",
+        "f33bfd2c-b1d3-4fc1-a5fa-87f01b925208"
+      ]
     }
     ```
 
@@ -106,7 +120,8 @@ Pole `queueName` przyjmuje nazwę komunikatu (np. `Case`, `Customer`, `Payment`)
       "StatusMessage": "W przekazanych komunikatach występują błędy walidacji",
       "StatusDetails": [
         "Błąd w ObjectID a0f22474-4cf1-4716-85a6-8ab84067b261: Brak uzupełnionego pola Waluta"
-      ]
+      ],
+      "MessageIds": []
     }
     ```
 

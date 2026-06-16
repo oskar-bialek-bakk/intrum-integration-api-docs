@@ -91,6 +91,23 @@ title: "Cache"
     <span class="param-type">datetime</span>
     <span class="param-desc">Data zaplanowanego wykonania.</span>
   </li>
+  <li>
+    <span class="param-name">Domains</span>
+    <span class="param-type">string[]</span>
+    <span class="param-desc">Lista domen cache do odświeżenia dla danego MatchKey. Nieznana wartość powoduje odrzucenie obiektu na walidacji. Dopuszczalne wartości:</span>
+<ul class="status-values">
+<li><code>CaseAddress</code></li>
+<li><code>CaseClosed</code></li>
+<li><code>CaseInfo</code></li>
+<li><code>CaseStage</code></li>
+<li><code>CreditorCase</code></li>
+<li><code>Finance</code></li>
+<li><code>DebtorAddress</code></li>
+<li><code>DebtorMail</code></li>
+<li><code>DebtorPersonalData</code></li>
+<li><code>DebtorTelephone</code></li>
+</ul>
+  </li>
 </ul>
 </details>
 
@@ -105,7 +122,7 @@ title: "Cache"
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "cache",
       "message": "{...}" // (1)
     }
@@ -120,7 +137,8 @@ title: "Cache"
           "MatchKey": "3_15237574252923798622544812_200785453",
           "MatchKeyType": 6,
           "ObjectId": "00000000-0000-0000-0000-000000000001",
-          "ToDoAt": "2024-04-08T09:04:10.9982539+02:00"
+          "ToDoAt": "2024-04-08T09:04:10.9982539+02:00",
+          "Domains": ["Finance", "DebtorAddress"]
         },
         {
           "MatchKey": "3_96164366624736830645821115_7743999",
@@ -137,7 +155,7 @@ title: "Cache"
 
     ```json title="Koperta API"
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "cache",
       "message": "{...}"
     }
@@ -149,7 +167,8 @@ title: "Cache"
         {
           "MatchKey": "Case_MK_1",
           "MatchKeyType": 6,
-          "ObjectId": "00000000-0000-0000-0000-000000000001"
+          "ObjectId": "00000000-0000-0000-0000-000000000001",
+          "Domains": ["CaseInfo"]
         }
       ],
       "ObjectsUpdateBehaviour": 6

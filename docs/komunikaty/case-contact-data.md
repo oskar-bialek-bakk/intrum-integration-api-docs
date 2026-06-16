@@ -11,6 +11,9 @@ title: "CaseContactData"
   <p class="msg-desc">Komunikat pozwalający powiązać wybrane dane teleadresowe dłużnika z jedną z jego spraw.</p>
 </div>
 
+!!! warning "Komunikat w przygotowaniu (do potwierdzenia)"
+    Na branchu `features/Intrum/S1` nie znaleziono implementacji tego komunikatu w API integracyjnym (brak klasy obiektu i kolejki w warstwie Messages). Opis poniżej jest propozycją i wymaga potwierdzenia przez dewelopera API: czy komunikat jest planowany, czy obsługiwany inną drogą. Do tego czasu nie należy zakładać, że jest dostępny na środowisku dev.
+
 ---
 
 <div class="api-section" markdown>
@@ -206,7 +209,7 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "CaseContactData",
       "message": "{...}" // (1)
     }
@@ -270,7 +273,7 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
 
     ```json title="Koperta API"
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "CaseContactData",
       "message": "{...}"
     }

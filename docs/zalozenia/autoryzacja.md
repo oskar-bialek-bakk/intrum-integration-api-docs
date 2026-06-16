@@ -121,7 +121,7 @@ Token przekazujemy w nagłówku `Authorization` każdego wywołania API integrac
 curl -X POST "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/EnqueueImportMessage" \
   -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjBFOD..." \
   -H "Content-Type: application/json" \
-  -d '{ "importId": "00000000-0000-0000-0000-000000000000", "queueName": "Customer", "message": "..." }'
+  -d '{ "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c", "queueName": "Customer", "message": "..." }'
 ```
 
 </div>

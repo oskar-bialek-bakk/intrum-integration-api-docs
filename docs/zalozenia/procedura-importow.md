@@ -78,8 +78,8 @@ W procedurze importu występuje jeden główny aktor techniczny: **Klient API** 
     <span class="role-owner role-it">Klient API</span>
     <span class="role-name">6. Zamknięcie fazy</span>
   </div>
-  <p class="role-desc"><strong>Walidacja po stronie API:</strong> SetImportStep <code>Stage=1 (Adding)</code>, <code>StageStatus=2 (Done)</code>. API podejmie Stage 2 Validation.<br>
-  <strong>Walidacja po stronie Klienta API:</strong> SetImportStep <code>Stage=2 (Validation)</code>, <code>StageStatus=2 (Done)</code> — API pomija własną walidację i przechodzi do Consumption.</p>
+  <p class="role-desc"><strong>Walidacja po stronie API:</strong> SetImportStep <code>Stage=1 (Adding)</code>, <code>StageStatus=2 (Done)</code>. API automatycznie uruchamia etap <code>Stage=3 (Validation)</code>.<br>
+  <strong>Walidacja po stronie Klienta API:</strong> SetImportStep <code>Stage=3 (Validation)</code>, <code>StageStatus=2 (Done)</code> (API pomija własną walidację i przechodzi do Consumption). Uwaga: <code>Stage=2</code> to Transformation, ustawiany wyłącznie wewnętrznie przez API.</p>
 </div>
 
 <div class="role-card">
@@ -95,7 +95,7 @@ W procedurze importu występuje jeden główny aktor techniczny: **Klient API** 
     <span class="role-owner role-it">Klient API</span>
     <span class="role-name">8. Monitorowanie statusu</span>
   </div>
-  <p class="role-desc">Po wywołaniu kroku 6 (zamknięcie fazy) Klient API polluje <a href="../../funkcje-api/importy/get-import-status/">GetImportStatus</a> w trakcie automatycznego przetwarzania (etap 7) aż <code>IsFinished=true</code>. Pojedyncze komunikaty można sprawdzić przez <a href="../../funkcje-api/importy/get-object-status-by-id/">GetObjectStatusByID</a>.</p>
+  <p class="role-desc">Po wywołaniu kroku 6 (zamknięcie fazy) Klient API polluje <a href="../../funkcje-api/importy/get-import-status/">GetImportStatus</a> w trakcie automatycznego przetwarzania (etap 7) aż <code>isFinished=true</code>. Pojedyncze komunikaty można sprawdzić przez <a href="../../funkcje-api/importy/get-object-status-by-id/">GetObjectStatusByID</a>.</p>
 </div>
 
 </div>

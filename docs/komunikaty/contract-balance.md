@@ -11,6 +11,9 @@ title: "ContractBalance"
   <p class="msg-desc">Komunikat umożliwia aktualizację stanu finansowego wierzytelności lub zamknięcie powiązanych spraw windykacyjnych.</p>
 </div>
 
+!!! warning "Komunikat w przygotowaniu (do potwierdzenia)"
+    Na branchu `features/Intrum/S1` nie znaleziono implementacji tego komunikatu w API integracyjnym (brak klasy obiektu i kolejki w warstwie Messages). Opis poniżej jest propozycją i wymaga potwierdzenia przez dewelopera API: czy komunikat jest planowany, czy obsługiwany inną drogą. Do tego czasu nie należy zakładać, że jest dostępny na środowisku dev.
+
 ---
 
 <div class="api-section" markdown>
@@ -142,7 +145,7 @@ Działanie komunikatu jest kontrolowane przez dwie flagi:
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "ContractBalance",
       "message": "{...}" // (1)
     }
@@ -180,7 +183,7 @@ Działanie komunikatu jest kontrolowane przez dwie flagi:
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "ContractBalance",
       "message": "{...}"
     }

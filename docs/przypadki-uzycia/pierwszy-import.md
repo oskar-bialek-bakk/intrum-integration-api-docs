@@ -38,9 +38,9 @@ curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Cre
   -H "Authorization: Bearer {TOKEN}" \
   -H "Content-Type: application/json" \
   -d '{
-    "ImportTypeId": 12,
-    "CreditorId": 10013,
-    "PortfolioId": 94,
+    "ImportTypeId": 100,
+    "CreditorId": 1,
+    "PortfolioId": 1,
     "ExternalReference": "tutorial-pierwszy-import"
   }'
 ```
@@ -67,12 +67,8 @@ curl -X POST "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Se
   -H "Authorization: Bearer {TOKEN}" \
   -H "Content-Type: application/json" \
   -d '{
-    "Id": 0,
-    "Added": "2026-06-01T10:00:00",
     "Stage": 1,
-    "StageStatus": 1,
-    "Message": null,
-    "StepDetailsList": []
+    "StageStatus": 1
   }'
 ```
 
@@ -115,9 +111,11 @@ Szczegóły — [GetDictionaries](../funkcje-api/importy/get-dictionaries.md), [
 <div class="api-section" markdown>
 <div class="api-section-title">Krok 5 — Wysłanie komunikatów</div>
 
-Wysyłamy 3 komunikaty (Customer, Case, Contract) — każdy w osobnym wywołaniu `EnqueueImportMessage`. Pole `message` to **string JSON** (lista obiektów serializowana).
+Wysyłamy 3 komunikaty w kolejności **Customer → Contract → Case** — każdy w osobnym wywołaniu `EnqueueImportMessage`. Pole `message` to **string JSON** (lista obiektów serializowana).
 
-**Customer:**
+Kolejność ma znaczenie: Case linkuje klienta i wierzytelność po MatchKey, więc Customer i Contract muszą zostać wysłane wcześniej.
+
+**1. Customer:**
 ```bash
 curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/EnqueueImportMessage \
   -H "Authorization: Bearer {TOKEN}" \
@@ -125,23 +123,11 @@ curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Enq
   -d '{
     "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
     "queueName": "Customer",
-    "message": "[{\"ObjectId\": \"cust-001\", \"VersionId\": 1, \"OrderInMessage\": 1, \"Name\": \"Jan Kowalski\", \"Pesel\": \"83041100112\"}]"
+    "message": "[{\"ObjectId\": \"78599fcf-6f66-40e4-b70e-a1345674ebf4\", \"MatchKey\": \"990000001\", \"MatchKeyType\": 2, \"DebtorPortfolioId\": 1, \"ExternalId\": \"990000001\", \"CustomerTypeId\": 1, \"FirstName\": \"Jan\", \"LastName\": \"Kowalski\", \"PESEL\": \"85061504513\"}]"
   }'
 ```
 
-**Case:**
-```bash
-curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/EnqueueImportMessage \
-  -H "Authorization: Bearer {TOKEN}" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
-    "queueName": "Case",
-    "message": "[{\"ObjectId\": \"case-001\", \"VersionId\": 1, \"OrderInMessage\": 1, \"CustomerObjectId\": \"cust-001\", \"ExternalCaseNumber\": \"774\"}]"
-  }'
-```
-
-**Contract:**
+**2. Contract:**
 ```bash
 curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/EnqueueImportMessage \
   -H "Authorization: Bearer {TOKEN}" \
@@ -149,7 +135,19 @@ curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Enq
   -d '{
     "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
     "queueName": "Contract",
-    "message": "[{\"ObjectId\": \"contract-001\", \"VersionId\": 1, \"OrderInMessage\": 1, \"CaseObjectId\": \"case-001\", \"Amount\": 250.12, \"Currency\": \"PLN\"}]"
+    "message": "[{\"ObjectId\": \"0481782f-712e-4a12-8eab-9fa5dace95ee\", \"MatchKey\": \"880000001\", \"MatchKeyType\": 3, \"Number\": \"UM/2024/001\", \"Title\": \"Umowa pożyczki 2024/001\", \"OrginalCreditorId\": 1, \"PortfolioId\": 1}]"
+  }'
+```
+
+**3. Case:**
+```bash
+curl -X POST https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/EnqueueImportMessage \
+  -H "Authorization: Bearer {TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
+    "queueName": "Case",
+    "message": "[{\"ObjectId\": \"a570d857-fb10-4d46-aaca-8f4707d4657f\", \"MatchKey\": \"770000001\", \"MatchKeyType\": 6, \"ExternalCaseNumber\": \"770000001\", \"StageAction\": {\"ActionTypeId\": 8}, \"CustomerContractList\": {\"Objects\": [{\"CustomerRoleId\": 1, \"CustomerMatchKey\": \"990000001\", \"CustomerMatchKeyType\": 2, \"ContractMatchKey\": \"880000001\", \"ContractMatchKeyType\": 3}], \"ObjectsUpdateBehaviour\": 6}}]"
   }'
 ```
 
@@ -173,7 +171,7 @@ curl -X POST "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Se
   }'
 ```
 
-API podejmie Stage 2 Validation z regułami z Kroku 4.
+API automatycznie uruchamia Stage 3 Validation z regułami z Kroku 4.
 
 **Wariant B — Walidacja po stronie Klienta API** (gdy Klient API zwalidował dane u siebie przed wysłaniem):
 ```bash
@@ -181,12 +179,12 @@ curl -X POST "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/Se
   -H "Authorization: Bearer {TOKEN}" \
   -H "Content-Type: application/json" \
   -d '{
-    "Stage": 2,
+    "Stage": 3,
     "StageStatus": 2
   }'
 ```
 
-API pomija własną walidację i przechodzi bezpośrednio do Stage 4 Consumption.
+API pomija własną walidację i przechodzi bezpośrednio do Stage 4 Consumption. (Uwaga: `Stage=2` to Transformation, ustawiany wyłącznie wewnętrznie przez API.)
 
 </div>
 
@@ -201,9 +199,9 @@ curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetImportS
   -H "Authorization: Bearer {TOKEN}"
 ```
 
-Z odpowiedzi sprawdź pole `IsFinished` — gdy `true`, import jest zakończony. W `CurrentStep` widzisz aktualny etap i jego status. W `ImportMessages` widzisz statusy poszczególnych komunikatów (`StatusId`: 2=SUCCESS, 3=ERROR, 5=INPROGRESS).
+Z odpowiedzi sprawdź pole `isFinished`: gdy `true`, import jest zakończony. W `currentStep` widzisz aktualny etap i jego status. W `importMessages` widzisz statusy poszczególnych komunikatów (`status_id`: 2=SUCCESS, 3=ERROR, 5=INPROGRESS).
 
-Jeśli `CurrentStep.Stage=2 (Validation)` i `StageStatus=3 (Error)` — import wstrzymany na walidacji. Szczegóły błędów w `CurrentStep.StepDetailsList`.
+Jeśli `currentStep.stage_id=3 (Validation)` i `status_id=3 (Error)`, import jest wstrzymany na walidacji. Szczegóły błędów w `currentStep.stepDetailsList`.
 
 Szczegóły — [GetImportStatus](../funkcje-api/importy/get-import-status.md).
 

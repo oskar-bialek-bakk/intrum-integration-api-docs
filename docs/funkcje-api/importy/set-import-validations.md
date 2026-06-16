@@ -78,6 +78,7 @@ Rejestruje dla importu reguły walidacyjne egzekwowane przez API. Reguły są sp
 <div class="api-section" markdown>
 <div class="api-section-title">Response</div>
 
-Pusty string w przypadku sukcesu. Tekstowy opis błędu w przypadku błędu.
+- **Sukces:** HTTP `200 OK`, pusty string w treści.
+- **Błąd:** HTTP `400 Bad Request` z tekstowym opisem błędu (np. nieprawidłowe `Id` reguły). Błąd nie jest już zwracany jako `200 OK`.
 
 </div>

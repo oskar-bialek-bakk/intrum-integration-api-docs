@@ -18,10 +18,11 @@ title: "Action"
 
 <div class="obj-tree">
   <span class="tree-root">Action</span> <span class="tree-type">obiekt główny</span><br>
+  <span class="tree-connector">├── </span><span class="tree-leaf">AttributesList</span> <span class="tree-type">atrybuty akcji</span><br>
   <span class="tree-connector">└── </span><span class="tree-leaf">AttachedFiles</span> <span class="tree-type">załączone pliki</span>
 </div>
 
-Lista `AttachedFiles` ma własne pole `ObjectsUpdateBehaviour` — patrz [macierz flag aktualizacyjnych](index.md#flagi-aktualizacyjne-obiektow-objectsupdatebehaviour).
+Listy `AttributesList` i `AttachedFiles` mają własne pole `ObjectsUpdateBehaviour` — patrz [macierz flag aktualizacyjnych](index.md#flagi-aktualizacyjne-obiektow-objectsupdatebehaviour).
 
 </div>
 
@@ -109,10 +110,26 @@ Lista `AttachedFiles` ma własne pole `ObjectsUpdateBehaviour` — patrz [macier
 </details>
 
 <details class="collapsible-fields">
+<summary>AttributesList — atrybuty akcji</summary>
+<ul class="param-list">
+  <li>
+    <span class="param-name required">Value</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Wartość atrybutu akcji.</span>
+  </li>
+  <li>
+    <span class="param-name">TypeId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID typu atrybutu akcji (słownik <code>atrybut_akcji_typ</code>).</span>
+  </li>
+</ul>
+</details>
+
+<details class="collapsible-fields">
 <summary>AttachedFiles — załączone pliki</summary>
 <ul class="param-list">
   <li>
-    <span class="param-name required">Name</span>
+    <span class="param-name">Name</span>
     <span class="param-type">string</span>
     <span class="param-desc">Nazwa pliku.</span>
   </li>
@@ -122,9 +139,14 @@ Lista `AttachedFiles` ma własne pole `ObjectsUpdateBehaviour` — patrz [macier
     <span class="param-desc">Opis pliku.</span>
   </li>
   <li>
+    <span class="param-name">ReceiptDate</span>
+    <span class="param-type">datetime</span>
+    <span class="param-desc">Data przyjścia dokumentu (dla pism przychodzących).</span>
+  </li>
+  <li>
     <span class="param-name">SendDate</span>
     <span class="param-type">datetime</span>
-    <span class="param-desc">Data wysłania.</span>
+    <span class="param-desc">Data wysłania (dla pism wychodzących).</span>
   </li>
   <li>
     <span class="param-name">SharedPath</span>
@@ -150,7 +172,7 @@ Lista `AttachedFiles` ma własne pole `ObjectsUpdateBehaviour` — patrz [macier
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Action",
       "message": "{...}" // (1)
     }
@@ -169,6 +191,12 @@ Lista `AttachedFiles` ma własne pole `ObjectsUpdateBehaviour` — patrz [macier
           "ResultPlannedDate": "2023-04-03T00:00:00",
           "ResultTypeId": null,
           "ToDoAt": "2024-04-08T09:04:10.9982539+02:00",
+          "AttributesList": {
+            "Objects": [
+              { "Value": "1", "TypeId": 5 }
+            ],
+            "ObjectsUpdateBehaviour": 6
+          },
           "AttachedFiles": {
             "Objects": [
               {
@@ -196,7 +224,7 @@ Lista `AttachedFiles` ma własne pole `ObjectsUpdateBehaviour` — patrz [macier
 
     ```json title="Koperta API"
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Action",
       "message": "{...}"
     }

@@ -62,6 +62,11 @@ Tablica obiektów:
     <span class="param-desc">Nazwa importu</span>
   </li>
   <li>
+    <span class="param-name">ExportTypeId</span>
+    <span class="param-type">int?</span>
+    <span class="param-desc">ID typu eksportu. Dla adresatów importu zwykle <code>null</code></span>
+  </li>
+  <li>
     <span class="param-name">ImportTypeId</span>
     <span class="param-type">int?</span>
     <span class="param-desc">ID słownika z tabeli <code>import_typ</code></span>

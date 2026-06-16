@@ -127,9 +127,14 @@ title: "Payment"
     <span class="param-desc">Zewnętrzny identyfikator płatności.</span>
   </li>
   <li>
-    <span class="param-name">OnlyInformational</span>
+    <span class="param-name required">OnlyInformational</span>
     <span class="param-type">bool</span>
-    <span class="param-desc">Czy płatność jest wyłącznie informacyjna (nie wpływa na saldo).</span>
+    <span class="param-desc">Czy płatność jest wyłącznie informacyjna (nie wpływa na saldo). Pole wymagane: trzeba jawnie podać <code>true</code> lub <code>false</code>.</span>
+  </li>
+  <li>
+    <span class="param-name">Description</span>
+    <span class="param-type">string</span>
+    <span class="param-desc">Opcjonalny opis wpłaty.</span>
   </li>
   <li>
     <span class="param-name">SnapshotDate</span>
@@ -150,7 +155,7 @@ title: "Payment"
 
     ```json
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Payment",
       "message": "{...}" // (1)
     }
@@ -192,7 +197,7 @@ title: "Payment"
 
     ```json title="Koperta API"
     {
-      "importId": "00000000-0000-0000-0000-000000000000",
+      "importId": "2fa859e9-8479-4c7e-b1bb-c85f90f2402c",
       "queueName": "Payment",
       "message": "{...}"
     }

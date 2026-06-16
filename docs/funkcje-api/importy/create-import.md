@@ -4,9 +4,6 @@ title: "CreateImport"
 
 # CreateImport
 
-!!! warning "Endpoint planowany"
-    Specyfikacja request/response jest **propozycją** — finalna sygnatura zostanie potwierdzona przez dewelopera API w trakcie implementacji. Sekcje poniżej zostaną zaktualizowane gdy endpoint będzie dostępny na środowisku dev.
-
 <div class="endpoint-header">
   <div class="method-badge post">POST</div>
   <div class="endpoint-url">https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/CreateImport</div>
@@ -46,12 +43,30 @@ Po utworzeniu importu Klient API zgłasza rozpoczęcie fazy Adding przez [SetImp
 
 ```json title="Przykład request body"
 {
-  "ImportTypeId": 12,
-  "CreditorId": 10013,
-  "PortfolioId": 94,
-  "ExternalReference": "batch-2026-06-01-001"
+  "ImportTypeId": 100,
+  "CreditorId": 1,
+  "PortfolioId": 1,
+  "ExternalReference": "opcjonalny opis importu"
 }
 ```
+
+!!! note
+    Ten typ importu (`ImportTypeId: 100`, `CreditorId: 1`, `PortfolioId: 1`) został utworzony na środowisku testowym (`dmapi-intrum-dev`) specjalnie do testowania importów przez API integracyjne.
+
+</div>
+
+---
+
+<div class="api-section" markdown>
+<div class="api-section-title">Walidacja</div>
+
+API weryfikuje spójność żądania z konfiguracją typu importu. Wywołanie kończy się błędem, gdy:
+
+- `CreditorId` nie zgadza się z kontrahentem skonfigurowanym dla danego `ImportTypeId` (kolumna `dm_ko_id` w `dm_config.import_type`),
+- `PortfolioId` nie zgadza się z portfelem skonfigurowanym dla tego typu importu (kolumna `dm_uko_id`),
+- typ importu nie jest skonfigurowany jako import API integracyjnego (klasa `IntegrationsApiImport`).
+
+`ImportId` jest generowany po stronie serwera (klient go nie podaje) i musi być użyty we wszystkich kolejnych wywołaniach importu ([SetImportStep](set-import-step.md), [EnqueueImportMessage](enqueue-import-message.md), [GetImportStatus](get-import-status.md)).
 
 </div>
 

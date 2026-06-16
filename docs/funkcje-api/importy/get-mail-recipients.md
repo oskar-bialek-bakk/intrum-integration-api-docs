@@ -22,12 +22,17 @@ Pobiera listę adresatów wiadomości e-mail, do których wysyłane są informac
   <li>
     <span class="param-name">importId</span>
     <span class="param-type">Guid</span>
-    <span class="param-desc">Opcjonalne — ID importu, dla którego pobieramy listę adresatów</span>
+    <span class="param-desc">Opcjonalne: ID importu, dla którego pobieramy listę adresatów</span>
+  </li>
+  <li>
+    <span class="param-name">exportId</span>
+    <span class="param-type">Guid</span>
+    <span class="param-desc">Opcjonalne: ID eksportu, dla którego pobieramy listę adresatów</span>
   </li>
 </ul>
 
 !!! note "Brak parametru"
-    Jeśli nie przekażemy `importId`, funkcja zwróci pełną listę adresatów.
+    Jeśli nie przekażemy ani `importId`, ani `exportId`, funkcja zwróci pełną listę adresatów.
 
 ```bash title="Przykład wywołania"
 curl "https://dmapi-intrum-dev.groupad1.com/pl/IntegrationsAPI/import/GetMailRecipients?importId=2fa859e9-8479-4c7e-b1bb-c85f90f2402c" \
@@ -68,6 +73,11 @@ Tablica obiektów:
     <span class="param-name">Operation</span>
     <span class="param-type">string</span>
     <span class="param-desc">Nazwa importu</span>
+  </li>
+  <li>
+    <span class="param-name">ExportTypeId</span>
+    <span class="param-type">int?</span>
+    <span class="param-desc">ID typu eksportu (wypełniane dla adresatów powiązanych z eksportem; dla importów <code>null</code>)</span>
   </li>
   <li>
     <span class="param-name">ImportTypeId</span>

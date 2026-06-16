@@ -69,12 +69,12 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
     <span class="param-desc">Identyfikator obiektu do śledzenia statusu przetwarzania.</span>
   </li>
   <li>
-    <span class="param-name">Number</span>
+    <span class="param-name required">Number</span>
     <span class="param-type">string</span>
     <span class="param-desc">Numer wierzytelności.</span>
   </li>
   <li>
-    <span class="param-name">Title</span>
+    <span class="param-name required">Title</span>
     <span class="param-type">string</span>
     <span class="param-desc">Tytuł wierzytelności.</span>
   </li>
@@ -101,7 +101,17 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
   <li>
     <span class="param-name">CurrencyId</span>
     <span class="param-type">int</span>
-    <span class="param-desc">ID waluty (słownik).</span>
+    <span class="param-desc">ID waluty (słownik <code>waluta</code>). Puste = PLN.</span>
+  </li>
+  <li>
+    <span class="param-name">BudgetGroupId</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">ID grupy budżetowej (słownik <code>grupa_budzetowa</code>).</span>
+  </li>
+  <li>
+    <span class="param-name">DPD</span>
+    <span class="param-type">int</span>
+    <span class="param-desc">Days Past Due (liczba dni przeterminowania).</span>
   </li>
   <li>
     <span class="param-name">RegisterDate</span>
@@ -115,8 +125,8 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
   </li>
   <li>
     <span class="param-name">VersionId</span>
-    <span class="param-type">int</span>
-    <span class="param-desc">ID wersji.</span>
+    <span class="param-type">long</span>
+    <span class="param-desc">ID wersji obiektu w DM. <code>null</code> przy dodawaniu.</span>
   </li>
   <li>
     <span class="param-name">SnapshotDate</span>
@@ -201,6 +211,11 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
     <span class="param-desc">Data przedawnienia.</span>
   </li>
   <li>
+    <span class="param-name">DueDate</span>
+    <span class="param-type">datetime</span>
+    <span class="param-desc">Data wymagalności dokumentu.</span>
+  </li>
+  <li>
     <span class="param-name">InterestTypeId</span>
     <span class="param-type">int</span>
     <span class="param-desc">Typ odsetek (słownik).</span>
@@ -251,113 +266,69 @@ Każda lista zagnieżdżona ma własne pole `ObjectsUpdateBehaviour` — patrz [
 <div class="api-section" markdown>
 <div class="api-section-title">Przykład JSON</div>
 
-=== "Pełny komunikat"
+`OrginalCreditorId` i `PortfolioId` muszą istnieć w słownikach (`kontrahent`, `umowa_kontrahent`) i zgadzać się z kontrahentem/portfelem importu. Wartości poniżej (`1`/`1`) odpowiadają środowisku testowemu.
 
-    ```json
-    {
-      "importId": "00000000-0000-0000-0000-000000000000",
-      "queueName": "Contract",
-      "message": "{...}" // (1)
-    }
-    ```
-
-    1. Pole `message` to **string zawierający JSON** — poniżej rozpakowana zawartość.
+=== "Minimalny"
 
     ```json title="Zawartość pola message"
     {
       "Objects": [
         {
-          "Number": "521578",
-          "Title": "Wydanie gazomierza",
-          "TypeId": 1,
-          "ProductTypeId": 1,
-          "PortfolioId": 1,
+          "ObjectId": "0481782f-712e-4a12-8eab-9fa5dace95ee",
+          "MatchKey": "880000001",
+          "MatchKeyType": 3,
+          "Number": "UM/2024/001",
+          "Title": "Umowa pożyczki 2024/001",
           "OrginalCreditorId": 1,
+          "PortfolioId": 1
+        }
+      ],
+      "ObjectsUpdateBehaviour": 6,
+      "ObjectsAddedUserId": 5
+    }
+    ```
+
+=== "Z dokumentem i księgowaniem"
+
+    Wierzytelność z dokumentem (`DocumentsList`) i inicjalnym księgowaniem (`BookingsList`). `DocumentTypeId` ze słownika `dokument_typ`, `AccountTypeId` ze słownika `ksiegowanie_konto`, `SubAccountTypeId` ze słownika `ksiegowanie_konto_subkonto`.
+
+    ```json title="Zawartość pola message"
+    {
+      "Objects": [
+        {
+          "ObjectId": "37620574-7ac6-4305-b4f3-8fc94d2f2da1",
+          "MatchKey": "880000002",
+          "MatchKeyType": 3,
+          "Number": "UM/2024/002",
+          "Title": "Umowa kredytowa 2024/002",
+          "OrginalCreditorId": 1,
+          "PortfolioId": 1,
           "CurrencyId": 1,
-          "RegisterDate": "1900-01-01T00:00:00",
-          "EndDate": null,
-          "VersionId": null,
-          "SnapshotDate": {
-            "Date": "2025-02-15T00:00:00"
-          },
-          "AttributesList": {
-            "Objects": [
-              { "TypeId": 2, "Value": "10" }
-            ],
-            "ObjectsUpdateBehaviour": 6
-          },
+          "RegisterDate": "2023-01-15T00:00:00",
           "DocumentsList": {
             "Objects": [
               {
-                "DocumentTypeId": 30,
-                "MatchKey": "123456",
-                "Number": "457457",
-                "Title": "Wydanie gazomierza",
-                "Description": "Windykacja twarda - wydanie gazomierzy",
-                "Comment": "Dodatkowy komentarz",
+                "DocumentTypeId": 20,
+                "Number": "FV/2023/100",
+                "Title": "Kapitał",
                 "CurrencyId": 1,
-                "ExchangeRate": 1,
-                "OpeningBalance": 250,
-                "IssueDate": "2023-03-16T00:00:00",
-                "LimitationDate": "2023-03-16T00:00:00",
-                "InterestTypeId": 1,
-                "InterestAccountId": 1,
-                "InterestCalculationDate": "2023-04-06T00:00:00",
-                "AttributesList": {
-                  "Objects": [
-                    { "TypeId": 2, "Value": "1" }
-                  ],
-                  "ObjectsUpdateBehaviour": 6
-                },
+                "OpeningBalance": 5000.0,
+                "IssueDate": "2023-02-01T00:00:00",
+                "DueDate": "2023-03-01T00:00:00",
                 "BookingsList": {
                   "Objects": [
-                    {
-                      "AccountTypeId": 2,
-                      "Amount": 100,
-                      "DueDate": "2023-04-06T00:00:00",
-                      "SubAccountTypeId": 0
-                    }
+                    { "AccountTypeId": 2, "Amount": 5000.0, "SubAccountTypeId": 0 }
                   ],
                   "ObjectsUpdateBehaviour": 6
                 }
               }
             ],
             "ObjectsUpdateBehaviour": 6
-          },
-          "MatchKey": "Contract_MK_1",
-          "MatchKeyType": 3,
-          "ObjectId": "00000000-0000-0000-0000-000000000000"
+          }
         }
       ],
-      "ObjectsUpdateBehaviour": 6
-    }
-    ```
-
-=== "Minimalny przykład"
-
-    Tylko wymagane pola — dodanie wierzytelności bez dokumentów.
-
-    ```json title="Koperta API"
-    {
-      "importId": "00000000-0000-0000-0000-000000000000",
-      "queueName": "Contract",
-      "message": "{...}"
-    }
-    ```
-
-    ```json title="Zawartość pola message"
-    {
-      "Objects": [
-        {
-          "Number": "UM/2024/001",
-          "TypeId": 1,
-          "CurrencyId": 1,
-          "MatchKey": "Contract_MK_1",
-          "MatchKeyType": 3,
-          "ObjectId": "00000000-0000-0000-0000-000000000000"
-        }
-      ],
-      "ObjectsUpdateBehaviour": 6
+      "ObjectsUpdateBehaviour": 6,
+      "ObjectsAddedUserId": 5
     }
     ```
 

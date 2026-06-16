@@ -11,6 +11,9 @@ title: "SetImportValidations"
 
 Rejestruje dla importu reguły walidacyjne egzekwowane przez API. Reguły są sprawdzane w trakcie konsumpcji (Stage 4), per komunikat, przed zapisem danych do DEBT Manager. Naruszenia reguł są raportowane w szczegółach kroku Consumption w [GetImportStatus](get-import-status.md) (pola `MatchKey`, `MatchKeyType`, `BrokenRule` w strukturze `StepDetail`).
 
+!!! warning "Kiedy wołać"
+    `SetImportValidations` musi zostać wywołane, gdy import jest w kroku **Adding/InProgress** (Stage `1`, StageStatus `1`), czyli po [CreateImport](create-import.md) i [SetImportStep](set-import-step.md) `1/1`, a **przed** zamknięciem dodawania krokiem `1/2` (Adding/Done). W trybie API-2-API nie ma kroku Transformation, więc to jest jedyne okno na rejestrację reguł. Wywołanie w innym kroku zwraca błąd `Validations can only be registered while the import is in stage Adding/InProgress`.
+
 !!! info "Model działania reguł"
     -   **Reguły domyślne** (krytyczne reguły referencyjne i techniczne, np. poprawność powiązań między obiektami) działają **zawsze**, niezależnie od rejestracji. Nie da się ich wyłączyć ani zmienić ich poziomu: wpis w `Rules` dla takiej reguły jest ignorowany.
     -   **Pozostałe reguły** działają tylko wtedy, gdy zostaną zarejestrowane dla danego importu przez to wywołanie. Reguła niezarejestrowana nie jest sprawdzana.

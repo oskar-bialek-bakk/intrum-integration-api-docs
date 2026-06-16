@@ -154,7 +154,7 @@ Wewnątrz pola `message` (po deserializacji) na najwyższym poziomie obowiązuj�
   <li>
     <span class="param-name">ObjectsAddedUserId</span>
     <span class="param-type">int</span>
-    <span class="param-desc">ID użytkownika DM, który rejestrowany jest jako autor wprowadzonych zmian (audyt). Typowo <code>5</code> = konto integracyjne.</span>
+    <span class="param-desc">ID użytkownika DM, który rejestrowany jest jako autor wprowadzonych zmian (audyt). Typowo <code>5</code> = konto integracyjne. Musi być istniejącym operatorem (<code>GE_USER.US_ID</code>) w bazie DM, bo wartość trafia na kolumny FK (np. <code>rezultat.re_us_id_*</code>). Nieistniejący operator jest odrzucany na etapie konsumpcji z błędem <code>Operator (US_ID=X) does not exist in GE_USER</code>.</span>
   </li>
 </ul>
 

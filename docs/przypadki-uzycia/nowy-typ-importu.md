@@ -83,7 +83,7 @@ SELECT
 <div class="api-section" markdown>
 <div class="api-section-title">Krok 3 — Konfiguracja typu importu (schemat `dm_config` w bazie DEBT Manager)</div>
 
-Drugi insert rejestruje typ importu w schemacie `dm_config` w bazie DEBT Manager (`dm_config.import_type`). Klasy `ExternalRabbitMq*` oznaczają, że walidacja, transformacja i finalizacja są obsługiwane zewnętrznie przez system klienta (komunikacja przez RabbitMQ). Reguły walidacji powiązane z typem importu konfiguruje się oddzielnie w schemacie `dm_validations` (poza zakresem tego przewodnika).
+Drugi insert rejestruje typ importu w schemacie `dm_config` w bazie DEBT Manager (`dm_config.import_type`). Dla standardowego importu API-2-API obsługiwanego po stronie DM kolumny `validation_class_name`, `transformation_class_name` i `finalization_class_name` ustaw na pusty string `''` (kolumny są `NOT NULL`) — żaden z tych kroków nie wykonuje wtedy dedykowanej klasy etapu. Walidacja odbywa się przez reguły rejestrowane w [SetImportValidations](../funkcje-api/importy/set-import-validations.md), egzekwowane per komunikat na etapie Consumption.
 
 ```sql
 INSERT INTO [dm_config].[import_type]
@@ -92,15 +92,15 @@ INSERT INTO [dm_config].[import_type]
 SELECT
      @integration_import_type_id
     ,@import_type_name
-    ,'DebtManager.BL.IntegrationsAPI.Core.ExternalRabbitMqValidator'
-    ,'DebtManager.BL.IntegrationsAPI.Core.ExternalRabbitMqTransformator'
-    ,'DebtManager.BL.IntegrationsAPI.Core.ExternalRabbitMqFinalizer'
+    ,''   -- validation_class_name: walidacja przez reguły (SetImportValidations) na etapie Consumption, bez klasy etapu
+    ,''   -- transformation_class_name: brak transformacji (komunikaty już w docelowym formacie)
+    ,''   -- finalization_class_name: brak finalizatora
     ,@dm_import_type_id
     ,@dm_orginal_creditor_id
     ,@dm_portfolio_id
 ```
 
-!!! tip "Zewnętrzna obsługa kroków importu"
-    Klasy `ExternalRabbitMqValidator`, `ExternalRabbitMqTransformator` i `ExternalRabbitMqFinalizer` delegują odpowiednio walidację, transformację i finalizację do zewnętrznego systemu klienta. Więcej o krokach importu w rozdziale [Procedura importów](../zalozenia/procedura-importow.md).
+!!! tip "Kroki walidacja / transformacja / finalizacja"
+    Pusty string `''` w tych kolumnach (są `NOT NULL`) oznacza, że dany krok nie uruchamia żadnej klasy (przechodzi dalej). Walidacja danych dla importu API-2-API odbywa się przez reguły rejestrowane w [SetImportValidations](../funkcje-api/importy/set-import-validations.md) i egzekwowane per komunikat na etapie Consumption (brama walidacyjna, konfiguracja `IntegrationsAPI:Validation:UseSharedCatalog = true`). Klasa walidatora/transformatora/finalizatora etapu jest potrzebna tylko dla importów z dedykowaną logiką po stronie DM. Więcej o krokach importu w rozdziale [Procedura importów](../zalozenia/procedura-importow.md).
 
 </div>

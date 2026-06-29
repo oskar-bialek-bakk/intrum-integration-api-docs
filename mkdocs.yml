@@ -86,7 +86,6 @@ nav:
   - Komunikaty:
     - komunikaty/index.md
     - Case: komunikaty/case.md
-    - CaseContactData: komunikaty/case-contact-data.md
     - Customer: komunikaty/customer.md
     - Contract: komunikaty/contract.md
     - ContractBalance: komunikaty/contract-balance.md

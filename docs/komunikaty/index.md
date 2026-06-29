@@ -29,7 +29,6 @@ Poniższa lista zawiera wszystkie komunikaty obsługiwane przez API integracyjne
 </thead>
 <tbody>
 <tr><td><a href="case/"><code>Case</code></a></td><td>Dodaje sprawę z atrybutami oraz powiązania klientów i wierzytelności do sprawy.</td></tr>
-<tr><td><a href="case-contact-data/"><code>CaseContactData</code></a></td><td>Wiąże wybrane dane teleadresowe dłużnika z jedną z jego spraw.</td></tr>
 <tr><td><a href="customer/"><code>Customer</code></a></td><td>Dodaje dłużnika z atrybutami, danymi kontaktowymi (adresy, telefony, e-mail), dokumentami tożsamości i właściwościami.</td></tr>
 <tr><td><a href="contract/"><code>Contract</code></a></td><td>Dodaje wierzytelność z inicjalnym stanem finansowym.</td></tr>
 <tr><td><a href="contract-balance/"><code>ContractBalance</code></a></td><td>Aktualizuje stan finansowy wierzytelności lub zamyka powiązane sprawy windykacyjne.</td></tr>
